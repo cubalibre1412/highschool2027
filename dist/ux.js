@@ -1,16 +1,17 @@
 'use strict';
-(()=>{
-let subjectGroup='all',exportPages=[],exportFormat='jpg',exportIndex=0,exportToken=0;
-const groups=[
+const interestFields=[
 ['all','전체 과목',/./,[]],
 ['humanities','언어·인문',/국어|독서|문학|화법|언어|작문|영어|영미|일본|중국|독일|프랑스|스페인|한문|역사|세계사|동아시아|철학/,['국어국문학과','영어영문학과','사학과']],
-['society','사회·경영',/사회|지리|정치|법과|경제|윤리|심리|창업|확률|통계/,['경영학과','경제학과','사회학과']],
+['society','사회·경영',/사회|지리|정치|법과 사회|법학|경제|윤리|심리|창업|확률|통계/,['경영학과','경제학과','사회학과']],
 ['science','수학·기초과학',/수학|대수|미적분|기하|확률|통계|물리|화학|생명|지구|과학/,['수학과','물리학과','생명과학과']],
 ['engineering','공학·컴퓨터',/수학|대수|미적분|기하|확률|통계|물리|화학|정보|인공지능|기술|공학|프로그래밍/,['기계공학과','전자공학과','컴퓨터공학과']],
 ['health','보건·의료',/생명|화학|보건|확률|통계|심리|운동/,['간호학과','물리치료학과','의학과']],
 ['arts','예술·디자인',/미술|음악|예술|디자인|매체|영상|문학/,['시각디자인학과','음악학과','영상학과']],
 ['sports','체육·스포츠',/체육|스포츠|운동|보건|생명/,['체육학과','스포츠과학과','체육교육과']]
 ];
+(()=>{
+let subjectGroup='all',exportPages=[],exportFormat='jpg',exportIndex=0,exportToken=0;
+const groups=interestFields;
 function docsFor(s,cat){return s.documents.filter(d=>d.category===cat)}
 function sourceDetails(s,cat){let docs=docsFor(s,cat);return `<details class="source-details"><summary>${cat} 원본 <span>${docs.length}개 ↗</span></summary><div class="source-links">${docs.map(d=>`${external(d.url,esc(d.title),'source-link')}<small>${esc(d.period)}${d.ocrPages?' · 스캔 문자 인식 포함':!d.textUrl?' · 본문 확인 보류':''}</small>`).join('')}</div></details>`}
 function curriculumBrief(s){let c=s.curriculumSummary;if(!c)return '';return `<section class="curriculum-brief"><div class="section-label">교육과정 요약</div><h3 class="detail-title">교육과정 한눈에 보기</h3><p class="brief">${esc(c.basis)} 기준입니다. 2027학년도 신입생 확정 편제와는 다를 수 있어요.</p><div class="curriculum-grid">${c.items.map(x=>`<article><h4>${esc(x.title)}</h4><p>${esc(x.text)}</p></article>`).join('')}</div><details class="source-details"><summary>교육과정 원본 보기</summary><p class="hint">PDF ${c.pdfPages.join('·')}쪽 · 원본 표를 대조해 요약했습니다. 선택 묶음과 실제 개설 여부는 원문·학교 안내를 확인해 주세요.</p>${external(c.sourceUrl,esc(c.sourceTitle),'source-link')}</details></section>`}
@@ -29,7 +30,7 @@ if(detailTab==='graduates'){let g=graduate(s);$('#detailBody').innerHTML=`<div c
 const originalSidebar=sidebar;
 let criteriaOpen=null;
 document.addEventListener('toggle',event=>{let panel=event.target;if(panel.matches?.('.compact-sidebar > details')&&panel.isConnected){criteriaOpen=panel.open;panel.querySelector('summary > span').textContent=panel.open?'접기':'설정'}},true);
-sidebar=function(){let current=document.querySelector('.compact-sidebar > details');if(current)criteriaOpen=current.open;let expanded=!matchMedia('(max-width:959px), (max-width:1199px) and (orientation:portrait), (max-height:550px) and (max-width:1000px) and (orientation:landscape)').matches;let shown=criteriaOpen??expanded;let html=originalSidebar();let box=document.createElement('div');box.innerHTML=html;let aside=box.querySelector('aside');return `<aside class="sidebar compact-sidebar"><details ${shown?'open':''}><summary><div><b>학교 찾기 설정</b><small>${prefs.gender==='male'?'남학생 · 20개교':'여학생 · 22개교'}${prefs.origin?' · '+esc(prefs.origin):' · 중학교 선택'}</small></div><span>${shown?'접기':'설정'}</span></summary><div class="filter-content">${aside.innerHTML.replace(/<h2>학교 찾기 설정<\/h2>/,'')}</div></details></aside>`};
+sidebar=function(){let current=document.querySelector('.compact-sidebar > details');if(current)criteriaOpen=current.open;let expanded=!matchMedia('(max-width:1199px)').matches;let shown=criteriaOpen??expanded;let html=originalSidebar();let box=document.createElement('div');box.innerHTML=html;let aside=box.querySelector('aside');return `<aside class="sidebar compact-sidebar"><details ${shown?'open':''}><summary><div><b>학교 찾기 설정</b><small>${prefs.gender==='male'?'남학생 · 20개교':'여학생 · 22개교'}${prefs.origin?' · '+esc(prefs.origin):' · 중학교 선택'}</small></div><span>${shown?'접기':'설정'}</span></summary><div class="filter-content">${aside.innerHTML.replace(/<h2>학교 찾기 설정<\/h2>/,'')}</div></details></aside>`};
 const originalWishlist=wishlistView;
 wishlistView=function(){let html=originalWishlist(),box=document.createElement('div');box.innerHTML=html;const csv=box.querySelector('#downloadList');csv.closest('.actions').remove();const panel=box.querySelector('#backup').closest('.panel');panel.outerHTML=`<details class="panel advanced-backup"><summary>다른 기기로 기록 옮기기</summary><p>다른 기기로 옮길 때 백업 파일을 사용하세요.</p><div class="actions"><button class="outline small" id="backup">백업 저장</button><button class="outline small" id="restore">백업 불러오기</button><button class="outline small" id="downloadList">엑셀용 CSV</button></div></details>`;let fill=box.querySelector('#fillRemaining');if(fill&&prefs.wishlist.length===(prefs.gender==='male'?20:22)){fill.nextElementSibling?.remove();fill.remove()}else if(fill){let hint=fill.nextElementSibling;let extra=document.createElement('details');extra.className='remaining-schools';fill.before(extra);extra.innerHTML='<summary>나머지 학교도 추가하기</summary>';extra.append(fill);if(hint)extra.append(hint)}let bar=document.createElement('section');bar.className='save-strip';bar.innerHTML=`<div><b>지망표 저장</b><small>${prefs.wishlist.length}개교의 순서·메모를 보기 좋게 담아요.</small></div><div class="actions"><button class="primary" id="saveJpg" ${prefs.wishlist.length?'':'disabled'}>이미지 저장</button><button class="outline" id="savePdf" ${prefs.wishlist.length?'':'disabled'}>PDF 저장</button></div>`;box.querySelector('.intro').after(bar);return box.innerHTML};
 function wrapText(ctx,text,max){let paragraphs=String(text||'').replace(/\r/g,'').split('\n'),lines=[];for(let para of paragraphs){let line='';for(let ch of para){if(ctx.measureText(line+ch).width>max&&line){lines.push(line);line=''}line+=ch}lines.push(line)}return lines}
