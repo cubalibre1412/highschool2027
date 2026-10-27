@@ -9,3 +9,13 @@ body{background:#f8f9f5;color:#243e36;line-height:1.75}.top{background:#fff;bord
 
 .application-checklist{margin-top:24px}.application-checklist ol{padding-left:23px;margin:16px 0}.application-checklist li{padding-left:4px;margin:15px 0}.application-checklist li b{font-size:15px}.application-checklist li p{font-size:13px;margin:5px 0;color:#62735f}.application-checklist .plan-facts{font-size:12px;color:#4c6e52}.plan-source{font-size:11px;line-height:1.8;color:#73816b}.plan-contacts{display:flex;gap:10px 18px;flex-wrap:wrap;margin:16px 0}.plan-contacts a{font-size:13px;padding:8px 0;min-height:42px}.plan-details{border-top:1px solid #e3e9dc;margin-top:13px;padding:6px 0}.plan-details summary{min-height:44px;display:flex;gap:8px;align-items:center;cursor:pointer;color:#49694e;font-size:14px}.plan-details summary:before{content:'+'}.plan-details[open] summary:before{content:'−'}.plan-details p,.plan-details li{font-size:13px;line-height:1.9;color:#62735f}.plan-details li{margin:14px 0}.plan-details ul{padding-left:18px}.plan-details small{font-size:11px}.quota-plan{margin-top:22px}.application-extra h2{font-size:20px}
 @media(max-width:599px){.application-checklist{padding:19px}.application-checklist li b{font-size:15px}.application-checklist li p{font-size:13px}.application-checklist ol{padding-left:21px}.plan-contacts{display:grid;gap:0}.plan-details summary{font-size:13px}.plan-details p,.plan-details li{font-size:13px}.application-extra h2{font-size:19px}}
+
+/* 관심 분야와 학교에서 확인된 과목 */
+.field-explorer .group-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.field-explorer .group-buttons button{min-height:44px;white-space:normal}
+.major-examples{background:#f0f5ee;border-radius:14px;padding:16px 18px;margin:18px 0 24px}
+.major-examples>small{display:block;color:#617269;line-height:1.6;font-size:13px}
+.major-examples p{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0;font-size:16px;font-weight:600;color:#234b43}
+.field-subject-title{font-size:18px;margin:24px 0 8px}.field-subject-title small{font-size:13px;font-weight:400;color:#718078}
+.field-explorer+.curriculum-brief{margin-top:30px;padding-top:24px;border-top:1px solid #e1e7df}
+@media(max-width:599px){.field-explorer .group-buttons button{flex:1 1 calc(50% - 8px);font-size:14px}.major-examples{padding:14px}.major-examples p{font-size:15px}}
