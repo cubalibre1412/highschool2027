@@ -8,6 +8,7 @@ interface SchoolCardProps {
   school: School;
   originMiddle?: MiddleSchool | null;
   prefs: UserPrefs;
+  compact?: boolean;
   onToggleWishlist: (schoolId: number) => void;
   onToggleCompare: (schoolId: number) => void;
   onOpenDetail: (schoolId: number, tab?: DetailTabType) => void;
@@ -17,6 +18,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
   school,
   originMiddle,
   prefs,
+  compact = false,
   onToggleWishlist,
   onToggleCompare,
   onOpenDetail,
@@ -54,7 +56,9 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
 
   return (
     <article
-      className={`relative bg-white rounded-2xl border transition-all duration-200 flex flex-col justify-between p-5 hover:shadow-md ${
+      className={`relative bg-white rounded-2xl border transition-all duration-200 flex flex-col justify-between hover:shadow-md ${
+        compact ? 'p-3.5 sm:p-4' : 'p-5'
+      } ${
         isAdded
           ? 'border-[#ed8200] ring-1 ring-[#ed8200]/30 shadow-xs'
           : 'border-[#ebdcc9] hover:border-[#dfc9b2]'
@@ -62,13 +66,17 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
     >
       <div>
         {/* Title row & Compare Checkbox */}
-        <div className="flex items-start justify-between gap-3 mb-2.5">
+        <div className={`flex items-start justify-between gap-2 ${compact ? 'mb-1.5' : 'mb-2.5'}`}>
           <button
             type="button"
             onClick={() => onOpenDetail(school.id, 'overview')}
             className="text-left group"
           >
-            <h3 className="font-extrabold text-lg sm:text-xl text-[#261d14] group-hover:text-[#ed8200] transition-colors flex items-center gap-1.5">
+            <h3
+              className={`font-extrabold text-[#261d14] group-hover:text-[#ed8200] transition-colors flex items-center gap-1.5 ${
+                compact ? 'text-base' : 'text-lg sm:text-xl'
+              }`}
+            >
               <span>{shortenSchoolName(school.name)}</span>
               <span className="text-xs font-normal text-[#8f7962] group-hover:text-[#ed8200]">
                 ({school.name})
@@ -122,23 +130,31 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         </div>
 
         {/* Address */}
-        <p className="text-xs text-[#7e6954] mb-3.5 line-clamp-1">
+        <p className={`text-xs text-[#7e6954] line-clamp-1 ${compact ? 'mb-2' : 'mb-3.5'}`}>
           {school.address.replace('경기도 부천시 ', '')}
         </p>
 
         {/* Quota Metrics Grid */}
-        <div className="grid grid-cols-2 gap-2.5 p-3 rounded-xl bg-[#faf6f0] border border-[#ede0ce] mb-3">
+        <div
+          className={`grid grid-cols-2 rounded-xl bg-[#faf6f0] border border-[#ede0ce] ${
+            compact ? 'gap-2 p-2.5 mb-2' : 'gap-2.5 p-3 mb-3'
+          }`}
+        >
           <div>
             <span className="text-[11px] text-[#78634d] block font-medium">
               2027 모집정원
             </span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <strong className="text-lg font-black text-[#261d14]">
+              <strong
+                className={`font-black text-[#261d14] ${
+                  compact ? 'text-base' : 'text-lg'
+                }`}
+              >
                 {formatNumber(school.quota, 0)}
               </strong>
               <span className="text-xs text-[#78634d]">명</span>
               {school.classes2027 && (
-                <span className="text-[11px] text-[#917d68] ml-1">
+                <span className="text-[10px] text-[#917d68] ml-0.5">
                   ({school.classes2027}학급)
                 </span>
               )}
@@ -149,7 +165,11 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
               2026 모집정원
             </span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <strong className="text-base font-bold text-[#5c4a37]">
+              <strong
+                className={`font-bold text-[#5c4a37] ${
+                  compact ? 'text-sm' : 'text-base'
+                }`}
+              >
                 {formatNumber(school.quota2026, 0)}
               </strong>
               <span className="text-xs text-[#78634d]">명</span>
@@ -158,7 +178,11 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         </div>
 
         {/* Quota Delta text */}
-        <div className="flex items-center justify-between text-xs text-[#6e5944] mb-3 px-1">
+        <div
+          className={`flex items-center justify-between text-xs text-[#6e5944] px-1 ${
+            compact ? 'mb-2 text-[11px]' : 'mb-3 text-xs'
+          }`}
+        >
           <span>지난해와 비교:</span>
           <span
             className={`font-bold px-2 py-0.5 rounded-md ${
@@ -249,18 +273,26 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
       </div>
 
       {/* Card Actions Footer */}
-      <div className="pt-3 border-t border-[#f0e4d4] flex items-center gap-2">
+      <div
+        className={`border-t border-[#f0e4d4] flex items-center ${
+          compact ? 'pt-2 gap-1.5' : 'pt-3 gap-2'
+        }`}
+      >
         <button
           type="button"
           onClick={() => onOpenDetail(school.id, 'overview')}
-          className="flex-1 py-2 text-xs font-bold text-[#69543f] hover:text-[#2c2217] bg-[#f7efe4] hover:bg-[#ede0ce] rounded-xl transition-colors text-center"
+          className={`flex-1 font-bold text-[#69543f] hover:text-[#2c2217] bg-[#f7efe4] hover:bg-[#ede0ce] rounded-xl transition-colors text-center ${
+            compact ? 'py-1.5 text-[11px]' : 'py-2 text-xs'
+          }`}
         >
           학교 정보 보기
         </button>
         <button
           type="button"
           onClick={() => onToggleWishlist(school.id)}
-          className={`flex-1 py-2 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-xs ${
+          className={`flex-1 font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-xs ${
+            compact ? 'py-1.5 text-[11px]' : 'py-2 text-xs'
+          } ${
             isAdded
               ? 'bg-[#ed8200] text-white hover:bg-[#cf7200]'
               : 'bg-white text-[#b85e00] hover:bg-[#fff7ee] border border-[#e8d5be]'

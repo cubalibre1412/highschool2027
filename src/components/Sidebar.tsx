@@ -1,7 +1,7 @@
 import React from 'react';
 import { MiddleSchool, UserPrefs, GenderType } from '../types';
 import { INTEREST_SHORTCUTS, INTEREST_FIELDS } from '../constants';
-import { SlidersHorizontal, MapPin, Sparkles, Navigation, X, Check } from 'lucide-react';
+import { SlidersHorizontal, MapPin, Sparkles, Navigation, X, Check, Phone, ExternalLink, GraduationCap } from 'lucide-react';
 
 interface SidebarProps {
   prefs: UserPrefs;
@@ -46,19 +46,93 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="bg-white/90 backdrop-blur-xs rounded-2xl border border-[#ebdcc9] p-5 shadow-xs space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#f0e4d4]">
-        <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-[#ed8200]" />
-          <h2 className="font-extrabold text-sm sm:text-base text-[#2c2217]">
-            학교 찾기 맞춤 설정
-          </h2>
+    <aside className="space-y-4">
+      {/* 0. Prominent JinnMath Academy Intro Card (Always visible on first screen!) */}
+      <section className="bg-gradient-to-br from-[#fffdfa] via-[#fff8ef] to-[#fbf0df] rounded-2xl border border-[#ebd5bc] p-4 sm:p-5 shadow-xs space-y-3.5">
+        <div className="flex items-center gap-3">
+          <div className="w-13 h-13 rounded-2xl overflow-hidden border border-[#ebd7be] p-0.5 bg-white shrink-0 shadow-xs">
+            <img
+              src="/brand/jinnmath-logo.jpg"
+              alt="배움의 온도 진수학 교습소"
+              className="w-full h-full object-cover rounded-xl"
+              onError={(e) => {
+                (e.currentTarget as HTMLElement).style.display = 'none';
+              }}
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#b85e00] bg-white px-2 py-0.2 rounded-full border border-[#f2dcc3]">
+                교습소 안내
+              </span>
+            </div>
+            <h3 className="font-extrabold text-sm sm:text-base text-[#261d13] tracking-tight truncate mt-0.5">
+              배움의 온도 진수학 교습소
+            </h3>
+            <p className="text-[11px] text-[#7d674f] font-medium leading-none mt-1">
+              중3·고등 내신 및 수능 수학 맞춤 지도
+            </p>
+          </div>
         </div>
-        <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3]">
-          {prefs.gender === 'male' ? '남학생 · 20개교' : '여학생 · 22개교'}
-        </span>
-      </div>
+
+        {/* Banner image preview */}
+        <div className="rounded-xl overflow-hidden border border-[#ebd7be] bg-white shadow-xs">
+          <img
+            src="/brand/jinnmath-banner.jpg"
+            alt="배움의 온도 진수학 교습소. 범박힐스테이트 3단지 상가 3층. 010-8145-3605"
+            className="w-full h-auto object-cover max-h-24 hover:scale-102 transition-transform"
+            loading="lazy"
+            onError={(e) => {
+              (e.currentTarget as HTMLElement).style.display = 'none';
+            }}
+          />
+        </div>
+
+        {/* Address & Kakao */}
+        <div className="text-xs text-[#6e5842] space-y-1 pt-0.5">
+          <div className="flex items-center gap-1.5 font-medium">
+            <MapPin className="w-3.5 h-3.5 text-[#ed8200] shrink-0" />
+            <span className="truncate">부천시 범박힐스테이트 3단지 상가 3층</span>
+          </div>
+          <p className="text-[11px] text-[#917b65] pl-5">
+            카카오톡 채널: 배움의온도진수학교습소
+          </p>
+        </div>
+
+        {/* Action Buttons: Call & Blog */}
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#ebd8bf]/70">
+          <a
+            href="tel:01081453605"
+            className="py-2 px-2.5 bg-white hover:bg-[#fff7ee] text-[#b85e00] font-bold text-xs rounded-xl border border-[#ebdcc9] text-center flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#ed8200]" />
+            <span>010-8145-3605</span>
+          </a>
+          <a
+            href="https://blog.naver.com/jinnmath"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-2 px-2.5 bg-[#261d13] hover:bg-black text-white font-bold text-xs rounded-xl text-center flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+          >
+            <span>블로그 방문 ↗</span>
+          </a>
+        </div>
+      </section>
+
+      {/* School Finder Settings Box */}
+      <div className="bg-white/95 backdrop-blur-xs rounded-2xl border border-[#ebdcc9] p-5 shadow-xs space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-[#f0e4d4]">
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4 text-[#ed8200]" />
+            <h2 className="font-extrabold text-sm sm:text-base text-[#2c2217]">
+              학교 찾기 맞춤 설정
+            </h2>
+          </div>
+          <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3]">
+            {prefs.gender === 'male' ? '남학생 · 20개교' : '여학생 · 22개교'}
+          </span>
+        </div>
 
       {/* 1. Student Gender Segmented Switch */}
       <div className="space-y-2">
@@ -214,6 +288,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
       </div>
-    </aside>
+    </div>
+  </aside>
   );
 };
