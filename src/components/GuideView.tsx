@@ -301,9 +301,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
       <section className="bg-white rounded-3xl border border-[#ebdcc9] p-6 sm:p-8 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#f0e4d4]">
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-[#261d13]">
-              공식 원문 자료 내려받기 & 문의처
-            </h2>
+            <h2 className="text-lg sm:text-xl font-black text-[#261d13]">공식 원문 자료 내려받기·문의처</h2>
             <p className="text-xs text-[#7d674f] mt-1">
               교육청 전형계획, 학생 배정 방안 및 학교 공개 데이터 원본 파일입니다.
             </p>

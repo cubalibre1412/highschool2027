@@ -55,7 +55,7 @@ export async function generateWishlistImages(
     // Header brand
     ctx.fillStyle = '#785b3b';
     font(16, true);
-    ctx.fillText('배움의 온도 진수학 교습소  ·  부천 고등학교 한눈에 2027', M, 60);
+    ctx.fillText('배움의 온도 진수학 교습소 · 부천 고등학교 한눈에 2027', M, 60);
 
     // Title
     font(36, true);
@@ -79,7 +79,7 @@ export async function generateWishlistImages(
     // Footer notice
     ctx.fillStyle = '#9c8b77';
     font(14);
-    ctx.fillText('※ 본 지망표는 가족과 검토를 위한 자율 참고용 자료이며, 공식 교육청 입학원서가 아닙니다.', M, H - 65);
+    ctx.fillText('※ 본 지망표는 가족과 검토를 위한 자율 참고용 자료이며 교육청 공식 입학원서가 아닙니다.', M, H - 65);
     ctx.fillText(`작성일자: ${new Date().toLocaleDateString('ko-KR')} · 쪽 ${++page}`, M, H - 40);
 
     canvases.push(c);
@@ -156,9 +156,75 @@ export async function generateWishlistImages(
     const blob = await new Promise<Blob | null>((resolve) =>
       canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.95)
     );
-    if (blob) blobs.push(blob);
+    if (!blob) throw new Error('Unable to render a wishlist page');
+    blobs.push(blob);
   }
   return blobs;
+}
+
+/** Assemble the same Korean-rendered pages as one downloadable A4 PDF. */
+export async function generateWishlistPDF(
+  schools: School[],
+  prefs: UserPrefs,
+  originMiddle?: MiddleSchool | null
+): Promise<Blob> {
+  const pages = await generateWishlistImages(schools, prefs, originMiddle);
+  if (!pages.length) throw new Error('The wishlist is empty');
+  const encoder = new TextEncoder();
+  const chunks: ArrayBuffer[] = [];
+  const offsets: number[] = [0];
+  let length = 0;
+  const append = (data: Uint8Array) => {
+    const copy = new Uint8Array(data.length);
+    copy.set(data);
+    chunks.push(copy.buffer);
+    length += copy.length;
+  };
+  const text = (value: string) => append(encoder.encode(value));
+  const object = (id: number, header: string, stream?: Uint8Array) => {
+    offsets[id] = length;
+    text(`${id} 0 obj\n${header}`);
+    if (stream) {
+      text('\nstream\n');
+      append(stream);
+      text('\nendstream');
+    }
+    text('\nendobj\n');
+  };
+  text('%PDF-1.4\n%Wishlist\n');
+  object(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  object(2, `<< /Type /Pages /Count ${pages.length} /Kids [${pages.map((_, i) => `${3 + i * 3} 0 R`).join(' ')}] >>`);
+  const pageWidth = 595.28;
+  const pageHeight = 841.89;
+  const scale = Math.min(pageWidth / 1100, pageHeight / 1500);
+  const imageWidth = 1100 * scale;
+  const imageHeight = 1500 * scale;
+  const x = (pageWidth - imageWidth) / 2;
+  const y = (pageHeight - imageHeight) / 2;
+  for (const [i, page] of pages.entries()) {
+    const id = 3 + i * 3;
+    const jpeg = new Uint8Array(await page.arrayBuffer());
+    object(id, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /XObject << /Im0 ${id + 1} 0 R >> >> /Contents ${id + 2} 0 R >>`);
+    object(id + 1, `<< /Type /XObject /Subtype /Image /Width 1100 /Height 1500 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>`, jpeg);
+    const commands = encoder.encode(`q\n${imageWidth.toFixed(2)} 0 0 ${imageHeight.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)} cm\n/Im0 Do\nQ`);
+    object(id + 2, `<< /Length ${commands.length} >>`, commands);
+  }
+  const startXref = length;
+  text(`xref\n0 ${offsets.length}\n0000000000 65535 f \n`);
+  offsets.slice(1).forEach(offset => text(`${String(offset).padStart(10, '0')} 00000 n \n`));
+  text(`trailer\n<< /Size ${offsets.length} /Root 1 0 R >>\nstartxref\n${startXref}\n%%EOF`);
+  return new Blob(chunks, { type: 'application/pdf' });
+}
+
+export function saveDownload(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
 export function downloadWishlistCSV(
@@ -172,7 +238,7 @@ export function downloadWishlistCSV(
     ['출발 기준 중학교', originMiddle ? originMiddle.name : '미설정'],
     ['생성일시', new Date().toLocaleString('ko-KR')],
     [],
-    ['지망순위', '고등학교명', '학교유형', '설립구분', '직선거리(km)', '직접확인 통학시간(분)', '2027 모집정원(명)', '2026 모집정원(명)', '지망이유 및 메모'],
+    ['지망순위', '고등학교명', '학교유형', '설립구분', '직선거리(km)', '직접 확인한 통학시간(분)', '2027 모집정원(명)', '2026 모집정원(명)', '지망 이유 및 메모'],
   ];
 
   schools.forEach((s, idx) => {

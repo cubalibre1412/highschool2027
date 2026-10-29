@@ -10,7 +10,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Cell,
 } from 'recharts';
 import { BarChart3, TrendingUp, Navigation, GraduationCap, Award } from 'lucide-react';
 
@@ -31,67 +30,74 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
 
   if (schools.length < 2) return null;
 
-  // 1. Quota Data: 2026 Quota, 2027 Quota, 2026 Actual Admitted
-  const quotaData = schools.map((s) => {
-    const adm2026 = s.admissions.find((x) => x.year === 2026);
+  // Missing data remains null; a genuine numeric zero remains zero.
+  const numberOrNull = (value: unknown): number | null =>
+    typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+  const percent = (value: unknown, total: unknown) => {
+    const n = numberOrNull(value);
+    const d = numberOrNull(total);
+    return n !== null && d !== null && d > 0 ? Number((n / d * 100).toFixed(1)) : null;
+  };
+  const quotaData = schools.map(s => ({
+    name: shortenSchoolName(s.name),
+    fullName: s.name,
+    '2027 모집정원': numberOrNull(s.quota),
+    '2026 모집정원': numberOrNull(s.quota2026),
+    '2026 실제입학생': numberOrNull(s.admissions.find(x => x.year === 2026)?.total),
+  }));
+  const commuteData = schools.map(s => {
+    const distance = originMiddle ? calculateDistance(s, originMiddle) : null;
+    const time = numberOrNull(prefs.times[s.id]);
     return {
       name: shortenSchoolName(s.name),
       fullName: s.name,
-      '2027 모집정원': s.quota,
-      '2026 모집정원': s.quota2026,
-      '2026 실제입학생': adm2026?.total || 0,
-      delta: s.quota - s.quota2026,
+      '직선거리(km)': distance !== null && Number.isFinite(distance) ? Number(distance.toFixed(1)) : null,
+      '통학시간(분)': time !== null && time >= 1 && time <= 300 ? time : null,
     };
   });
-
-  // 2. Commute Data: Distance (km) & Confirmed Travel Time (mins)
-  const commuteData = schools.map((s) => {
-    const d = originMiddle ? calculateDistance(s, originMiddle) : null;
-    const recordedTime = prefs.times[s.id] || 0;
+  const graduatesData = schools.map(s => {
+    const g = s.graduates.find(x => x.gender === '합계');
     return {
       name: shortenSchoolName(s.name),
       fullName: s.name,
-      '직선거리(km)': d !== null ? Number(d.toFixed(1)) : 0,
-      '통학시간(분)': recordedTime,
-      hasRecordedTime: recordedTime > 0,
+      '국내 대학교 진학률(%)': percent(g?.university, g?.graduates),
+      '전문대학 진학률(%)': percent(g?.junior_college, g?.graduates),
+      '국외 진학률(%)': percent(g?.foreign_total, g?.graduates),
+      '취업 비율(%)': percent(g?.employed, g?.graduates),
+      '기타 비율(%)': percent(g?.other, g?.graduates),
     };
   });
-
-  // 3. Graduates Data: 4-yr University Rate (%), Junior College (%), Employment/Other (%)
-  const graduatesData = schools.map((s) => {
-    const g = s.graduates.find((x) => x.gender === '합계');
-    const total = g?.graduates || 1;
-    const uniRate = g ? Number(((g.university / total) * 100).toFixed(1)) : 0;
-    const juniorRate = g ? Number(((g.junior_college / total) * 100).toFixed(1)) : 0;
-    const otherRate = g ? Number((((g.other + g.employed + g.foreign_total) / total) * 100).toFixed(1)) : 0;
-
+  const achievementData = schools.map(s => {
+    const mean = (pattern: RegExp) => {
+      const record = s.achievement.find(x => x.grade === 1 && pattern.test(x.subject));
+      const value = numberOrNull(record?.mean);
+      return value === null ? null : Number(value.toFixed(1));
+    };
     return {
       name: shortenSchoolName(s.name),
       fullName: s.name,
-      '4년제 대학교 진학률(%)': uniRate,
-      '전문대학 진학률(%)': juniorRate,
-      '기타·취업 비율(%)': otherRate,
-      totalGrads: g?.graduates || 0,
+      '국어 평균(점)': mean(/공통국어1/),
+      '수학 평균(점)': mean(/공통수학1/),
+      '영어 평균(점)': mean(/공통영어1/),
     };
   });
+  const series: Record<ChartCategory, string[]> = {
+    quota: ['2027 모집정원', '2026 모집정원', '2026 실제입학생'],
+    commute: ['직선거리(km)', '통학시간(분)'],
+    graduates: ['국내 대학교 진학률(%)', '전문대학 진학률(%)', '국외 진학률(%)', '취업 비율(%)', '기타 비율(%)'],
+    achievement: ['국어 평균(점)', '수학 평균(점)', '영어 평균(점)'],
+  };
+  const rows = { quota: quotaData, commute: commuteData, graduates: graduatesData, achievement: achievementData }[selectedChart] as unknown as Record<string, string | number | null>[];
+  const missingLabel = (key: string) => key === '통학시간(분)' ? '미입력'
+    : key === '직선거리(km)' && !originMiddle ? '중학교 미선택' : '자료 없음';
+  const displayValue = (value: unknown, key: string) => {
+    if (value === null || value === undefined) return missingLabel(key);
+    const unit = key.includes('km') ? 'km' : key.includes('분') ? '분'
+      : key.includes('%') ? '%' : key.includes('점') ? '점' : '명';
+    return `${value}${unit}`;
+  };
 
-  // 4. Achievement Data: 1st Grade Core Subjects (국어, 수학, 영어) Mean score & A ratio
-  const achievementData = schools.map((s) => {
-    const korean = s.achievement.find((x) => x.grade === 1 && /공통국어1/.test(x.subject));
-    const math = s.achievement.find((x) => x.grade === 1 && /공통수학1/.test(x.subject));
-    const english = s.achievement.find((x) => x.grade === 1 && /공통영어1/.test(x.subject));
-
-    return {
-      name: shortenSchoolName(s.name),
-      fullName: s.name,
-      '국어 평균(점)': korean ? Number(korean.mean.toFixed(1)) : 0,
-      '수학 평균(점)': math ? Number(math.mean.toFixed(1)) : 0,
-      '영어 평균(점)': english ? Number(english.mean.toFixed(1)) : 0,
-      '국어 A비율(%)': korean?.A ?? 0,
-      '수학 A비율(%)': math?.A ?? 0,
-      '영어 A비율(%)': english?.A ?? 0,
-    };
-  });
+  const hasChartData = rows.some(row => series[selectedChart].some(key => typeof row[key] === 'number'));
 
   const chartTabs: { key: ChartCategory; label: string; icon: React.ReactNode }[] = [
     { key: 'quota', label: '모집 정원 비교', icon: <BarChart3 className="w-4 h-4" /> },
@@ -137,9 +143,12 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
       </div>
 
       {/* Chart Display Area */}
-      <div className="w-full h-72 sm:h-80">
+      <div className={hasChartData ? 'w-full h-72 sm:h-80' : 'w-full rounded-xl bg-[#faf5ec] p-6 text-sm text-[#7d674f]'}>
+        {!hasChartData && <p role="status">{selectedChart === 'commute'
+          ? '중학교를 선택하거나 직접 확인한 통학시간을 입력하면 차트에 표시됩니다.'
+          : '선택한 학교에서 확인된 수치가 없습니다. 아래 표에서 자료 제공 여부를 확인해 주세요.'}</p>}
         {/* 1. Quota Chart */}
-        {selectedChart === 'quota' && (
+        {selectedChart === 'quota' && hasChartData && (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={quotaData}
@@ -157,16 +166,14 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
                 domain={[0, 'auto']}
                 unit="명"
               />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fffdfa',
-                  border: '1px solid #ebdcc9',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                }}
-                formatter={(value: any, name: any) => [`${value}명`, name]}
-              />
+              <Tooltip filterNull={false} content={({ active, payload }) => {
+                const row = payload?.[0]?.payload as Record<string, unknown> | undefined;
+                if (!active || !row) return null;
+                return <div className="rounded-xl border border-[#ebdcc9] bg-[#fffdfa] p-3 text-xs shadow-md">
+                  <p className="font-bold mb-2">{String(row.fullName)}</p>
+                  {series[selectedChart].map(key => <p key={key}>{key}: {displayValue(row[key], key)}</p>)}
+                </div>;
+              }} />
               <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
               <Bar dataKey="2027 모집정원" fill="#ed8200" radius={[6, 6, 0, 0]} />
               <Bar dataKey="2026 모집정원" fill="#9e856b" radius={[6, 6, 0, 0]} />
@@ -176,7 +183,7 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
         )}
 
         {/* 2. Commute Chart */}
-        {selectedChart === 'commute' && (
+        {selectedChart === 'commute' && hasChartData && (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={commuteData}
@@ -203,19 +210,14 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
                 domain={[0, 'auto']}
                 unit="분"
               />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fffdfa',
-                  border: '1px solid #ebdcc9',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                }}
-                formatter={(value: any, name: any) => [
-                  name.includes('km') ? `${value} km` : `${value} 분`,
-                  name,
-                ]}
-              />
+              <Tooltip filterNull={false} content={({ active, payload }) => {
+                const row = payload?.[0]?.payload as Record<string, unknown> | undefined;
+                if (!active || !row) return null;
+                return <div className="rounded-xl border border-[#ebdcc9] bg-[#fffdfa] p-3 text-xs shadow-md">
+                  <p className="font-bold mb-2">{String(row.fullName)}</p>
+                  {series[selectedChart].map(key => <p key={key}>{key}: {displayValue(row[key], key)}</p>)}
+                </div>;
+              }} />
               <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
               <Bar
                 yAxisId="left"
@@ -234,7 +236,7 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
         )}
 
         {/* 3. Graduates Chart */}
-        {selectedChart === 'graduates' && (
+        {selectedChart === 'graduates' && hasChartData && (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={graduatesData}
@@ -252,19 +254,17 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
                 domain={[0, 100]}
                 unit="%"
               />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fffdfa',
-                  border: '1px solid #ebdcc9',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                }}
-                formatter={(value: any, name: any) => [`${value}%`, name]}
-              />
+              <Tooltip filterNull={false} content={({ active, payload }) => {
+                const row = payload?.[0]?.payload as Record<string, unknown> | undefined;
+                if (!active || !row) return null;
+                return <div className="rounded-xl border border-[#ebdcc9] bg-[#fffdfa] p-3 text-xs shadow-md">
+                  <p className="font-bold mb-2">{String(row.fullName)}</p>
+                  {series[selectedChart].map(key => <p key={key}>{key}: {displayValue(row[key], key)}</p>)}
+                </div>;
+              }} />
               <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
               <Bar
-                dataKey="4년제 대학교 진학률(%)"
+                dataKey="국내 대학교 진학률(%)"
                 fill="#2e7d32"
                 radius={[6, 6, 0, 0]}
               />
@@ -273,17 +273,15 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
                 fill="#81c784"
                 radius={[6, 6, 0, 0]}
               />
-              <Bar
-                dataKey="기타·취업 비율(%)"
-                fill="#ffb74d"
-                radius={[6, 6, 0, 0]}
-              />
+              <Bar dataKey="국외 진학률(%)" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="취업 비율(%)" fill="#ed8200" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="기타 비율(%)" fill="#9e856b" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         )}
 
         {/* 4. Achievement Chart */}
-        {selectedChart === 'achievement' && (
+        {selectedChart === 'achievement' && hasChartData && (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={achievementData}
@@ -301,19 +299,14 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
                 domain={[0, 100]}
                 unit="점"
               />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fffdfa',
-                  border: '1px solid #ebdcc9',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                }}
-                formatter={(value: any, name: any) => [
-                  name.includes('%') ? `${value}%` : `${value}점`,
-                  name,
-                ]}
-              />
+              <Tooltip filterNull={false} content={({ active, payload }) => {
+                const row = payload?.[0]?.payload as Record<string, unknown> | undefined;
+                if (!active || !row) return null;
+                return <div className="rounded-xl border border-[#ebdcc9] bg-[#fffdfa] p-3 text-xs shadow-md">
+                  <p className="font-bold mb-2">{String(row.fullName)}</p>
+                  {series[selectedChart].map(key => <p key={key}>{key}: {displayValue(row[key], key)}</p>)}
+                </div>;
+              }} />
               <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
               <Bar dataKey="국어 평균(점)" fill="#3b82f6" radius={[6, 6, 0, 0]} />
               <Bar dataKey="수학 평균(점)" fill="#ed8200" radius={[6, 6, 0, 0]} />
@@ -323,6 +316,13 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
         )}
       </div>
 
+      <div className="overflow-x-auto rounded-xl border border-[#ebdcc9]" role="region" aria-label="차트 수치와 미입력 안내" tabIndex={0}>
+        <table className="w-full text-xs text-left">
+          <caption className="text-left p-3 text-[#7d674f]">차트 수치 · 미입력·자료 없음은 막대로 표시하지 않습니다.</caption>
+          <thead><tr className="bg-[#f7efe4]"><th scope="col" className="p-3 whitespace-nowrap">학교</th>{series[selectedChart].map(key => <th scope="col" className="p-3 whitespace-nowrap" key={key}>{key}</th>)}</tr></thead>
+          <tbody>{rows.map(row => <tr className="border-t border-[#ebdcc9]" key={String(row.fullName)}><th scope="row" className="p-3 whitespace-nowrap">{row.name}</th>{series[selectedChart].map(key => <td className="p-3 whitespace-nowrap" key={key}>{displayValue(row[key], key)}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
       {/* Dynamic Caption / Guide Note */}
       <div className="pt-2 border-t border-[#f0e4d4] text-[11px] text-[#8c745c] leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         {selectedChart === 'quota' && (
@@ -332,12 +332,11 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
         )}
         {selectedChart === 'commute' && (
           <span>
-            💡 <strong>직선거리 vs 통학시간:</strong> 직선거리는 중학교 위치 기준이며, 통학시간은 각 학교 정보에서 카카오맵 길찾기로 확인 후 직접 기록한 분 단위 시간입니다.
-          </span>
+            💡 <strong>직선거리 vs 통학시간:</strong> 직선거리는 중학교 위치 기준입니다. 통학시간은 각 학교 정보의 카카오맵 길찾기로 확인한 뒤 분 단위로 직접 기록한 시간입니다.</span>
         )}
         {selectedChart === 'graduates' && (
           <span>
-            💡 <strong>진학률:</strong> 2025년 공시 기준이며, 분모는 졸업생 총원입니다. (수시/정시 및 특정 대학명은 공시되지 않음)
+            💡 <strong>진학률:</strong> 2025년 공시 기준이며, 분모는 졸업생 총원입니다. 국내 대학교·전문대학·국외 진학·취업·기타를 나눠 표시합니다. 수시·정시와 대학명은 포함되지 않습니다.
           </span>
         )}
         {selectedChart === 'achievement' && (

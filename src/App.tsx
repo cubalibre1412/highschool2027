@@ -107,7 +107,7 @@ export default function App() {
         setLoading(false);
       })
       .catch((err) => {
-        setError('데이터를 불러오지 못했습니다. 새로고침을 시도해 주세요.');
+        setError('데이터를 불러오지 못했습니다. 새로고침해 주세요.');
         setLoading(false);
       });
   }, []);

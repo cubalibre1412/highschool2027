@@ -154,9 +154,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
       return (
         <div className="p-6 text-center text-xs text-[#8c745c] bg-[#faf6f0] rounded-xl border border-[#ebdcc9]">
           스캔 의심 부분이 있어 텍스트 자동 추출을 중단했습니다.
-          <br />
-          아래 학교알리미 공식 첨부파일 링크로 열람하실 수 있습니다.
-        </div>
+          <br />아래 학교알리미 공식 첨부파일 링크에서 열람하실 수 있습니다.</div>
       );
     }
     if (docSearchQuery.trim()) {
@@ -458,7 +456,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                 {timeSavedNotice && (
                   <p className="text-xs text-emerald-600 font-bold animate-in fade-in flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>통학시간 기록이 저장되었습니다! 지망표와 내보내기 문서에 반영됩니다.</span>
+                    <span>통학시간 기록을 저장했습니다. 지망표와 내보내기 문서에 반영됩니다.</span>
                   </p>
                 )}
               </section>
@@ -515,9 +513,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학기 공시 교육과정 편제</strong>
-                <p className="mt-0.5">
-                  실제 2·3학년 성취도 공시에 수강 내역이 등장하는 과목 목록입니다. 2027학년도 신입생의 확정 개설 여부와 학생 선택 묶음은 매 학년도 학교 교육과정 설명회를 확인해 주세요.
-                </p>
+                <p className="mt-0.5">실제 2·3학년 성취도 공시에 수강 내역이 등장하는 과목 목록입니다. 2027학년도 신입생의 확정 개설 여부와 학생 선택 묶음은 매 학년도 학교 교육과정 설명회에서 확인해 주세요.</p>
               </div>
 
               {/* Upper Grade Subjects Tags */}
@@ -731,9 +727,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학기 학업성취도 (2026년 9월 공시)</strong>
-                <p className="mt-0.5">
-                  A~E는 성취 수준별 학생 비율(%)이며, 평균은 100점 만점 기준 점수입니다. 시험 난도와 수강 학생 구성이 달라 단순 평균 비교만으로 내신 유불리나 학교 수준을 판단할 수 없습니다.
-                </p>
+                <p className="mt-0.5">A~E는 성취 수준별 학생 비율(%)입니다. 평균은 100점 만점 기준 점수입니다. 시험 난도와 수강 학생 구성이 달라 단순 평균 비교만으로 내신 유불리나 학교 수준을 판단할 수 없습니다.</p>
               </div>
 
               {/* 1st Grade Core Subject Cards */}
@@ -866,9 +860,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2025년 학교알리미 공시 졸업생 진로 현황</strong>
-                <p className="mt-0.5">
-                  진학률은 졸업생의 선택 결과이며, 개별 대학 순위나 수시·정시 전형 결과, 재수 인원은 본 자료에 포함되지 않습니다. 기타 항목 인원 전체를 재수생으로 볼 수는 없습니다.
-                </p>
+                <p className="mt-0.5">진학률은 졸업생의 선택 결과이며 개별 대학 순위나 수시·정시 전형 결과, 재수 인원은 본 자료에 포함되지 않습니다. 기타 항목 인원 전체를 재수생으로 볼 수는 없습니다.</p>
               </div>
 
               {graduateSummary && (

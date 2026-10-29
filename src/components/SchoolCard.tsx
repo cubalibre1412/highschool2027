@@ -178,9 +178,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         {/* Matching field subjects preview (if user selected interest fields) */}
         {selectedFieldDefs.length > 0 && (
           <div className="space-y-2 p-3 bg-[#fdfaf5] border border-[#ebdcc9] rounded-xl mb-3 text-xs">
-            <span className="font-bold text-[#8a4b00] text-[11px] block">
-              관심분야 관련 수강 과목 (2026 공시 기준)
-            </span>
+            <span className="font-bold text-[#8a4b00] text-[11px] block">관심 분야 관련 수강 과목 (2026 공시 기준)</span>
             {selectedFieldDefs.map((field) => {
               const matched = getMatchedSubjects(field.pattern);
               return (
@@ -244,9 +242,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
                   </span>
                 )}
               </p>
-              <p className="text-[#8c745c] mt-0.5">
-                ※ 실제 입학 인원은 전형 및 결원 충원 등에 따라 모집정원과 차이가 있을 수 있습니다.
-              </p>
+              <p className="text-[#8c745c] mt-0.5">※ 실제 입학 인원은 전형 및 결원 충원 등에 따라 모집정원과 다를 수 있습니다.</p>
             </div>
           )}
         </div>

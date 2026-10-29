@@ -64,10 +64,7 @@ export const DemandView: React.FC<DemandViewProps> = ({
         <h1 className="text-2xl sm:text-3xl font-black text-[#261d13] mt-1">
           2027학년도 정원과 예상 인원 시뮬레이터
         </h1>
-        <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">
-          전년도 실제 입학생 수와 올해 중3 학생 수를 토대로 부천 일반고 지원 규모를 가늠해 봅니다. 
-          지원자의 성별 및 유출입 변수를 직접 조절하며 예상 정원 과부족을 확인하세요. (※ 실제 선발 결과가 아닙니다)
-        </p>
+        <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">전년도 실제 입학생 수와 올해 중3 학생 수를 토대로 부천 일반고 지원 규모를 가늠해 봅니다. 지원자의 성별 및 유출입 변수를 직접 조절해 예상 정원 과부족을 확인하세요. (※ 실제 선발 결과가 아닙니다)</p>
 
         {/* Top 3 KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">

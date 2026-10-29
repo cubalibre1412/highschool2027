@@ -1,7 +1,7 @@
 import React from 'react';
 import { School, MiddleSchool, UserPrefs, DetailTabType } from '../types';
 import { shortenSchoolName, formatNumber, getDistanceText, getKakaoRouteUrl } from '../utils/geo';
-import { generateWishlistImages, downloadWishlistCSV, downloadJSONBackup } from '../utils/export';
+import { generateWishlistImages, generateWishlistPDF, saveDownload, downloadWishlistCSV, downloadJSONBackup } from '../utils/export';
 import {
   Bookmark,
   ArrowUp,
@@ -44,6 +44,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [isExportingImage, setIsExportingImage] = React.useState(false);
+  const [isExportingPdf, setIsExportingPdf] = React.useState(false);
 
   const totalEligibleCount = prefs.gender === 'male' ? 20 : 22;
 
@@ -133,7 +134,21 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
     onToast('엑셀용 CSV 파일을 내려받았습니다.');
   };
 
-  // Print
+  const handleSavePdf = async () => {
+    if (chosenSchools.length === 0 || isExportingPdf || isExportingImage) return;
+    setIsExportingPdf(true);
+    try {
+      const pdf = await generateWishlistPDF(chosenSchools, prefs, originMiddle);
+      saveDownload(pdf, '2027_부천고등학교한눈에_지망표.pdf');
+      onToast('PDF를 저장했습니다. 다운로드 폴더를 확인해 주세요.');
+    } catch {
+      onToast('PDF를 저장하지 못했습니다. 다시 시도해 주세요.');
+    } finally {
+      setIsExportingPdf(false);
+    }
+  };
+
+  // Printing remains an optional action, separate from saving a PDF file.
   const handlePrint = () => {
     window.print();
   };
@@ -167,7 +182,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
         times: typeof p.times === 'object' && p.times ? p.times : {},
       });
 
-      onToast('지망표 백업 기록을 성공적으로 복원했습니다.');
+      onToast('지망표 백업 기록을 복원했습니다.');
     } catch {
       onToast('올바른 지망표 백업 JSON 파일인지 확인해 주세요.');
     } finally {
@@ -192,10 +207,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
             <h1 className="text-2xl sm:text-3xl font-black text-[#261d13]">
               나의 2027 고등학교 지망표
             </h1>
-            <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed">
-              가고 싶은 순서대로 학교를 정렬하고, 메모와 직접 확인한 통학시간을 기록하세요. 
-              가족과 함께 상의하고 최종 원서 작성 전 이미지·PDF·엑셀로 보관할 수 있습니다.
-            </p>
+            <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed">가고 싶은 순서대로 학교를 정렬하고 메모와 직접 확인한 통학시간을 기록하세요. 가족과 함께 상의하고 최종 원서 작성 전 이미지·PDF·엑셀로 보관할 수 있습니다.</p>
           </div>
 
           <div className="shrink-0 flex items-center gap-2">
@@ -213,17 +225,26 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
         <div className="mt-6 pt-5 border-t border-[#f0e4d4] flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-[#5c4936]">
             <Sparkles className="w-4 h-4 text-[#ed8200]" />
-            <span>지망표 저장 & 내보내기:</span>
+            <span>지망표 저장·내보내기:</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleSaveImage}
-              disabled={chosenSchools.length === 0 || isExportingImage}
+              disabled={chosenSchools.length === 0 || isExportingImage || isExportingPdf}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#ed8200] hover:bg-[#cf7200] disabled:opacity-40 text-white text-xs font-bold rounded-xl shadow-xs transition-colors"
             >
               <FileDown className="w-3.5 h-3.5" />
               <span>{isExportingImage ? '이미지 생성 중…' : '이미지 저장 (JPG)'}</span>
+            </button>
+
+            <button
+              onClick={handleSavePdf}
+              disabled={chosenSchools.length === 0 || isExportingPdf || isExportingImage}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-[#faf4ec] disabled:opacity-40 text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              <span>{isExportingPdf ? 'PDF 만드는 중…' : 'PDF 저장'}</span>
             </button>
 
             <button
@@ -232,7 +253,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
               className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-[#faf4ec] disabled:opacity-40 text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>인쇄 / PDF</span>
+              <span>인쇄</span>
             </button>
 
             <button
@@ -363,7 +384,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                           rows={2}
                           value={prefs.notes[s.id] ?? ''}
                           onChange={(e) => handleNoteChange(s.id, e.target.value)}
-                          placeholder="이 학교를 선택한 이유나 기억할 점(예: 수학 중점 프로그램, 통학 버스 노선 등)을 적어보세요."
+                          placeholder="이 학교를 선택한 이유나 기억할 점(예: 수학 중점 프로그램, 통학 버스 노선 등)을 적어 보세요."
                           className="w-full bg-[#faf7f2] border border-[#ebdcc9] hover:border-[#dfc9b2] focus:border-[#ed8200] focus:ring-1 focus:ring-[#ed8200] rounded-xl p-2.5 text-xs text-[#261d13] leading-relaxed resize-y"
                         />
                       </div>
@@ -381,8 +402,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                 아직 지망표에 담긴 학교가 없습니다.
               </h3>
               <p className="text-xs text-[#7d674f] max-w-md mx-auto leading-relaxed">
-                ‘학교 찾기’ 화면에서 가고 싶은 고등학교의 <strong>[지망표 추가]</strong> 버튼을 누르면 이 곳에서 1지망부터 순위를 정리하고 메모를 작성할 수 있습니다.
-              </p>
+                ‘학교 찾기’ 화면에서 가고 싶은 고등학교의 <strong>[지망표 추가]</strong> 버튼을 누르면 이곳에서 1지망부터 순위를 정리하고 메모를 작성할 수 있습니다.</p>
               <button
                 onClick={onGoToSchools}
                 className="mt-2 px-6 py-2.5 bg-[#ed8200] hover:bg-[#cf7200] text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-colors"
@@ -424,7 +444,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
               {chosenSchools.length === totalEligibleCount ? (
                 <span className="font-bold text-emerald-700 flex items-center gap-1">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>모든 지망 학교를 채웠습니다! 순서를 최종 검토하세요.</span>
+                  <span>모든 지망 학교를 채웠습니다. 순서를 최종 검토하세요.</span>
                 </span>
               ) : (
                 <span>
@@ -441,7 +461,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                 className="w-full py-2.5 bg-[#fdf5eb] hover:bg-[#faebd9] text-[#b85e00] text-xs font-bold rounded-xl border border-[#ebd8bf] transition-colors flex items-center justify-center gap-1.5"
               >
                 <ListPlus className="w-4 h-4" />
-                <span>남은 학교 가나다순 일괄 추가</span>
+                <span>남은 학교 가나다순으로 모두 추가</span>
               </button>
             )}
 

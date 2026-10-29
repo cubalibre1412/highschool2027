@@ -2,7 +2,7 @@ import React from 'react';
 import { School, MiddleSchool, UserPrefs, DetailTabType } from '../types';
 import { shortenSchoolName, formatNumber, formatRate, getDistanceText } from '../utils/geo';
 import { INTEREST_FIELDS } from '../constants';
-import { CompareCharts } from './CompareCharts';
+const CompareCharts = React.lazy(() => import('./CompareCharts').then(module => ({ default: module.CompareCharts })));
 import { X, Check, Columns, Sparkles, BookOpen, ExternalLink } from 'lucide-react';
 
 interface CompareModalProps {
@@ -90,11 +90,11 @@ export const CompareModal: React.FC<CompareModalProps> = ({
         {/* Content Body */}
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-8">
           {/* Visual Comparison Charts Component using Recharts */}
-          <CompareCharts
+          <React.Suspense fallback={<p className="text-sm text-[#8c745c]">비교 차트를 불러오고 있습니다…</p>}><CompareCharts
             schools={comparedSchools}
             originMiddle={originMiddle}
             prefs={prefs}
-          />
+          /></React.Suspense>
 
           {/* 1. Core General Comparison Table */}
           <section className="space-y-3">
@@ -306,9 +306,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                   <Sparkles className="w-4 h-4 text-[#ed8200]" />
                   <span>관심 분야별 과목 비교</span>
                 </h3>
-                <p className="text-xs text-[#7e6954]">
-                  선택한 분야의 개설 과목을 학교별로 나란히 대조합니다.
-                </p>
+                <p className="text-xs text-[#7e6954]">선택한 분야의 개설 과목을 학교별로 나란히 비교합니다.</p>
               </div>
 
               {/* Field Select Pills */}
@@ -336,9 +334,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                 <div>
                   <strong className="font-bold">함께 확인된 과목: </strong>
                   <span>{commonSubjects.join(', ')}</span>
-                  <p className="text-[11px] text-[#388e3c] mt-0.5">
-                    비교 중인 모든 학교의 2026학년도 수강 공시 목록에 공통으로 포함되어 있습니다.
-                  </p>
+                  <p className="text-[11px] text-[#388e3c] mt-0.5">비교 중인 모든 학교의 2026학년도 수강 공시 목록에 공통으로 들어 있는 과목입니다.</p>
                 </div>
               </div>
             )}
@@ -414,9 +410,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               </table>
             </div>
 
-            <p className="text-xs text-[#8c745c] leading-relaxed">
-              ※ 과목 수는 학교 우열을 뜻하지 않습니다. 2026학년도 1학기 2·3학년 성취도 공시에 등장한 실제 과목 기준이며, 2027학년도 신입생의 선택 편성표 및 개설 조건은 학교별 최신 교육과정을 확인해 주세요.
-            </p>
+            <p className="text-xs text-[#8c745c] leading-relaxed">※ 과목 수는 학교 우열을 뜻하지 않습니다. 2026학년도 1학기 2·3학년 성취도 공시에 등장한 실제 과목 기준입니다. 2027학년도 신입생의 선택 편성표 및 개설 조건은 학교별 최신 교육과정을 확인해 주세요.</p>
           </section>
         </div>
 

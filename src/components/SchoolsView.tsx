@@ -188,8 +188,7 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
           {/* Status guideline bar */}
           <div className="px-1 text-xs text-[#7e6954] flex items-center justify-between">
             <p>
-              비교할 학교의 <strong>[비교]</strong> 상자를 체크하거나(최대 4개교), <strong>[지망표 추가]</strong>를 눌러 순위를 구성해 보세요.
-            </p>
+              비교할 학교의 <strong>[비교]</strong> 상자를 선택하거나(최대 4개교), <strong>[지망표 추가]</strong>를 눌러 순위를 정리해 보세요.</p>
             {prefs.fields.length > 0 && (
               <span className="text-[11px] font-bold text-[#b85e00] hidden md:inline">
                 관심분야 {prefs.fields.length}개 과목 매칭 중
@@ -217,9 +216,7 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
               <p className="text-base font-bold text-[#261d13]">
                 검색 조건에 맞는 학교가 없습니다.
               </p>
-              <p className="text-xs text-[#8c745c]">
-                다른 검색어를 입력하시거나, 좌측 설정에서 필터를 초기화해 보세요.
-              </p>
+              <p className="text-xs text-[#8c745c]">다른 검색어를 입력하시거나 왼쪽 설정에서 필터를 초기화해 보세요.</p>
               <button
                 onClick={() => setSearchQuery('')}
                 className="mt-2 px-4 py-2 bg-[#faf3e8] hover:bg-[#f3e3ce] text-[#b85e00] font-bold text-xs rounded-xl transition-colors"

@@ -18,10 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
               <p className="font-semibold text-[#2c2116] mb-1">
                 2027학년도 모집정원 기준 공지 (22개교 총 4,836명)
               </p>
-              <p>
-                경기도교육청 신입생 전형계획 24쪽 기준 22개교 195학급 총 4,836명입니다. 
-                2026학년도 정원은 2025년 9월 8일 배포된 안내자료 기준으로 비교했습니다. 원서 접수 전 교육청 최신 공고를 확인해 주세요.
-              </p>
+              <p>경기도교육청 신입생 전형계획 24쪽 기준으로 22개교 195학급 총 4,836명입니다. 2026학년도 정원은 2025년 9월 8일 배포된 안내 자료 기준으로 비교했습니다. 원서 접수 전 교육청 최신 공고를 확인해 주세요.</p>
             </div>
           </div>
           <button
@@ -55,9 +52,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
                 </p>
               </div>
             </div>
-            <p className="text-xs text-[#6e5842] leading-relaxed">
-              본 서비스는 부천 지역 중3 수험생과 학부모님의 진학 탐색을 돕기 위해 공개된 학교알리미 및 교육청 전형계획 자료를 토대로 제작된 무료 안내 도구입니다.
-            </p>
+            <p className="text-xs text-[#6e5842] leading-relaxed">공개된 학교알리미 및 교육청 전형계획 자료를 토대로 만든 무료 안내 도구입니다. 부천 지역 중3 수험생과 학부모님의 진학 탐색을 돕습니다.</p>
             <div className="pt-1">
               <a
                 href="https://blog.naver.com/jinnmath"

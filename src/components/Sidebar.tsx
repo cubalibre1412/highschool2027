@@ -129,16 +129,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           />
           <span className="font-medium">학교까지 직선거리 표시</span>
         </label>
-        <p className="text-[11px] text-[#8e7862] leading-relaxed">
-          중학교 좌표 기준 직선거리입니다. 실제 이동시간은 각 학교 카카오맵 길찾기로 확인해 메모할 수 있습니다.
-        </p>
+        <p className="text-[11px] text-[#8e7862] leading-relaxed">중학교 좌표를 기준으로 잰 직선거리입니다. 실제 이동시간은 각 학교의 카카오맵 길찾기로 확인해 메모할 수 있습니다.</p>
       </div>
 
       {/* 3. Interest Focus Shortcuts */}
       <div className="space-y-2 pt-1 border-t border-[#f0e4d4]">
-        <label className="text-xs font-bold text-[#5c4936] block">
-          카드에서 먼저 볼 항목 (복수 선택)
-        </label>
+        <label className="text-xs font-bold text-[#5c4936] block">카드에서 먼저 볼 항목 (여러 개 선택)</label>
         <div className="flex flex-wrap gap-1.5">
           {INTEREST_SHORTCUTS.map((item) => {
             const active = prefs.interests.includes(item.id);
@@ -165,7 +161,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex items-center justify-between">
           <label className="text-xs font-bold text-[#5c4936] flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-[#ed8200]" />
-            <span>관심 학과·분야 (과목 매칭)</span>
+            <span>관심 학과·분야 (관련 과목)</span>
           </label>
           {prefs.fields.length > 0 && (
             <button
@@ -176,9 +172,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
           )}
         </div>
-        <p className="text-[11px] text-[#8e7862]">
-          선택한 진로 분야의 수강 과목을 학교 카드 및 비교표에서 즉시 대조합니다.
-        </p>
+        <p className="text-[11px] text-[#8e7862]">선택한 진로 분야의 수강 과목을 학교 카드와 비교표에서 바로 비교합니다.</p>
         <div className="flex flex-wrap gap-1.5">
           {INTEREST_FIELDS.map((field) => {
             const active = prefs.fields.includes(field.id);
