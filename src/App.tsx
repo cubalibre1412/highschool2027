@@ -223,7 +223,7 @@ export default function App() {
   }
 
   const originMiddle = appData.middles.find((m) => m.name === prefs.origin);
-  const detailSchool = detailSchoolId
+  const detailSchool = detailSchoolId !== null
     ? appData.schools.find((s) => s.id === detailSchoolId)
     : null;
 
@@ -318,6 +318,7 @@ export default function App() {
       {/* School Deep Detail Modal */}
       {detailSchool && (
         <SchoolDetailModal
+          key={detailSchool.id}
           school={detailSchool}
           initialTab={detailTab}
           originMiddle={originMiddle}

@@ -68,20 +68,28 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
 
   // Initialize selected document
   React.useEffect(() => {
+    if (activeTab !== 'curriculum' && activeTab !== 'assessment') return;
     const docs = school.documents.filter((d) =>
       activeTab === 'curriculum' ? d.category === '교육과정' : d.category === '평가계획'
     );
+    setDocCategory(activeTab === 'curriculum' ? '교육과정' : '평가계획');
+    setDocPage(0);
+    setDocSearchQuery('');
     if (docs.length > 0) {
-      setDocCategory(activeTab === 'curriculum' ? '교육과정' : '평가계획');
       const defaultDoc =
         docs.find((d) => d.textUrl && !/학업성적|협의록|학사일정/.test(d.title)) || docs[0];
       setSelectedDocId(defaultDoc.id);
+    } else {
+      setSelectedDocId(null);
     }
   }, [school, activeTab]);
 
   // Load document text when selectedDocId changes
   React.useEffect(() => {
-    if (!selectedDocId) return;
+    const controller = new AbortController();
+    setDocText('');
+    setDocLoading(false);
+    if (selectedDocId === null) return;
     const doc = school.documents.find((d) => d.id === selectedDocId);
     if (!doc || !doc.textUrl) {
       setDocText('');
@@ -89,19 +97,22 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
     }
 
     setDocLoading(true);
-    fetch(doc.textUrl)
+    fetch(doc.textUrl, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error('Document fetch failed');
         return res.text();
       })
       .then((txt) => {
+        if (controller.signal.aborted) return;
         setDocText(txt);
         setDocLoading(false);
       })
       .catch(() => {
+        if (controller.signal.aborted) return;
         setDocText('문서를 불러오지 못했습니다. 학교알리미 원본 첨부파일을 확인해 주세요.');
         setDocLoading(false);
       });
+    return () => controller.abort();
   }, [selectedDocId, school]);
 
   const handleSaveTravelTime = () => {
@@ -550,7 +561,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
 
                   {/* Document Select */}
                   <select
-                    value={selectedDocId || ''}
+                    value={selectedDocId ?? ''}
                     onChange={(e) => {
                       setSelectedDocId(Number(e.target.value));
                       setDocPage(0);
@@ -688,7 +699,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                   </div>
 
                   <select
-                    value={selectedDocId || ''}
+                    value={selectedDocId ?? ''}
                     onChange={(e) => {
                       setSelectedDocId(Number(e.target.value));
                       setDocPage(0);
@@ -718,6 +729,20 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                 </div>
 
                 {renderDocContent()}
+                {currentDoc && (
+                  <div className="pt-2 border-t border-[#f0e4d4] flex flex-wrap items-center justify-between gap-3 text-xs text-[#8c745c]">
+                    <span>{currentDoc.period} · {currentDoc.status}</span>
+                    <a
+                      href={currentDoc.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-[#b85e00] hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>학교알리미 원본 첨부파일 열기</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                )}
               </section>
             </div>
           )}
