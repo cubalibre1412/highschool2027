@@ -4,9 +4,13 @@ import { Phone, MapPin, ExternalLink, ShieldCheck, HelpCircle } from 'lucide-rea
 
 interface FooterProps {
   onSelectView: (view: ViewType) => void;
+  showBrandSection?: boolean;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
+export const Footer: React.FC<FooterProps> = ({
+  onSelectView,
+  showBrandSection = true,
+}) => {
   return (
     <footer className="bg-[#f5ede1] text-[#4a3b2c] border-t border-[#e2d2be] mt-16 pt-12 pb-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -30,8 +34,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
           </button>
         </div>
 
-        {/* Brand JinnMath Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-4 border-t border-[#e8d8c2]">
+        {/* Brand JinnMath Section (Hidden when already shown in Sidebar on the same page) */}
+        {showBrandSection && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-4 border-t border-[#e8d8c2]">
           {/* Brand Intro & Logo */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-4">
@@ -107,6 +112,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
             </div>
           </div>
         </div>
+        )}
 
         {/* Legal Disclaimer & Bottom Note */}
         <div className="pt-6 border-t border-[#e8d8c2] text-center text-xs text-[#8c745c] space-y-1.5">

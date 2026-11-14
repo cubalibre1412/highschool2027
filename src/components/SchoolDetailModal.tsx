@@ -408,28 +408,23 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
 
               {/* Transit & Personal Travel Time Recording */}
               <section className="bg-white border border-[#ebdcc9] rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center justify-between">
                   <h3 className="font-extrabold text-sm sm:text-base text-[#261d13] flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#ed8200]" />
                     <span>통학 거리 및 직접 확인한 통학시간</span>
                   </h3>
-                  <a
-                    href={kakaoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${school.name} 카카오맵 길찾기 (새 창)`}
-                    className="inline-flex items-center gap-1.5 text-xs text-[#ed8200] hover:text-[#b85e00] font-bold"
-                  >
-                    <Navigation className="w-3.5 h-3.5" />
-                    <span>카카오맵에서 거리·시간 확인 ↗</span>
-                  </a>
+                  {originMiddle && (
+                    <a
+                      href={kakaoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-[#ed8200] hover:text-[#b85e00] font-bold"
+                    >
+                      <Navigation className="w-3.5 h-3.5" />
+                      <span>카카오맵 대중교통 길찾기 ↗</span>
+                    </a>
+                  )}
                 </div>
-
-                <p className="text-xs text-[#78634d] leading-relaxed">
-                  {originMiddle
-                    ? `${originMiddle.name}에서 출발하는 경로를 엽니다. 카카오맵에서 소요시간을 확인한 뒤 아래에 기록해 주세요.`
-                    : '카카오맵에서 출발지를 입력하면 이동 거리와 소요시간을 확인할 수 있습니다. 확인한 시간은 아래에 기록해 주세요.'}
-                </p>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-[#faf6f0] rounded-xl border border-[#ede0ce]">
                   <div>
