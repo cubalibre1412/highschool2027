@@ -16,7 +16,13 @@ export function AcademyIntro() {
           <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#8d4100]" />
           <span className="break-keep">부천시 범박힐스테이트 3단지 상가 3층</span>
         </p>
-        <p className="break-keep pl-6">카카오톡 채널 · 배움의온도진수학교습소</p>
+        <p className="break-keep pl-6">
+          카카오톡 채널 ·{' '}
+          <a href="https://pf.kakao.com/_KjTYn" target="_blank" rel="noopener noreferrer"
+            className="font-semibold text-[#793a00] underline underline-offset-2 hover:text-[#542700]">
+            배움의온도진수학교습소 <ExternalLink aria-hidden="true" className="inline size-3 align-baseline" />
+          </a>
+        </p>
       </div>
       <div className="flex flex-wrap gap-2">
         <a href="tel:01081453605" className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-[#dec8ae] bg-white px-3 text-sm font-semibold text-[#793a00] hover:bg-[#fff1df]">
