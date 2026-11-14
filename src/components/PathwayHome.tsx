@@ -26,10 +26,10 @@ export function PathwayHome({ onNavigate, savedCount, compareCount, wishlistCoun
             <strong className="break-keep text-base">서울 16개 대학·전공 찾기</strong>
             <ArrowRight aria-hidden="true" size={18} className="hidden min-[360px]:block" />
             <span className="col-span-full sm:col-start-2 sm:col-end-4">
-              <span className="block text-pretty break-keep text-sm leading-relaxed text-[#594734]">
+              <span className="block text-pretty break-keep text-sm leading-relaxed text-[#594734] sm:text-balance">
                 궁금한 전공을 저장하고 고교 과목과 이어서 살펴봐요.
               </span>
-              <span className="mt-1.5 block text-pretty break-keep text-xs leading-relaxed text-[#6e5842]">
+              <span className="mt-1.5 block text-pretty break-keep text-xs leading-relaxed text-[#6e5842] sm:text-balance">
                 2019년 교육부의 수능 위주 전형 확대 권고 대상 대학이에요.
               </span>
             </span>
