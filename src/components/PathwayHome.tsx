@@ -23,7 +23,12 @@ export function PathwayHome({ onNavigate, savedCount, compareCount, wishlistCoun
           </button>
           <button type="button" onClick={() => onNavigate('universities')} className="flex min-h-28 items-start gap-3 rounded-2xl border border-[#dcb894] bg-white p-4 text-left hover:bg-[#fff1df]">
             <GraduationCap aria-hidden="true" className="mt-0.5 shrink-0 text-[#8d4100]" />
-            <span className="flex-1"><strong className="block text-base">서울 16개 대학·전공 찾기</strong><span className="mt-1 block text-sm leading-relaxed text-[#594734]">궁금한 전공을 저장하고 고교 과목과 이어서 살펴봐요.</span></span>
+            <span className="min-w-0 flex-1">
+              <strong className="block text-base">서울 16개 대학·전공 찾기</strong>
+              <span className="mt-1 block break-keep text-sm leading-relaxed text-[#594734]">
+                2019년 교육부의 수능 위주 전형 확대 권고 대상 대학이에요.
+              </span>
+            </span>
             <ArrowRight aria-hidden="true" size={18} className="mt-1 shrink-0" />
           </button>
         </div>
