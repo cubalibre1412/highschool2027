@@ -9,7 +9,6 @@ export function AcademyIntro() {
         <div className="min-w-0">
           <p className="text-xs font-bold text-[#793a00]">교습소 안내</p>
           <h2 className="break-keep text-base font-bold text-[#261d13]">배움의 온도 진수학 교습소</h2>
-          <p className="mt-1 break-keep text-sm text-[#594734]">중3·고등 내신 및 수능 수학 맞춤 지도</p>
         </div>
       </div>
       <img src="/brand/jinnmath-banner.jpg" alt="" width="945" height="200" loading="lazy"
