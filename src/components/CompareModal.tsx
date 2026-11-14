@@ -14,6 +14,7 @@ interface CompareModalProps {
   onOpenDetail: (schoolId: number, tab?: DetailTabType) => void;
   onToggleField: (fieldId: string) => void;
   onOpenCoursePlanner: () => void;
+  onExploreMajors: () => void;
 }
 
 export const CompareModal: React.FC<CompareModalProps> = ({
@@ -25,6 +26,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
   onOpenDetail,
   onToggleField,
   onOpenCoursePlanner,
+  onExploreMajors,
 }) => {
   const [selectedField, setSelectedField] = React.useState<string>(prefs.fields[0] || 'engineering');
 
@@ -93,9 +95,14 @@ export const CompareModal: React.FC<CompareModalProps> = ({
         <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-8">
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#ebdcc9] bg-[#fff7ec] p-4">
             <p className="text-sm font-semibold">입학 후 듣고 싶은 과목이 있나요?</p>
-            <button type="button" onClick={onOpenCoursePlanner} className="min-h-11 rounded-xl bg-[#8d4100] px-4 text-sm font-bold text-white hover:bg-[#693000]">
-              2027학년도 입학생 과목 비교
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={onOpenCoursePlanner} className="min-h-11 rounded-xl bg-[#8d4100] px-4 text-sm font-bold text-white hover:bg-[#693000]">
+                2027학년도 입학생 과목 비교
+              </button>
+              <button type="button" onClick={onExploreMajors} className="min-h-11 rounded-xl border border-[#d9c9b8] bg-white px-3 text-sm font-semibold hover:bg-[#fff3e3]">
+                다른 전공 찾아보기
+              </button>
+            </div>
           </div>
           {/* Visual Comparison Charts Component using Recharts */}
           <React.Suspense fallback={<p className="text-sm text-[#8c745c]">비교 차트를 불러오고 있습니다…</p>}><CompareCharts

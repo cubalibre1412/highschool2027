@@ -59,13 +59,13 @@ interface PlannerProps {
   onSelectMajor: (key: string) => void;
   onSelectSubjects: (subjects: string[]) => void;
   onSelectSchools: () => void;
-  onOpenSaved: () => void;
+  onExploreMajors: () => void;
   onAddSchool: (id: number) => void;
   onSaveNote: (id: number, note: string) => void;
   onOpenWishlist: () => void;
 }
 
-export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, currentSubject, onFocusSubject, onSelectMajor, onSelectSubjects, onSelectSchools, onOpenSaved, onAddSchool, onSaveNote, onOpenWishlist }: PlannerProps) {
+export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, currentSubject, onFocusSubject, onSelectMajor, onSelectSubjects, onSelectSchools, onExploreMajors, onAddSchool, onSaveNote, onOpenWishlist }: PlannerProps) {
   const { data, failed, retry } = usePathwayData<Plans>('curriculum');
   const [query, setQuery] = React.useState('');
   const candidates = prefs.compare.flatMap((id) => schools.filter((school) => school.id === id));
@@ -98,7 +98,7 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
               {saved.map((major) => <option key={major.key} value={major.key}>{major.name} · {major.university}</option>)}
             </select>
           </label>
-          {saved.length === 0 && <button type="button" className={secondary} onClick={onOpenSaved}>관심 전공 찾기</button>}
+          <button type="button" className={secondary} onClick={onExploreMajors}>다른 전공 찾아보기</button>
           <button type="button" className={secondary} onClick={onSelectSchools}>비교할 학교 고르기</button>
         </div>
         <p className="mt-3 text-sm font-semibold">{candidates.length ? `비교 학교 · ${candidates.map((school) => shortenSchoolName(school.name)).join(', ')}` : '비교할 학교를 골라 주세요.'}</p>

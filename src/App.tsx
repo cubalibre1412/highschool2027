@@ -47,6 +47,8 @@ export default function App() {
   const [currentView, setCurrentView] = React.useState<ViewType>('home');
   const [pathway, setPathway] = React.useState(readPathway);
   const [universityFilters, setUniversityFilters] = React.useState<UniversityFilters>({ year: '2028', query: '', university: '', college: '' });
+  const [hasOpenedUniversities, setHasOpenedUniversities] = React.useState(false);
+  const universityScroll = React.useRef(0);
   const [schoolQuery, setSchoolQuery] = React.useState('');
   const [choosingCourseSchools, setChoosingCourseSchools] = React.useState(false);
   const activeMajor = pathway.saved.find((major) => major.key === pathway.activeKey);
@@ -110,12 +112,22 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
+  React.useLayoutEffect(() => {
+    if (currentView === 'universities') {
+      setHasOpenedUniversities(true);
+      window.scrollTo({ top: universityScroll.current, behavior: 'instant' });
+    }
+  }, [currentView]);
+
   const changeView = (view: ViewType) => {
+    if (currentView === 'universities' && view !== 'universities') {
+      universityScroll.current = window.scrollY;
+    }
     setIsCompareOpen(false);
     setDetailSchoolId(null);
     setCurrentView(view);
     window.location.hash = view;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (view !== 'universities') window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const toggleMajor = (major: SavedMajor) => {
@@ -308,9 +320,11 @@ export default function App() {
           <PathwayHome onNavigate={changeView} savedCount={pathway.saved.length} compareCount={prefs.compare.length} wishlistCount={prefs.wishlist.length} />
         )}
 
-        {currentView === 'universities' && (
-          <UniversityView filters={universityFilters} onFilter={setUniversityFilters} saved={pathway.saved} onToggleSave={toggleMajor}
-            onCompare={compareMajor} onOpenSaved={() => changeView('majors')} />
+        {(currentView === 'universities' || hasOpenedUniversities) && (
+          <div hidden={currentView !== 'universities'}>
+            <UniversityView filters={universityFilters} onFilter={setUniversityFilters} saved={pathway.saved} onToggleSave={toggleMajor}
+              onCompare={compareMajor} onOpenSaved={() => changeView('majors')} />
+          </div>
         )}
 
         {currentView === 'majors' && (
@@ -322,7 +336,7 @@ export default function App() {
           <CoursePlanner schools={appData.schools} prefs={prefs} saved={pathway.saved} activeMajor={activeMajor} subjects={pathway.subjects}
             currentSubject={pathway.currentSubject} onFocusSubject={(currentSubject) => setPathway((previous) => ({ ...previous, currentSubject }))}
             onSelectMajor={selectMajor} onSelectSubjects={(subjects) => setPathway((previous) => ({ ...previous, subjects }))}
-            onSelectSchools={chooseCourseSchools} onOpenSaved={() => changeView('universities')}
+            onSelectSchools={chooseCourseSchools} onExploreMajors={() => changeView('universities')}
             onAddSchool={toggleWishlist} onSaveNote={(id, note) => setPrefs((previous) => ({ ...previous, notes: { ...previous.notes, [id]: note } }))}
             onOpenWishlist={() => changeView('wishlist')} />
         )}
@@ -410,6 +424,7 @@ export default function App() {
           onClose={() => setIsCompareOpen(false)}
           onOpenDetail={handleOpenDetail}
           onOpenCoursePlanner={() => changeView('courses')}
+          onExploreMajors={() => changeView('universities')}
           onToggleField={(fieldId) => {
             const next = prefs.fields.includes(fieldId)
               ? prefs.fields.filter((x) => x !== fieldId)
