@@ -1,7 +1,7 @@
 import React from 'react';
 import { MiddleSchool, UserPrefs, GenderType } from '../types';
 import { INTEREST_SHORTCUTS, INTEREST_FIELDS } from '../constants';
-import { SlidersHorizontal, MapPin, Sparkles, Navigation, X, Check, Phone, ExternalLink } from 'lucide-react';
+import { SlidersHorizontal, MapPin, Sparkles, Navigation, X, Check } from 'lucide-react';
 
 interface SidebarProps {
   prefs: UserPrefs;
@@ -220,77 +220,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
-      {/* 2. JinnMath Academy Intro Card (Now placed below the settings box) */}
-      <section className="bg-gradient-to-br from-[#fffdfa] via-[#fff8ef] to-[#fbf0df] rounded-2xl border border-[#ebd5bc] p-4 sm:p-5 shadow-xs space-y-3.5">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl overflow-hidden border border-[#ebd7be] p-0.5 bg-white shrink-0 shadow-xs">
-            <img
-              src="/brand/jinnmath-logo.jpg"
-              alt="배움의 온도 진수학 교습소"
-              className="w-full h-full object-cover rounded-xl"
-              onError={(e) => {
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
-            />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#b85e00] bg-white px-2 py-0.5 rounded-full border border-[#f2dcc3]">
-                교습소 안내
-              </span>
-            </div>
-            <h3 className="font-extrabold text-sm sm:text-base text-[#261d13] tracking-tight truncate mt-0.5">
-              배움의 온도 진수학 교습소
-            </h3>
-            <p className="text-[11px] text-[#7d674f] font-medium leading-none mt-1">
-              중3·고등 내신 및 수능 수학 맞춤 지도
-            </p>
-          </div>
-        </div>
-
-        {/* Banner image preview */}
-        <div className="rounded-xl overflow-hidden border border-[#ebd7be] bg-white shadow-xs">
-          <img
-            src="/brand/jinnmath-banner.jpg"
-            alt="배움의 온도 진수학 교습소. 범박힐스테이트 3단지 상가 3층. 010-8145-3605"
-            className="w-full h-auto object-cover max-h-24 hover:scale-102 transition-transform"
-            loading="lazy"
-            onError={(e) => {
-              (e.currentTarget as HTMLElement).style.display = 'none';
-            }}
-          />
-        </div>
-
-        {/* Address & Kakao */}
-        <div className="text-xs text-[#6e5842] space-y-1 pt-0.5">
-          <div className="flex items-center gap-1.5 font-medium">
-            <MapPin className="w-3.5 h-3.5 text-[#ed8200] shrink-0" />
-            <span className="truncate">부천시 범박힐스테이트 3단지 상가 3층</span>
-          </div>
-          <p className="text-[11px] text-[#917b65] pl-5">
-            카카오톡 채널: 배움의온도진수학교습소
-          </p>
-        </div>
-
-        {/* Action Buttons: Call & Blog */}
-        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#ebd8bf]/70">
-          <a
-            href="tel:01081453605"
-            className="py-2 px-2 bg-white hover:bg-[#fff7ee] text-[#b85e00] font-bold text-[11px] sm:text-xs rounded-xl border border-[#ebdcc9] text-center flex items-center justify-center gap-1 shadow-xs whitespace-nowrap transition-colors"
-          >
-            <Phone className="w-3.5 h-3.5 text-[#ed8200] shrink-0" />
-            <span>010-8145-3605</span>
-          </a>
-          <a
-            href="https://blog.naver.com/jinnmath"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="py-2 px-2 bg-[#261d13] hover:bg-black text-white font-bold text-[11px] sm:text-xs rounded-xl text-center flex items-center justify-center gap-1 shadow-xs whitespace-nowrap transition-colors"
-          >
-            <span>블로그 방문 ↗</span>
-          </a>
-        </div>
-      </section>
     </aside>
   );
 };
