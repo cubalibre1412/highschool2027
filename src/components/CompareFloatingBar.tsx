@@ -39,7 +39,7 @@ export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({
             {comparedSchools.map((s) => (
               <span
                 key={s.id}
-                className="inline-flex items-center gap-1 bg-[#423323] text-stone-200 text-xs px-2.5 py-1 rounded-lg border border-[#5a4835]"
+                className="inline-flex items-center gap-1 bg-[#423323] text-stone-200 text-xs px-2.5 py-1 rounded-lg border border-[#5a4835] whitespace-nowrap shrink-0"
               >
                 <span>{shortenSchoolName(s.name)}</span>
                 <button

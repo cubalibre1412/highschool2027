@@ -101,12 +101,12 @@ export const Footer: React.FC<FooterProps> = ({
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs text-[#705a45] pt-1">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs text-[#705a45] pt-1">
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-[#ed8200] shrink-0" />
                 <span>경기도 부천시 범박힐스테이트 3단지 상가 3층</span>
               </div>
-              <span className="text-[11px] text-[#917b65]">
+              <span className="text-[11px] text-[#917b65] pl-5 sm:pl-0">
                 카카오톡 채널: 배움의온도진수학교습소
               </span>
             </div>

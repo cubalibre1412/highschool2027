@@ -317,14 +317,14 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                     <div className="flex-1 space-y-2.5">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                             <button
                               onClick={() => onOpenDetail(s.id, 'overview')}
                               className="font-black text-base sm:text-lg text-[#261d13] hover:text-[#ed8200] transition-colors text-left"
                             >
                               {s.name}
                             </button>
-                            <span className="text-xs text-[#8c745c]">
+                            <span className="text-xs text-[#8c745c] whitespace-nowrap">
                               ({s.girls ? '여고' : '남녀공학'} · {s.ownership})
                             </span>
                           </div>
@@ -360,19 +360,21 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                       </div>
 
                       {/* Transit time input row */}
-                      <div className="flex items-center gap-2 text-xs text-[#6e5842] bg-[#fbf7f1] p-2.5 rounded-xl border border-[#ebdcc9]">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-[#6e5842] bg-[#fbf7f1] p-2.5 rounded-xl border border-[#ebdcc9]">
                         <Clock className="w-3.5 h-3.5 text-[#ed8200] shrink-0" />
-                        <span className="font-semibold">직접 확인한 통학시간:</span>
-                        <input
-                          type="number"
-                          min="1"
-                          max="300"
-                          placeholder="분 입력"
-                          value={prefs.times[s.id] ?? ''}
-                          onChange={(e) => handleTimeChange(s.id, e.target.value)}
-                          className="w-16 px-2 py-0.5 bg-white border border-[#ebdcc9] rounded-md text-xs font-bold text-center focus:ring-1 focus:ring-[#ed8200]"
-                        />
-                        <span>분</span>
+                        <span className="font-semibold whitespace-nowrap">직접 확인한 통학시간:</span>
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="number"
+                            min="1"
+                            max="300"
+                            placeholder="분 입력"
+                            value={prefs.times[s.id] ?? ''}
+                            onChange={(e) => handleTimeChange(s.id, e.target.value)}
+                            className="w-16 px-2 py-0.5 bg-white border border-[#ebdcc9] rounded-md text-xs font-bold text-center focus:ring-1 focus:ring-[#ed8200]"
+                          />
+                          <span>분</span>
+                        </div>
                         <span className="text-[11px] text-[#8c745c] hidden sm:inline">
                           (길찾기로 소요시간을 확인해 기록하세요)
                         </span>
@@ -486,18 +488,18 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
               <button
                 type="button"
                 onClick={() => downloadJSONBackup(prefs)}
-                className="py-2 px-3 bg-[#faf5ee] hover:bg-[#ede0ce] text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors flex items-center justify-center gap-1.5"
+                className="py-2 px-2 sm:px-3 bg-[#faf5ee] hover:bg-[#ede0ce] text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap"
               >
-                <Download className="w-3.5 h-3.5 text-[#b85e00]" />
+                <Download className="w-3.5 h-3.5 text-[#b85e00] shrink-0" />
                 <span>백업 저장</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="py-2 px-3 bg-[#faf5ee] hover:bg-[#ede0ce] text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors flex items-center justify-center gap-1.5"
+                className="py-2 px-2 sm:px-3 bg-[#faf5ee] hover:bg-[#ede0ce] text-[#2c2217] text-xs font-bold rounded-xl border border-[#ebdcc9] transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap"
               >
-                <Upload className="w-3.5 h-3.5 text-[#b85e00]" />
+                <Upload className="w-3.5 h-3.5 text-[#b85e00] shrink-0" />
                 <span>백업 불러오기</span>
               </button>
             </div>

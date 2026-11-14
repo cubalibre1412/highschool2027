@@ -82,23 +82,23 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
           </div>
 
           {/* 3 Steps Guide Visual Indicator (Compact) */}
-          <div className="flex items-center gap-2 p-2 bg-white/80 backdrop-blur-xs rounded-xl border border-[#ebdcc9] shrink-0 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-[#3d2e1f]">
-              <span className="w-5 h-5 rounded-full bg-[#ed8200] text-white flex items-center justify-center text-[10px] shadow-2xs">
+          <div className="flex flex-wrap items-center gap-2 p-2.5 bg-white/80 backdrop-blur-xs rounded-xl border border-[#ebdcc9] shrink-0 text-xs">
+            <div className="flex items-center gap-1.5 font-bold text-[#3d2e1f] whitespace-nowrap">
+              <span className="w-5 h-5 rounded-full bg-[#ed8200] text-white flex items-center justify-center text-[10px] shadow-2xs shrink-0">
                 1
               </span>
               <span className="text-[11px]">학교비교</span>
             </div>
             <span className="text-[#c7b39f]">›</span>
-            <div className="flex items-center gap-1.5 font-bold text-[#5c4936]">
-              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px]">
+            <div className="flex items-center gap-1.5 font-bold text-[#5c4936] whitespace-nowrap">
+              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px] shrink-0">
                 2
               </span>
               <span className="text-[11px]">지망담기</span>
             </div>
             <span className="text-[#c7b39f]">›</span>
-            <div className="flex items-center gap-1.5 font-bold text-[#5c4936]">
-              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px]">
+            <div className="flex items-center gap-1.5 font-bold text-[#5c4936] whitespace-nowrap">
+              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px] shrink-0">
                 3
               </span>
               <span className="text-[11px]">지망표저장</span>
@@ -108,9 +108,9 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
       </section>
 
       {/* Main Workspace (Sticky Sidebar + Content) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-        {/* Left Filter Sidebar (Sticky on PC so Academy Intro and controls are always visible!) */}
-        <div className="lg:col-span-4 xl:col-span-3.5 space-y-4 lg:sticky lg:top-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[285px_minmax(0,1fr)] xl:grid-cols-[310px_minmax(0,1fr)] gap-5 items-start">
+        {/* Left Filter Sidebar (Sticky on PC below header, scrollable if viewport is short) */}
+        <div className="space-y-4 lg:sticky lg:top-22 lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto lg:pr-1">
           <Sidebar
             prefs={prefs}
             middles={middles}
@@ -120,7 +120,7 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
         </div>
 
         {/* Right School Content Area */}
-        <div className="lg:col-span-8 xl:col-span-8.5 space-y-3.5">
+        <div className="min-w-0 space-y-3.5">
           {/* Toolbar (Count, Search, Sort, ViewMode Switcher) */}
           <div className="bg-white/95 backdrop-blur-xs rounded-2xl border border-[#ebdcc9] p-3 sm:p-3.5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
             {/* Left: Count & Status */}
@@ -158,15 +158,15 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
                     onUpdatePrefs({ schoolSort: e.target.value as SchoolSortType })
                   }
                   aria-label="학교 정렬 기준"
-                  className="bg-[#faf7f2] border border-[#ebdcc9] rounded-xl px-2.5 py-1.5 pr-6 text-xs font-bold text-[#261d13] appearance-none cursor-pointer focus:ring-2 focus:ring-[#ed8200]"
+                  className="bg-[#faf7f2] border border-[#ebdcc9] rounded-xl px-2.5 py-1.5 pr-7 text-xs font-bold text-[#261d13] appearance-none cursor-pointer focus:ring-2 focus:ring-[#ed8200] max-w-[155px] sm:max-w-[185px] truncate"
                 >
                   <option value="name">가나다순</option>
                   <option value="distance" disabled={!prefs.distance || !originMiddle}>
-                    거리 가까운 순 {(!prefs.distance || !originMiddle) && '(중학교 미선택)'}
+                    거리순 {(!prefs.distance || !originMiddle) && '(중학교 선택)'}
                   </option>
                   <option value="change">정원 증가순</option>
                 </select>
-                <ArrowUpDown className="w-3 h-3 text-[#8c745c] absolute right-2 top-2 pointer-events-none" />
+                <ArrowUpDown className="w-3 h-3 text-[#8c745c] absolute right-2.5 top-2.5 pointer-events-none" />
               </div>
 
               {/* View Mode Toggle (Table / Compact / Cards) */}

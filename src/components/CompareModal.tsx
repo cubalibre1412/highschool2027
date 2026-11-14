@@ -59,21 +59,21 @@ export const CompareModal: React.FC<CompareModalProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-200">
       <div className="bg-[#fffdfa] rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-[#ebdcc9] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4.5 bg-[#fbf5ec] border-b border-[#ebdcc9] flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#ed8200] text-white rounded-xl shadow-xs">
+        <div className="px-4 sm:px-6 py-4 bg-[#fbf5ec] border-b border-[#ebdcc9] flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="p-2 bg-[#ed8200] text-white rounded-xl shadow-xs shrink-0">
               <Columns className="w-5 h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-bold text-[#b85e00] tracking-wider uppercase">
                   SIDE BY SIDE COMPARISON
                 </span>
-                <span className="text-xs bg-white text-[#7d674f] px-2 py-0.5 rounded-full font-bold border border-[#e5d5bf]">
+                <span className="text-xs bg-white text-[#7d674f] px-2 py-0.5 rounded-full font-bold border border-[#e5d5bf] whitespace-nowrap">
                   {comparedSchools.length}개교 선택
                 </span>
               </div>
-              <h2 className="text-lg sm:text-xl font-black text-[#261d13]">
+              <h2 className="text-lg sm:text-xl font-black text-[#261d13] truncate">
                 학교 나란히 비교하기
               </h2>
             </div>
@@ -81,7 +81,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="p-2 text-[#7d674f] hover:text-[#261d13] hover:bg-[#ede0ce] rounded-full transition-colors"
+            className="p-2 text-[#7d674f] hover:text-[#261d13] hover:bg-[#ede0ce] rounded-full transition-colors shrink-0"
           >
             <X className="w-6 h-6" />
           </button>
@@ -106,7 +106,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               <table className="w-full text-left text-xs sm:text-sm border-collapse">
                 <thead>
                   <tr className="bg-[#f8efe3] border-b border-[#ebdcc9]">
-                    <th className="py-3 px-4 font-bold text-[#5c4a37] w-36 sm:w-44 sticky left-0 bg-[#f8efe3] z-10">
+                    <th className="py-3 px-3 sm:px-4 font-bold text-[#5c4a37] w-28 min-w-28 sm:w-44 sticky left-0 bg-[#f8efe3] z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.06)]">
                       비교 항목
                     </th>
                     {comparedSchools.map((s) => (
@@ -344,7 +344,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               <table className="w-full text-left text-xs sm:text-sm border-collapse">
                 <thead>
                   <tr className="bg-[#f8efe3] border-b border-[#ebdcc9]">
-                    <th className="py-3 px-4 font-bold text-[#5c4a37] w-36 sm:w-44 sticky left-0 bg-[#f8efe3]">
+                    <th className="py-3 px-3 sm:px-4 font-bold text-[#5c4a37] w-28 min-w-28 sm:w-44 sticky left-0 bg-[#f8efe3] z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.06)]">
                       관심 분야: {currentFieldDef.label}
                     </th>
                     {schoolSubjectMap.map(({ school, subjects }) => (

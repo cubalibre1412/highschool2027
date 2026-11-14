@@ -342,12 +342,12 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
           {activeTab === 'overview' && (
             <div className="space-y-6">
               {/* Official 2027 Admission Quota Card */}
-              <section className="bg-gradient-to-br from-[#fffbf5] to-[#fbf3e6] border border-[#ebd5bc] rounded-2xl p-5 shadow-xs">
-                <div className="flex items-center justify-between mb-3">
+              <section className="bg-gradient-to-br from-[#fffbf5] to-[#fbf3e6] border border-[#ebd5bc] rounded-2xl p-4 sm:p-5 shadow-xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <span className="text-xs font-extrabold text-[#b85e00] tracking-wider uppercase">
                     2027학년도 공식 모집 계획
                   </span>
-                  <span className="text-xs bg-white text-[#7d674f] px-2.5 py-0.5 rounded-full font-bold border border-[#ebdcc9]">
+                  <span className="text-[11px] sm:text-xs bg-white text-[#7d674f] px-2.5 py-0.5 rounded-full font-bold border border-[#ebdcc9]">
                     경기도교육청 신입생 전형계획 24쪽
                   </span>
                 </div>
@@ -571,7 +571,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                       setSelectedDocId(Number(e.target.value));
                       setDocPage(0);
                     }}
-                    className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-semibold text-[#261d13] max-w-xs cursor-pointer"
+                    className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-semibold text-[#261d13] w-full sm:max-w-xs cursor-pointer"
                   >
                     {categoryDocs.map((d) => (
                       <option key={d.id} value={d.id}>
@@ -607,7 +607,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                 {renderDocContent()}
 
                 {currentDoc && (
-                  <div className="pt-2 border-t border-[#f0e4d4] flex items-center justify-between text-xs text-[#8c745c]">
+                  <div className="pt-2 border-t border-[#f0e4d4] flex flex-wrap items-center justify-between gap-2 text-xs text-[#8c745c]">
                     <span>{currentDoc.period} · {currentDoc.status}</span>
                     <a
                       href={currentDoc.url}
@@ -709,7 +709,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                       setSelectedDocId(Number(e.target.value));
                       setDocPage(0);
                     }}
-                    className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-semibold text-[#261d13] max-w-xs cursor-pointer"
+                    className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-semibold text-[#261d13] w-full sm:max-w-xs cursor-pointer"
                   >
                     {categoryDocs.map((d) => (
                       <option key={d.id} value={d.id}>
@@ -811,11 +811,11 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                     전체 과목별 성취도 조회
                   </h3>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full sm:w-auto">
                     <select
                       value={selectedGrade}
                       onChange={(e) => setSelectedGrade(Number(e.target.value))}
-                      className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-bold text-[#261d13] cursor-pointer"
+                      className="bg-[#faf6f0] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs font-bold text-[#261d13] cursor-pointer shrink-0"
                     >
                       <option value={1}>1학년 과목</option>
                       <option value={2}>2학년 과목</option>
@@ -827,7 +827,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                       placeholder="과목명 검색 (예: 화학, 독서)"
                       value={subjectQuery}
                       onChange={(e) => setSubjectQuery(e.target.value)}
-                      className="bg-[#faf7f2] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs focus:ring-2 focus:ring-[#ed8200]"
+                      className="bg-[#faf7f2] border border-[#ebdcc9] rounded-xl px-3 py-1.5 text-xs focus:ring-2 focus:ring-[#ed8200] flex-1 min-w-0 sm:w-48"
                     />
                   </div>
                 </div>
@@ -967,17 +967,17 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                         title={`기타·취업: ${graduateSummary.other + graduateSummary.employed}명`}
                       />
                     </div>
-                    <div className="flex items-center gap-4 text-xs text-[#6e5842] pt-1">
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#2e7d32]" />
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[#6e5842] pt-1">
+                      <span className="flex items-center gap-1.5 whitespace-nowrap">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#2e7d32] shrink-0" />
                         <span>국내 대학교</span>
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#81c784]" />
+                      <span className="flex items-center gap-1.5 whitespace-nowrap">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#81c784] shrink-0" />
                         <span>전문대·국외</span>
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffb74d]" />
+                      <span className="flex items-center gap-1.5 whitespace-nowrap">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffb74d] shrink-0" />
                         <span>기타·취업</span>
                       </span>
                     </div>

@@ -107,7 +107,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               id="origin-select"
               value={prefs.origin}
               onChange={handleOriginChange}
-              className="w-full bg-[#faf7f2] border border-[#ebdcc9] hover:border-[#d9c4ad] focus:border-[#ed8200] focus:ring-2 focus:ring-[#ed8200]/20 rounded-xl px-3 py-2.5 text-xs text-[#2c2217] font-medium appearance-none cursor-pointer"
+              className="w-full bg-[#faf7f2] border border-[#ebdcc9] hover:border-[#d9c4ad] focus:border-[#ed8200] focus:ring-2 focus:ring-[#ed8200]/20 rounded-xl px-3 py-2.5 pr-8 text-xs text-[#2c2217] font-medium appearance-none cursor-pointer"
             >
               <option value="">중학교를 선택해 주세요</option>
               {middles.map((m) => (
@@ -235,7 +235,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#b85e00] bg-white px-2 py-0.2 rounded-full border border-[#f2dcc3]">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#b85e00] bg-white px-2 py-0.5 rounded-full border border-[#f2dcc3]">
                 교습소 안내
               </span>
             </div>
@@ -276,16 +276,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#ebd8bf]/70">
           <a
             href="tel:01081453605"
-            className="py-2 px-2 bg-white hover:bg-[#fff7ee] text-[#b85e00] font-bold text-xs rounded-xl border border-[#ebdcc9] text-center flex items-center justify-center gap-1 shadow-xs transition-colors"
+            className="py-2 px-2 bg-white hover:bg-[#fff7ee] text-[#b85e00] font-bold text-[11px] sm:text-xs rounded-xl border border-[#ebdcc9] text-center flex items-center justify-center gap-1 shadow-xs whitespace-nowrap transition-colors"
           >
-            <Phone className="w-3.5 h-3.5 text-[#ed8200]" />
+            <Phone className="w-3.5 h-3.5 text-[#ed8200] shrink-0" />
             <span>010-8145-3605</span>
           </a>
           <a
             href="https://blog.naver.com/jinnmath"
             target="_blank"
             rel="noopener noreferrer"
-            className="py-2 px-2 bg-[#261d13] hover:bg-black text-white font-bold text-xs rounded-xl text-center flex items-center justify-center gap-1 shadow-xs transition-colors"
+            className="py-2 px-2 bg-[#261d13] hover:bg-black text-white font-bold text-[11px] sm:text-xs rounded-xl text-center flex items-center justify-center gap-1 shadow-xs whitespace-nowrap transition-colors"
           >
             <span>블로그 방문 ↗</span>
           </a>

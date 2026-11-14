@@ -70,21 +70,21 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
           <button
             type="button"
             onClick={() => onOpenDetail(school.id, 'overview')}
-            className="text-left group"
+            className="text-left group min-w-0"
           >
             <h3
-              className={`font-extrabold text-[#261d14] group-hover:text-[#ed8200] transition-colors flex items-center gap-1.5 ${
+              className={`font-extrabold text-[#261d14] group-hover:text-[#ed8200] transition-colors flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 ${
                 compact ? 'text-base' : 'text-lg sm:text-xl'
               }`}
             >
-              <span>{shortenSchoolName(school.name)}</span>
-              <span className="text-xs font-normal text-[#8f7962] group-hover:text-[#ed8200]">
+              <span className="whitespace-nowrap">{shortenSchoolName(school.name)}</span>
+              <span className="text-xs font-normal text-[#8f7962] group-hover:text-[#ed8200] whitespace-nowrap">
                 ({school.name})
               </span>
             </h3>
           </button>
 
-          <label className="flex items-center gap-1.5 text-xs text-[#6e5842] cursor-pointer select-none py-1 px-2 rounded-lg hover:bg-[#fcf8f2] border border-transparent hover:border-[#ebdcc9] transition-colors">
+          <label className="flex items-center gap-1 text-xs text-[#6e5842] cursor-pointer select-none py-1 px-2 rounded-lg hover:bg-[#fcf8f2] border border-transparent hover:border-[#ebdcc9] transition-colors shrink-0 whitespace-nowrap">
             <input
               type="checkbox"
               checked={isCompared}
@@ -282,16 +282,16 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         <button
           type="button"
           onClick={() => onOpenDetail(school.id, 'overview')}
-          className={`flex-1 font-bold text-[#69543f] hover:text-[#2c2217] bg-[#f7efe4] hover:bg-[#ede0ce] rounded-xl transition-colors text-center ${
+          className={`flex-1 font-bold text-[#69543f] hover:text-[#2c2217] bg-[#f7efe4] hover:bg-[#ede0ce] rounded-xl transition-colors text-center whitespace-nowrap px-2 ${
             compact ? 'py-1.5 text-[11px]' : 'py-2 text-xs'
           }`}
         >
-          학교 정보 보기
+          {compact ? '상세 정보' : '학교 정보 보기'}
         </button>
         <button
           type="button"
           onClick={() => onToggleWishlist(school.id)}
-          className={`flex-1 font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-xs ${
+          className={`flex-1 font-bold rounded-xl flex items-center justify-center gap-1 transition-all shadow-xs whitespace-nowrap px-2 ${
             compact ? 'py-1.5 text-[11px]' : 'py-2 text-xs'
           } ${
             isAdded
@@ -301,13 +301,13 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
         >
           {isAdded ? (
             <>
-              <Check className="w-3.5 h-3.5 stroke-[3]" />
+              <Check className="w-3.5 h-3.5 stroke-[3] shrink-0" />
               <span>지망표 담김</span>
             </>
           ) : (
             <>
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>지망표 추가</span>
+              <Plus className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+              <span>{compact ? '지망 담기' : '지망표 추가'}</span>
             </>
           )}
         </button>

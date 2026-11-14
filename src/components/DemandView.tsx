@@ -235,10 +235,10 @@ export const DemandView: React.FC<DemandViewProps> = ({
             <div className="overflow-x-auto rounded-xl border border-[#ebdcc9]">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37]">
+                  <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37] whitespace-nowrap">
                     <th className="py-2.5 px-3 font-bold">성별 구분</th>
                     <th className="py-2.5 px-3 font-bold text-right">예상 수요</th>
-                    <th className="py-2.5 px-3 font-bold text-right">가정한 배정정원</th>
+                    <th className="py-2.5 px-3 font-bold text-right">가정 배정정원</th>
                     <th className="py-2.5 px-3 font-bold text-right">정원 과부족</th>
                   </tr>
                 </thead>
@@ -322,7 +322,7 @@ export const DemandView: React.FC<DemandViewProps> = ({
             <div className="overflow-x-auto rounded-xl border border-[#ebdcc9]">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37]">
+                  <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37] whitespace-nowrap">
                     <th className="py-2 px-3 font-bold">구분 항목</th>
                     <th className="py-2 px-3 font-bold text-right">남학생</th>
                     <th className="py-2 px-3 font-bold text-right">여학생</th>
@@ -371,12 +371,12 @@ export const DemandView: React.FC<DemandViewProps> = ({
         <div className="overflow-x-auto rounded-2xl border border-[#ebdcc9]">
           <table className="w-full text-left text-xs sm:text-sm border-collapse">
             <thead>
-              <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37]">
+              <tr className="bg-[#f8efe3] border-b border-[#ebdcc9] text-[#5c4a37] whitespace-nowrap">
                 <th className="py-3 px-4 font-bold">고등학교명</th>
                 <th className="py-3 px-4 font-bold text-center">학교 유형</th>
-                <th className="py-3 px-4 font-bold text-right">2026 모집정원</th>
-                <th className="py-3 px-4 font-bold text-right">2026 실제 입학생</th>
-                <th className="py-3 px-4 font-bold text-right">2027 모집정원</th>
+                <th className="py-3 px-4 font-bold text-right">2026 정원</th>
+                <th className="py-3 px-4 font-bold text-right">2026 입학생</th>
+                <th className="py-3 px-4 font-bold text-right">2027 정원</th>
                 <th className="py-3 px-4 font-bold text-right">정원 증감</th>
               </tr>
             </thead>

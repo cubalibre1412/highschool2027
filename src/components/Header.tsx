@@ -55,14 +55,14 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1.5 bg-[#f6ede1]/60 p-1 rounded-xl border border-[#e6d8c3]">
+          <nav className="hidden md:flex items-center gap-1 lg:gap-1.5 bg-[#f6ede1]/60 p-1 rounded-xl border border-[#e6d8c3] shrink-0">
             {navItems.map((item) => {
               const active = currentView === item.view;
               return (
                 <button
                   key={item.view}
                   onClick={() => onSelectView(item.view)}
-                  className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  className={`relative flex items-center gap-1.5 lg:gap-2 px-3 lg:px-3.5 py-2 rounded-lg text-xs lg:text-sm font-semibold whitespace-nowrap transition-all ${
                     active
                       ? 'bg-white text-[#b85e00] shadow-xs font-bold'
                       : 'text-[#69553f] hover:text-[#2d2217] hover:bg-white/50'
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <span>{item.label}</span>
                   {typeof item.badge === 'number' && (
                     <span
-                      className={`text-[11px] px-1.5 py-0.2 rounded-full font-bold ml-0.5 transition-colors ${
+                      className={`text-[11px] px-1.5 py-0.5 leading-none rounded-full font-bold ml-0.5 transition-colors ${
                         item.badge > 0
                           ? 'bg-[#ed8200] text-white'
                           : 'bg-[#e4d4be] text-[#735d46]'
@@ -87,10 +87,10 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
 
           {/* Right action button: Guide / Sources */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
             <button
               onClick={() => onSelectView('guide')}
-              className="inline-flex items-center gap-1.5 text-xs text-[#7e674f] hover:text-[#b85e00] font-semibold px-3 py-1.5 rounded-lg hover:bg-[#f5ecdf] border border-transparent hover:border-[#ebdcc9] transition-all"
+              className="inline-flex items-center gap-1.5 text-xs text-[#7e674f] hover:text-[#b85e00] font-semibold px-3 py-1.5 rounded-lg hover:bg-[#f5ecdf] border border-transparent hover:border-[#ebdcc9] whitespace-nowrap transition-all"
             >
               <span>공식자료·출처</span>
               <ExternalLink className="w-3.5 h-3.5 opacity-70" />

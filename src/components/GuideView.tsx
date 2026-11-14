@@ -95,9 +95,9 @@ export const GuideView: React.FC<GuideViewProps> = ({
           </div>
         </div>
 
-        <div className="pt-2 text-xs text-[#8c745c] flex items-center justify-between">
+        <div className="pt-2 text-xs text-[#8c745c] flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
           <span>전형료: 없음 (경기도 평준화 일반고) · 재학생은 출신 중학교에서 작성</span>
-          <span className="font-semibold text-[#b85e00]">전형계획 8쪽, 37쪽 발췌</span>
+          <span className="font-semibold text-[#b85e00] shrink-0">전형계획 8쪽, 37쪽 발췌</span>
         </div>
       </section>
 
@@ -113,10 +113,10 @@ export const GuideView: React.FC<GuideViewProps> = ({
 
             <div className="space-y-4">
               <div className="flex items-start gap-3.5 p-3.5 bg-[#faf6f0] rounded-xl border border-[#ede0ce]">
-                <div className="w-7 h-7 rounded-xl bg-[#261d13] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                <div className="px-2.5 py-1 rounded-xl bg-[#261d13] text-white inline-flex items-center justify-center font-bold text-xs whitespace-nowrap shrink-0 mt-0.5">
                   1단계
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 min-w-0">
                   <strong className="text-sm font-bold text-[#261d13] block">
                     학군 전체 모집정원만큼 선발
                   </strong>
@@ -127,10 +127,10 @@ export const GuideView: React.FC<GuideViewProps> = ({
               </div>
 
               <div className="flex items-start gap-3.5 p-3.5 bg-[#faf6f0] rounded-xl border border-[#ede0ce]">
-                <div className="w-7 h-7 rounded-xl bg-[#261d13] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                <div className="px-2.5 py-1 rounded-xl bg-[#261d13] text-white inline-flex items-center justify-center font-bold text-xs whitespace-nowrap shrink-0 mt-0.5">
                   2단계
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 min-w-0">
                   <strong className="text-sm font-bold text-[#261d13] block">
                     관내 전체 고등학교 지망 순위 작성
                   </strong>
@@ -141,10 +141,10 @@ export const GuideView: React.FC<GuideViewProps> = ({
               </div>
 
               <div className="flex items-start gap-3.5 p-3.5 bg-[#faf6f0] rounded-xl border border-[#ede0ce]">
-                <div className="w-7 h-7 rounded-xl bg-[#261d13] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                <div className="px-2.5 py-1 rounded-xl bg-[#261d13] text-white inline-flex items-center justify-center font-bold text-xs whitespace-nowrap shrink-0 mt-0.5">
                   3단계
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 min-w-0">
                   <strong className="text-sm font-bold text-[#261d13] block">
                     지망 순위를 반영한 컴퓨터 추첨 배정
                   </strong>
@@ -195,11 +195,11 @@ export const GuideView: React.FC<GuideViewProps> = ({
 
             {originMiddle?.applicationSubmission ? (
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-xl space-y-2 text-xs">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <strong className="text-sm font-bold text-[#261d13]">
                     {originMiddle.name} 교육지원청 접수 일정
                   </strong>
-                  <span className="px-2 py-0.5 rounded-full bg-[#ed8200] text-white font-extrabold text-[11px]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#ed8200] text-white font-extrabold text-[11px] whitespace-nowrap">
                     {originMiddle.applicationSubmission.date.slice(5)} {originMiddle.applicationSubmission.period}
                   </span>
                 </div>
@@ -227,7 +227,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
               <span>2027학년도 고입 주요 공식 일정</span>
             </h2>
 
-            <div className="space-y-3.5 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-[#ebdcc9]">
+            <div className="space-y-3.5 relative before:absolute before:inset-y-2 before:left-4 before:w-0.5 before:bg-[#ebdcc9]">
               {TIMELINE_EVENTS.map((event, idx) => (
                 <div key={idx} className="relative flex items-start gap-4 pl-1">
                   <span
