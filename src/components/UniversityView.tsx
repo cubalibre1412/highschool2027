@@ -45,12 +45,33 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompa
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="text-2xl font-black text-[#261d13]">대학·전공 찾기</h1>
-            <p className="mt-2 text-sm leading-relaxed text-[#594734]">서울 16개 대학을 둘러보고, 관심 있는 전공을 담아 보세요.</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#594734]">
+              서울 16개 대학의 학과와 전공을 찾아볼 수 있어요. 대입 정보는 각 대학의 2027·2028학년도 시행계획을 바탕으로 정리했어요.
+            </p>
           </div>
           <button type="button" className={action} onClick={onOpenSaved}>
             <Bookmark aria-hidden="true" size={16} /> 저장한 전공 {saved.length}개
           </button>
         </div>
+        <details className="mt-3 rounded-xl border border-[#ebd5bc] bg-white">
+          <summary className="min-h-11 cursor-pointer px-3 py-3 text-sm font-semibold text-[#793a00]">
+            왜 이 16개 대학인가요?
+          </summary>
+          <div className="space-y-3 px-3 pb-4 text-sm leading-relaxed text-[#594734]">
+            <p>앱에 담긴 대학은 교육부가 2019년 대입제도 공정성 강화 방안에서 수능 위주 전형 확대를 권고한 서울 소재 16곳이에요.</p>
+            {universities.length > 0 && (
+              <ul aria-label="수록 대학" className="grid list-disc grid-cols-2 gap-x-5 gap-y-1 pl-5 sm:grid-cols-4">
+                {[...universities].sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((item) => (
+                  <li key={item.id} className="break-keep">{item.name}</li>
+                ))}
+              </ul>
+            )}
+            <a href="https://www.moe.go.kr/boardCnts/view.do?boardID=294&amp;boardSeq=79119&amp;lev=0&amp;m=020402&amp;s=moe"
+              target="_blank" rel="noopener noreferrer" className="inline-block font-semibold text-[#793a00] underline underline-offset-2">
+              교육부 발표 원문 보기 ↗
+            </a>
+          </div>
+        </details>
         <label className="mt-5 block text-sm font-bold text-[#261d13]" htmlFor="university-search">대학명 또는 전공명</label>
         <div className="relative mt-1.5">
           <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-[#705541]" />
@@ -77,7 +98,7 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompa
             </select>
           </label>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-[#624a35]">2027학년도 고교 입학생은 보통 2030학년도 대입을 준비해요. 여기서는 2027·2028학년도 대입 자료로 전공과 전형을 살펴볼 수 있어요.</p>
+        <p className="mt-3 text-xs leading-relaxed text-[#624a35]">2027학년도 고교 입학생은 보통 2030학년도 대입을 준비해요.</p>
       </section>
 
       {failed && <p role="alert">대학 자료를 불러오지 못했어요. <button type="button" className="underline" onClick={retry}>다시 불러오기</button></p>}
