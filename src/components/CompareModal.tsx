@@ -321,7 +321,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                   <Sparkles className="w-4 h-4 text-[#ed8200]" />
                   <span>관심 분야별 과목 비교</span>
                 </h3>
-                <p className="text-sm leading-relaxed text-[#6e5842]">2026학년도 1학기 2·3학년 수강 공시에서 확인한 과목을 비교합니다.</p>
+                <p className="break-keep text-pretty text-sm leading-relaxed text-[#6e5842]">2026학년도 1학기 2·3학년 수강 공시에서 확인한 과목을 비교합니다.</p>
               </div>
 
               {/* Field Select Pills */}
@@ -344,8 +344,8 @@ export const CompareModal: React.FC<CompareModalProps> = ({
 
             <div className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5] p-4 text-sm leading-relaxed text-[#594734]">
               <h4 className="font-bold text-[#261d13]">2027학년도 입학생이 확인할 항목</h4>
-              <p className="mt-1">아래 목록에서 관심 과목을 찾은 뒤, 학교의 2027학년도 입학생용 교육과정표와 최신 안내를 확인해 주세요.</p>
-              <ul className="mt-2 list-disc space-y-1 pl-5">
+              <p className="break-keep text-pretty mt-1">아래 목록에서 관심 과목을 찾은 뒤, 학교의 2027학년도 입학생용 교육과정표와 최신 안내를 확인해 주세요.</p>
+              <ul className="break-keep text-pretty mt-2 list-disc space-y-1 pl-5">
                 <li>희망 과목이 어느 학년·학기에 편성되는지</li>
                 <li>학교 지정 과목인지, 학생 선택 과목인지</li>
                 <li>같은 묶음에서 몇 과목을 고르는지, 듣고 싶은 과목을 함께 고를 수 있는지</li>
@@ -360,7 +360,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                 <div>
                   <strong className="font-bold">함께 확인된 과목: </strong>
                   <span>{commonSubjects.join(', ')}</span>
-                  <p className="text-[11px] text-[#388e3c] mt-0.5">비교 중인 모든 학교의 2026학년도 수강 공시 목록에 공통으로 들어 있는 과목입니다.</p>
+                  <p className="break-keep text-pretty text-[11px] text-[#388e3c] mt-0.5">비교 중인 모든 학교의 2026학년도 수강 공시 목록에 공통으로 들어 있는 과목입니다.</p>
                 </div>
               </div>
             )}

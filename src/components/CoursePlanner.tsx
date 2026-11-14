@@ -40,7 +40,7 @@ export function SchoolPlan2027({ school }: { school: School }) {
       {data && (
         <div className="mt-2 space-y-2 text-sm">
           <p className="font-semibold">{planStatus(plan)}</p>
-          <p>{plan?.courses.length ? '개설 여부와 수강 조건은 학교의 최신 안내에서 확인해 주세요.' : '이 앱에서 확인한 편제표가 없어요. 학교 안내를 확인해 보세요.'}</p>
+          <p className="break-keep text-pretty">{plan?.courses.length ? '개설 여부와 수강 조건은 학교의 최신 안내에서 확인해 주세요.' : '이 앱에서 확인한 편제표가 없어요. 학교 안내를 확인해 보세요.'}</p>
           {plan && <PlanLinks plan={plan} />}
         </div>
       )}
@@ -87,8 +87,8 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
   return (
     <div className="mx-auto max-w-5xl space-y-4">
       <section className="rounded-3xl border border-[#ebd5bc] bg-[#fff7ec] p-4 sm:p-7">
-        <h1 className="text-2xl font-black">2027학년도 입학생 과목 비교</h1>
-        <p className="mt-2 text-sm leading-relaxed text-[#594734]">과목을 하나 고르면 학교마다 언제, 어떻게 듣는지 볼 수 있어요.</p>
+        <h1 className="break-keep text-balance text-2xl font-black">2027학년도 입학생 과목 비교</h1>
+        <p className="break-keep text-pretty mt-2 text-sm leading-relaxed text-[#594734]">과목을 하나 고르면 학교마다 언제, 어떻게 듣는지 볼 수 있어요.</p>
         <div className="mt-4 flex flex-wrap items-end gap-2">
           <label className="min-w-0 flex-1 text-sm font-semibold sm:flex-none">
             관심 전공
@@ -101,8 +101,8 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
           <button type="button" className={secondary} onClick={onExploreMajors}>다른 전공 찾아보기</button>
           <button type="button" className={secondary} onClick={onSelectSchools}>비교할 학교 고르기</button>
         </div>
-        <p className="mt-3 text-sm font-semibold">{candidates.length ? `비교 학교 · ${candidates.map((school) => shortenSchoolName(school.name)).join(', ')}` : '비교할 학교를 골라 주세요.'}</p>
-        {candidates.length === 1 && <p className="mt-1 text-sm">한 학교를 더 고르면 나란히 비교할 수 있어요.</p>}
+        <p className="break-keep text-pretty mt-3 text-sm font-semibold">{candidates.length ? `비교 학교 · ${candidates.map((school) => shortenSchoolName(school.name)).join(', ')}` : '비교할 학교를 골라 주세요.'}</p>
+        {candidates.length === 1 && <p className="break-keep text-pretty mt-1 text-sm">한 학교를 더 고르면 나란히 비교할 수 있어요.</p>}
       </section>
 
       {failed && <p role="alert">편제표를 불러오지 못했어요. <button type="button" className="underline" onClick={retry}>다시 시도</button></p>}
@@ -111,8 +111,8 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
         <>
           <section className="space-y-3 rounded-2xl border border-[#ebdcc9] bg-white p-4">
             <h2 className="text-base font-bold">비교할 과목 고르기</h2>
-            {activeMajor && !suggested.length && <p className="text-sm">이 전공에 연결된 과목 안내가 아직 없어요. 궁금한 과목을 직접 골라 보세요.</p>}
-            {activeMajor && suggested.length > 0 && <p className="text-sm text-[#594734]">관련 과목은 진로 탐색에 참고하세요. 대학별 필수 과목은 해당 학년도 전형 안내에서 확인해 주세요.</p>}
+            {activeMajor && !suggested.length && <p className="break-keep text-pretty text-sm">이 전공에 연결된 과목 안내가 아직 없어요. 궁금한 과목을 직접 골라 보세요.</p>}
+            {activeMajor && suggested.length > 0 && <p className="break-keep text-pretty text-sm text-[#594734]">관련 과목은 진로 탐색에 참고하세요. 대학별 필수 과목은 해당 학년도 전형 안내에서 확인해 주세요.</p>}
             <label className="block text-sm font-semibold">
               <span className="sr-only">과목 이름 검색</span>
               <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="과목 검색 (예: 기하)"
@@ -121,7 +121,7 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
             {query.trim() && (
               <div className="flex flex-wrap gap-2">
                 {matches.length ? matches.map((name) => <button key={name} type="button" className={secondary} onClick={() => addSubject(name)}>{name} 추가</button>) :
-                  <p className="text-sm">확보한 편제 자료에서 이 이름을 찾지 못했어요. 과목 이름을 짧게 써 보세요.</p>}
+                  <p className="break-keep text-pretty text-sm">확보한 편제 자료에서 이 이름을 찾지 못했어요. 과목 이름을 짧게 써 보세요.</p>}
               </div>
             )}
             {suggested.length > 0 && subjects.length > 0 && (
@@ -149,7 +149,7 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold">{active ? `${active}, 학교마다 어떻게 배우나요?` : '학교별 편제표 확인 현황'}</h2>
+            <h2 className="break-keep text-balance text-lg font-bold">{active ? `${active}, 학교마다 어떻게 배우나요?` : '학교별 편제표 확인 현황'}</h2>
             <div className="grid gap-3 md:grid-cols-2">
               {candidates.map((school) => {
                 const plan = data.schools[school.id];
@@ -185,11 +185,11 @@ export function CoursePlanner({ schools, prefs, saved, activeMajor, subjects, cu
                           </li>;
                         })}
                       </ul>
-                    ) : active && <p className="text-sm">{plan?.courses.length ? '확보한 자료에서 이 과목을 확인하지 못했어요.' : '2027학년도 편성 여부를 학교에 확인해 주세요.'}</p>}
+                    ) : active && <p className="break-keep text-pretty text-sm">{plan?.courses.length ? '확보한 자료에서 이 과목을 확인하지 못했어요.' : '2027학년도 편성 여부를 학교에 확인해 주세요.'}</p>}
                     {plan && <PlanLinks plan={plan} page={course ? course.slots[0]?.page : undefined} />}
                     {active && <details className="border-t border-[#efe5d8] pt-2 text-sm">
                       <summary className="cursor-pointer py-1 font-semibold">2026학년도 실제 수강 기록 보기</summary>
-                      <p className="mt-1 pb-2">{past.length ? `2026학년도 1학기 ${past.map((grade) => `${grade}학년`).join(', ')} 수강 공시에서 확인했어요.` : '2026학년도 1학기 공시에서 같은 이름의 과목을 확인하지 못했어요.'}</p>
+                      <p className="break-keep text-pretty mt-1 pb-2">{past.length ? `2026학년도 1학기 ${past.map((grade) => `${grade}학년`).join(', ')} 수강 공시에서 확인했어요.` : '2026학년도 1학기 공시에서 같은 이름의 과목을 확인하지 못했어요.'}</p>
                     </details>}
                     {prefs.wishlist.includes(school.id) ? (
                       <label className="block text-sm font-semibold">

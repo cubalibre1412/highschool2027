@@ -347,7 +347,7 @@ export default function App() {
             <section className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#ebd5bc] bg-[#fff7ec] p-4">
               <div>
                 <h2 className="text-base font-bold">{activeMajor ? `관심 전공 · ${activeMajor.name}` : '과목을 비교할 학교를 골라요'}</h2>
-                <p className="mt-1 text-sm text-[#594734]">목록에서 궁금한 학교 2~4곳에 ‘비교’를 체크해 주세요.</p>
+                <p className="mt-1 break-keep text-pretty text-sm text-[#594734]">목록에서 궁금한 학교 2~4곳에 ‘비교’를 체크해 주세요.</p>
               </div>
               <button className="min-h-11 text-sm font-semibold underline" onClick={() => changeView('majors')}>관심 전공 바꾸기</button>
             </section>

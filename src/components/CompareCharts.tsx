@@ -324,7 +324,7 @@ export const CompareCharts: React.FC<CompareChartsProps> = ({
         </table>
       </div>
       {/* Dynamic Caption / Guide Note */}
-      <div className="pt-2 border-t border-[#f0e4d4] text-[11px] text-[#8c745c] leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <div className="pt-2 border-t border-[#f0e4d4] break-keep text-pretty text-[11px] text-[#8c745c] leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         {selectedChart === 'quota' && (
           <span>
             💡 <strong>2027 모집정원:</strong> 경기도교육청 신입생 전형계획 24쪽 기준 공식 수치입니다.

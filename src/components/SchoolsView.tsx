@@ -71,7 +71,7 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
     <div className="space-y-5">
       <section className="rounded-2xl border border-[#ebd5bc] bg-[#fff7ec] p-4 sm:p-5">
         <h1 className="text-xl font-black text-[#261d13] sm:text-2xl">부천 고등학교 찾기</h1>
-        <p className="mt-1.5 text-sm leading-relaxed text-[#594734]">학교 이름을 눌러 자세히 보거나, 궁금한 학교 2~4곳을 골라 비교해 봐요.</p>
+        <p className="mt-1.5 break-keep text-pretty text-sm leading-relaxed text-[#594734]">학교 이름을 눌러 자세히 보거나, 궁금한 학교 2~4곳을 골라 비교해 봐요.</p>
       </section>
 
       {/* Main Workspace (Sticky Sidebar + Content) */}

@@ -204,10 +204,10 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                 {prefs.gender === 'male' ? '남학생' : '여학생'} · {chosenSchools.length}/{totalEligibleCount}개교
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#261d13]">
+            <h1 className="break-keep text-balance text-2xl sm:text-3xl font-black text-[#261d13]">
               나의 2027 고등학교 지망표
             </h1>
-            <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed">가고 싶은 순서대로 학교를 정렬하고 메모와 직접 확인한 통학시간을 기록하세요. 가족과 함께 상의하고 최종 원서 작성 전 이미지·PDF·엑셀로 보관할 수 있습니다.</p>
+            <p className="break-keep text-pretty text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed">가고 싶은 순서대로 학교를 정렬하고 메모와 직접 확인한 통학시간을 기록하세요. 가족과 함께 상의하고 최종 원서 작성 전 이미지·PDF·엑셀로 보관할 수 있습니다.</p>
           </div>
 
           <div className="shrink-0 flex items-center gap-2">
@@ -400,10 +400,10 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
               <div className="w-16 h-16 rounded-full bg-[#fdf5eb] text-[#ed8200] flex items-center justify-center mx-auto shadow-xs">
                 <Bookmark className="w-8 h-8" />
               </div>
-              <h3 className="text-lg font-bold text-[#261d13]">
+              <h3 className="break-keep text-balance text-lg font-bold text-[#261d13]">
                 아직 지망표에 담긴 학교가 없습니다.
               </h3>
-              <p className="text-xs text-[#7d674f] max-w-md mx-auto leading-relaxed">
+              <p className="break-keep text-pretty text-xs text-[#7d674f] max-w-md mx-auto leading-relaxed">
                 ‘학교 찾기’ 화면에서 가고 싶은 고등학교의 <strong>[지망표 추가]</strong> 버튼을 누르면 이곳에서 1지망부터 순위를 정리하고 메모를 작성할 수 있습니다.</p>
               <button
                 onClick={onGoToSchools}
@@ -442,7 +442,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
               </div>
             </div>
 
-            <p className="text-xs text-[#6e5842] leading-relaxed">
+            <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
               {chosenSchools.length === totalEligibleCount ? (
                 <span className="font-bold text-emerald-700 flex items-center gap-1">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -450,7 +450,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
                 </span>
               ) : (
                 <span>
-                  현재 관심 학교를 우선 담아두셨습니다. 실제 원서 접수 시에는 관내 {totalEligibleCount}개 모든 학교의 순위를 작성해야 합니다.
+                  현재 관심 학교를 우선 담아두셨습니다. 실제 원서 접수 시에는 관내 <span className="whitespace-nowrap">{totalEligibleCount}개</span> 모든 학교의 순위를 작성해야 합니다.
                 </span>
               )}
             </p>
@@ -469,7 +469,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
 
             <div className="p-3 bg-[#faf6f0] rounded-xl border border-[#ede0ce] text-xs text-[#7d674f] space-y-1">
               <strong className="text-[#261d13] block">배정 방식 안내:</strong>
-              <p>
+              <p className="break-keep text-pretty">
                 부천은 1지망부터 배정 정원만큼 채운 뒤, 잔여 정원이 있을 때 2지망, 3지망 순서로 넘어갑니다. 거리순 자동배정이 아니므로 1지망 선택이 매우 중요합니다.
               </p>
             </div>
@@ -480,7 +480,7 @@ export const WishlistView: React.FC<WishlistViewProps> = ({
             <h3 className="font-extrabold text-sm text-[#261d13]">
               다른 기기로 기록 옮기기 (백업)
             </h3>
-            <p className="text-xs text-[#8c745c] leading-relaxed">
+            <p className="break-keep text-pretty text-xs text-[#8c745c] leading-relaxed">
               작성한 지망 순서, 메모, 통학시간은 현재 브라우저에만 저장됩니다. 스마트폰이나 다른 PC로 옮기실 때는 백업 파일을 활용하세요.
             </p>
 

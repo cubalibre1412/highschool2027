@@ -219,22 +219,22 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
           {chunk || '내용이 없습니다.'}
         </div>
         {totalPages > 1 && (
-          <div className="flex items-center justify-between text-xs text-[#6e5842] pt-2">
+          <div className="flex items-center justify-between gap-1 text-xs text-[#6e5842] pt-2">
             <button
               disabled={docPage === 0}
               onClick={() => setDocPage((p) => Math.max(0, p - 1))}
-              className="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#ebdcc9] rounded-lg disabled:opacity-40"
+              className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap px-2 sm:px-3 py-1.5 bg-white border border-[#ebdcc9] rounded-lg disabled:opacity-40"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
               <span>이전 부분</span>
             </button>
-            <span className="font-semibold">
+            <span className="break-keep text-balance text-center font-semibold">
               텍스트 {docPage + 1} / {totalPages} 부분
             </span>
             <button
               disabled={docPage >= totalPages - 1}
               onClick={() => setDocPage((p) => Math.min(totalPages - 1, p + 1))}
-              className="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#ebdcc9] rounded-lg disabled:opacity-40"
+              className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap px-2 sm:px-3 py-1.5 bg-white border border-[#ebdcc9] rounded-lg disabled:opacity-40"
             >
               <span>다음 부분</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -411,8 +411,8 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
               <section className="bg-white border border-[#ebdcc9] rounded-2xl p-5 shadow-xs space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h3 className="font-extrabold text-sm sm:text-base text-[#261d13] flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-[#ed8200]" />
-                    <span>통학 거리 및 직접 확인한 통학시간</span>
+                    <Clock className="w-4 h-4 shrink-0 text-[#ed8200]" />
+                    <span className="break-keep text-balance">통학 거리 및 직접 확인한 통학시간</span>
                   </h3>
                   <a
                     href={kakaoUrl}
@@ -426,7 +426,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                   </a>
                 </div>
 
-                <p className="text-xs text-[#78634d] leading-relaxed">
+                <p className="break-keep text-pretty text-xs text-[#78634d] leading-relaxed">
                   {originMiddle
                     ? `${originMiddle.name}에서 출발하는 경로를 엽니다. 카카오맵에서 소요시간을 확인한 뒤 아래에 기록해 주세요.`
                     : '카카오맵에서 출발지를 입력하면 이동 거리와 소요시간을 확인할 수 있습니다. 확인한 시간은 아래에 기록해 주세요.'}
@@ -442,7 +442,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                     </strong>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <label htmlFor="travel-time" className="text-xs font-semibold text-[#5c4936]">
                       실제 통학시간:
                     </label>
@@ -461,7 +461,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                       <button
                         type="button"
                         onClick={handleSaveTravelTime}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#ed8200] hover:bg-[#cf7200] text-white text-xs font-bold rounded-lg transition-colors shadow-xs"
+                        className="inline-flex items-center gap-1 whitespace-nowrap px-3 py-1.5 bg-[#ed8200] hover:bg-[#cf7200] text-white text-xs font-bold rounded-lg transition-colors shadow-xs"
                       >
                         <Save className="w-3.5 h-3.5" />
                         <span>기록</span>
@@ -531,16 +531,16 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
               <SchoolPlan2027 school={school} />
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학기 2·3학년 수강 공시 기준</strong>
-                <p className="mt-0.5">아래 목록은 당시 수업이 확인된 과목입니다. 2027학년도 입학생이 들을 수 있는 과목은 해당 입학연도의 학교 교육과정표에서 확인해 주세요.</p>
+                <p className="break-keep text-pretty mt-0.5">아래 목록은 당시 수업이 확인된 과목입니다. 2027학년도 입학생이 들을 수 있는 과목은 해당 입학연도의 학교 교육과정표에서 확인해 주세요.</p>
               </div>
 
               {/* Upper Grade Subjects Tags */}
               <section className="bg-white border border-[#ebdcc9] rounded-2xl p-5 shadow-xs space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-sm sm:text-base text-[#261d13]">
-                    실제 수업이 확인되는 과목 ({upperGradeSubjects.length}개)
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                  <h3 className="break-keep font-bold text-sm sm:text-base text-[#261d13]">
+                    실제 수업이 확인되는 과목 <span className="whitespace-nowrap">({upperGradeSubjects.length}개)</span>
                   </h3>
-                  <span className="text-xs text-[#8c745c]">2·3학년 수강 공시 기준</span>
+                  <span className="break-keep text-xs text-[#8c745c]">2·3학년 수강 공시 기준</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {upperGradeSubjects.map((subject) => (
@@ -556,10 +556,10 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
 
               <section className="rounded-2xl border border-[#ebdcc9] bg-white p-4 sm:p-5">
                 <h3 className="text-base font-bold text-[#261d13]">과목표 읽는 법</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#6e5842]">
+                <p className="break-keep text-pretty mt-2 text-sm leading-relaxed text-[#6e5842]">
                   교육과정표(편제표)는 3년 동안 어느 학기에 어떤 과목을 몇 학점 듣는지 보여줍니다.
                 </p>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[#594734]">
+                <ul className="break-keep text-pretty mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[#594734]">
                   <li><strong>학기와 학점</strong> · ‘2-1’은 2학년 1학기, 과목 옆 ‘3’은 3학점을 뜻합니다.</li>
                   <li><strong>학교 지정과 학생 선택</strong> · 지정 과목은 학교가 정하고, 학생 선택 과목은 표에 나온 묶음 안에서 고릅니다.</li>
                   <li><strong>‘택3’의 뜻</strong> · 한 묶음에 과목이 8개 있고 ‘택3’이라고 적혀 있으면, 그중 3개를 고릅니다.</li>
@@ -574,7 +574,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                     <h3 className="font-bold text-sm sm:text-base text-[#261d13]">
                       교육과정 공시 원문 읽기
                     </h3>
-                    <p className="text-xs text-[#8c745c]">
+                    <p className="break-keep text-pretty text-xs text-[#8c745c]">
                       학교가 제출한 교육과정 편성 문서를 앱에서 바로 검색하고 읽습니다.
                     </p>
                   </div>
@@ -644,8 +644,8 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학년 2학기 국어·수학·영어 평가 비율</strong>
-                <p className="mt-0.5">
-                  중간·기말 지필평가와 수행평가의 반영 비율입니다. 서답형(서술형·논술형) 지필평가 비율도 함께 확인하세요.
+                <p className="mt-0.5 break-keep text-pretty">
+                  중간·기말
                 </p>
               </div>
 
@@ -713,7 +713,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                     <h3 className="font-bold text-sm sm:text-base text-[#261d13]">
                       교과별 평가계획 원문 보기
                     </h3>
-                    <p className="text-xs text-[#8c745c]">
+                    <p className="break-keep text-pretty text-xs text-[#8c745c]">
                       과목별 세부 수행평가 영역, 채점 기준, 시기 등을 원문에서 확인합니다.
                     </p>
                   </div>
@@ -772,7 +772,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학기 학업성취도 (2026년 9월 공시)</strong>
-                <p className="mt-0.5">A~E는 성취 수준별 학생 비율(%)입니다. 평균은 100점 만점 기준 점수입니다. 시험 난도와 수강 학생 구성이 달라 단순 평균 비교만으로 내신 유불리나 학교 수준을 판단할 수 없습니다.</p>
+                <p className="break-keep text-pretty mt-0.5">A~E는 성취 수준별 학생 비율(%)입니다. 평균은 100점 만점 기준 점수입니다. 시험 난도와 수강 학생 구성이 달라 단순 평균 비교만으로 내신 유불리나 학교 수준을 판단할 수 없습니다.</p>
               </div>
 
               {/* 1st Grade Core Subject Cards */}
@@ -905,7 +905,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2025년 학교알리미 공시 졸업생 진로 현황</strong>
-                <p className="mt-0.5">진학률은 졸업생의 선택 결과이며 개별 대학 순위나 수시·정시 전형 결과, 재수 인원은 본 자료에 포함되지 않습니다. 기타 항목 인원 전체를 재수생으로 볼 수는 없습니다.</p>
+                <p className="break-keep text-pretty mt-0.5">진학률은 졸업생의 선택 결과이며 개별 대학 순위나 수시·정시 전형 결과, 재수 인원은 본 자료에 포함되지 않습니다. 기타 항목 인원 전체를 재수생으로 볼 수는 없습니다.</p>
               </div>
 
               {graduateSummary && (
@@ -925,17 +925,17 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                         {formatRate(graduateSummary.university, graduateSummary.graduates)}
                       </strong>
                       <span className="text-[11px] text-[#8c745c] block mt-0.5">
-                        {graduateSummary.university}명 (전문대 제외)
+                        {graduateSummary.university}명 <span className="whitespace-nowrap">(전문대 제외)</span>
                       </span>
                     </div>
 
                     <div className="bg-[#faf6f0] p-3 rounded-xl border border-[#ede0ce]">
-                      <span className="text-xs text-[#7d674f] block">대학 진학률 (전문대 포함)</span>
+                      <span className="break-keep text-xs text-[#7d674f] block">대학 진학률 <span className="whitespace-nowrap">(전문대 포함)</span></span>
                       <strong className="text-xl sm:text-2xl font-black text-[#2c2115]">
                         {formatRate(graduateSummary.further_total, graduateSummary.graduates)}
                       </strong>
                       <span className="text-[11px] text-[#8c745c] block mt-0.5">
-                        {graduateSummary.further_total}명 (전문·국외 포함)
+                        {graduateSummary.further_total}명 <span className="whitespace-nowrap">(전문·국외 포함)</span>
                       </span>
                     </div>
 

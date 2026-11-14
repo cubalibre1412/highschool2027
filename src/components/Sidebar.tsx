@@ -48,14 +48,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* 1. School Finder Settings Box (Now placed at the top for immediate access) */}
       <div className="bg-white/95 backdrop-blur-xs rounded-2xl border border-[#ebdcc9] p-5 shadow-xs space-y-5">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#f0e4d4]">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 pb-3 border-b border-[#f0e4d4]">
           <div className="flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-[#ed8200]" />
-            <h2 className="font-extrabold text-sm sm:text-base text-[#2c2217]">
+            <SlidersHorizontal className="w-4 h-4 shrink-0 text-[#ed8200]" />
+            <h2 className="break-keep text-balance font-extrabold text-sm sm:text-base text-[#2c2217]">
               학교 찾기 맞춤 설정
             </h2>
           </div>
-          <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3]">
+          <span className="whitespace-nowrap text-xs px-2 py-0.5 rounded-full font-bold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3]">
             {prefs.gender === 'male' ? '남학생 · 20개교' : '여학생 · 22개교'}
           </span>
         </div>
@@ -129,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             />
             <span className="font-medium">학교까지 직선거리 표시</span>
           </label>
-          <p className="text-[11px] text-[#8e7862] leading-relaxed">
+          <p className="break-keep text-pretty text-[11px] text-[#8e7862] leading-relaxed">
             중학교 좌표를 기준으로 잰 직선거리입니다. 실제 이동시간은 각 학교의 카카오맵 길찾기로 확인해 메모할 수 있습니다.
           </p>
         </div>
@@ -174,7 +174,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </button>
             )}
           </div>
-          <p className="text-[11px] text-[#8e7862]">
+          <p className="break-keep text-pretty text-[11px] text-[#8e7862]">
             선택한 진로 분야의 수강 과목을 학교 카드와 비교표에서 바로 비교합니다.
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -206,7 +206,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <p className="text-xs font-bold text-[#8a4b00]">
                 내 지망표 ({prefs.wishlist.length}개교 담김)
               </p>
-              <p className="text-[11px] text-[#8e7862] mt-0.5">
+              <p className="break-keep text-pretty text-[11px] text-[#8e7862] mt-0.5">
                 순위 정리 및 이미지·PDF 저장
               </p>
             </div>

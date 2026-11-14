@@ -36,10 +36,10 @@ export const GuideView: React.FC<GuideViewProps> = ({
         <span className="text-xs font-bold text-[#b85e00] tracking-wider uppercase">
           2027 ADMISSION GUIDE & SCHEDULE
         </span>
-        <h1 className="text-2xl sm:text-3xl font-black text-[#261d13] mt-1">
+        <h1 className="break-keep text-balance text-2xl sm:text-3xl font-black text-[#261d13] mt-1">
           2027학년도 부천 일반고 지원 안내 및 일정
         </h1>
-        <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">
+        <p className="break-keep text-pretty text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">
           경기도교육청 신입생 전형계획 및 고등학교 입학추첨 배정 방안의 공식 규정을 바탕으로 
           원서 작성 전 반드시 확인해야 할 유의사항과 일정을 정리했습니다.
         </p>
@@ -49,7 +49,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
       <section className="bg-gradient-to-br from-[#fffbf5] to-[#fcf5ea] rounded-3xl border border-[#ebd5bc] p-6 sm:p-8 shadow-xs space-y-4">
         <div className="flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 text-[#ed8200]" />
-          <h2 className="text-lg sm:text-xl font-black text-[#261d13]">
+          <h2 className="break-keep text-balance text-lg sm:text-xl font-black text-[#261d13]">
             원서 내기 전, 꼭 확인하세요! (필수 점검 3가지)
           </h2>
         </div>
@@ -62,7 +62,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
             <strong className="text-sm font-bold text-[#261d13] block">
               학교에서 정한 교내 제출일 확인
             </strong>
-            <p className="text-xs text-[#6e5842] leading-relaxed">
+            <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
               공식 교육청 접수는 12월 4일(금)~10일(목) 09:00~17:00입니다. 
               재학생은 담임 선생님의 안내를 따라야 하며, 학교생활기록부 대조 및 서류 취합을 위해 <strong>학교 제출 마감일은 공식 마감일보다 며칠 더 빠를 수 있습니다.</strong>
             </p>
@@ -75,7 +75,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
             <strong className="text-sm font-bold text-[#261d13] block">
               접수 마감 뒤에는 취소·수정 불가
             </strong>
-            <p className="text-xs text-[#6e5842] leading-relaxed">
+            <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
               12월 10일 오후 5시까지 온라인 전송과 출력된 종이 원서 제출이 모두 완료되어야 합니다. 
               접수된 원서는 어떠한 경우에도 취소하거나 지망 순서를 바꿀 수 없으므로 최종 확인이 필수입니다.
             </p>
@@ -88,7 +88,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
             <strong className="text-sm font-bold text-[#261d13] block">
               원서의 지망 순위와 연락처 재확인
             </strong>
-            <p className="text-xs text-[#6e5842] leading-relaxed">
+            <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
               출력된 원서의 1지망부터 끝지망까지 순서를 보호자와 함께 최종 서명 전 반드시 확인하세요. 
               배정 학교 결과는 입력된 학생 및 보호자 휴대전화 문자로도 발송됩니다.
             </p>
@@ -96,7 +96,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
         </div>
 
         <div className="pt-2 text-xs text-[#8c745c] flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-          <span>전형료: 없음 (경기도 평준화 일반고) · 재학생은 출신 중학교에서 작성</span>
+          <span className="break-keep text-pretty">전형료: 없음 (경기도 평준화 일반고) · 재학생은 출신 중학교에서 작성</span>
           <span className="font-semibold text-[#b85e00] shrink-0">전형계획 8쪽, 37쪽 발췌</span>
         </div>
       </section>
@@ -106,7 +106,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
         {/* Left: Procedure */}
         <div className="lg:col-span-6 space-y-6">
           <section className="bg-white rounded-2xl border border-[#ebdcc9] p-6 shadow-xs space-y-5">
-            <h2 className="text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
+            <h2 className="break-keep text-balance text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-[#ed8200]" />
               <span>부천 고등학교, 이렇게 배정돼요</span>
             </h2>
@@ -120,7 +120,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                   <strong className="text-sm font-bold text-[#261d13] block">
                     학군 전체 모집정원만큼 선발
                   </strong>
-                  <p className="text-xs text-[#6e5842] leading-relaxed">
+                  <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
                     중학교 3개년 내신성적(200점 만점: 교과 150점 + 출결 20점 + 봉사 20점 + 학교활동 10점) 순으로 부천 학군 일반고 입학 배정 대상자를 먼저 선발합니다. 특정 고등학교의 합격선이 아닙니다.
                   </p>
                 </div>
@@ -134,7 +134,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                   <strong className="text-sm font-bold text-[#261d13] block">
                     관내 전체 고등학교 지망 순위 작성
                   </strong>
-                  <p className="text-xs text-[#6e5842] leading-relaxed">
+                  <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
                     남학생은 남녀공학 20개교의 순위를 모두 작성하고, 여학생은 남녀공학 20개교와 여고 2개교(부천여고, 소명여고)를 포함한 총 22개교의 순위를 모두 작성합니다.
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                   <strong className="text-sm font-bold text-[#261d13] block">
                     지망 순위를 반영한 컴퓨터 추첨 배정
                   </strong>
-                  <p className="text-xs text-[#6e5842] leading-relaxed">
+                  <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
                     학교별로 1지망 지원자부터 컴퓨터 추첨으로 충원합니다. 1지망에서 정원이 채워지지 않으면 2지망 지원자 중에서 충원하며, 정원을 초과하면 추첨으로 탈락한 학생은 다음 지망 순위 학교의 남은 자리를 대상으로 재배정됩니다.
                   </p>
                 </div>
@@ -169,7 +169,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
 
           {/* Middle School Official Schedule Finder */}
           <section className="bg-white rounded-2xl border border-[#ebdcc9] p-6 shadow-xs space-y-4">
-            <h2 className="text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
+            <h2 className="break-keep text-balance text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
               <School className="w-4 h-4 text-[#ed8200]" />
               <span>부천 중학교별 교육지원청 원서 제출 일정</span>
             </h2>
@@ -203,7 +203,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                     {originMiddle.applicationSubmission.date.slice(5)} {originMiddle.applicationSubmission.period}
                   </span>
                 </div>
-                <p className="text-[#6e5842] leading-relaxed">
+                <p className="break-keep text-pretty text-[#6e5842] leading-relaxed">
                   {originMiddle.applicationSubmission.meaning}
                 </p>
                 <span className="text-[11px] text-[#8c745c] block pt-1 border-t border-[#f2e6d6]">
@@ -211,7 +211,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                 </span>
               </div>
             ) : (
-              <p className="text-xs text-[#8c745c] italic p-3 bg-[#faf7f2] rounded-xl text-center">
+              <p className="break-keep text-pretty text-xs text-[#8c745c] italic p-3 bg-[#faf7f2] rounded-xl text-center">
                 중학교를 선택하시면 해당 학교의 공식 교육지원청 원서 제출 일정이 표시됩니다.
               </p>
             )}
@@ -222,7 +222,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
         <div className="lg:col-span-6 space-y-6">
           {/* Timeline Card */}
           <section className="bg-white rounded-2xl border border-[#ebdcc9] p-6 shadow-xs space-y-4">
-            <h2 className="text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
+            <h2 className="break-keep text-balance text-base sm:text-lg font-black text-[#261d13] flex items-center gap-2">
               <Calendar className="w-4 h-4 text-[#ed8200]" />
               <span>2027학년도 고입 주요 공식 일정</span>
             </h2>
@@ -246,7 +246,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
                     <strong className="text-sm font-bold text-[#261d13] block">
                       {event.title}
                     </strong>
-                    <p className="text-xs text-[#6e5842] leading-relaxed">
+                    <p className="break-keep text-pretty text-xs text-[#6e5842] leading-relaxed">
                       {event.desc}
                     </p>
                   </div>
@@ -254,18 +254,18 @@ export const GuideView: React.FC<GuideViewProps> = ({
               ))}
             </div>
 
-            <p className="text-[11px] text-[#8c745c] pt-2 border-t border-[#f0e4d4]">
+            <p className="break-keep text-pretty text-[11px] text-[#8c745c] pt-2 border-t border-[#f0e4d4]">
               출처: 경기도교육청 공고 제2026-1271호 및 2027 전형계획 31~32쪽. 세부 일정은 교육청 공고에 따릅니다.
             </p>
           </section>
 
           {/* Special Admission Rules Collapsible/Card */}
           <section className="bg-white rounded-2xl border border-[#ebdcc9] p-6 shadow-xs space-y-3">
-            <h3 className="text-sm sm:text-base font-extrabold text-[#261d13]">
+            <h3 className="break-keep text-balance text-sm sm:text-base font-extrabold text-[#261d13]">
               별도 신청 대상자 및 특수 배정 안내
             </h3>
 
-            <div className="space-y-2 text-xs text-[#5c4936]">
+            <div className="space-y-2 break-keep text-pretty text-xs text-[#5c4936]">
               <div className="p-3 bg-[#faf7f2] rounded-xl border border-[#ebdcc9]">
                 <strong className="text-[#261d13] block font-bold mb-0.5">
                   외고·국제고·자사고 동시지원자
@@ -298,19 +298,19 @@ export const GuideView: React.FC<GuideViewProps> = ({
       </div>
 
       <section className="rounded-2xl border border-[#ebdcc9] bg-white p-4 sm:p-6 shadow-xs space-y-3" aria-labelledby="credit-faq-title">
-        <h2 id="credit-faq-title" className="flex items-center gap-2 text-lg font-black text-[#261d13]">
+        <h2 id="credit-faq-title" className="break-keep text-balance flex items-center gap-2 text-lg font-black text-[#261d13]">
           <HelpCircle aria-hidden="true" className="h-5 w-5 shrink-0 text-[#ed8200]" />
           고교학점제 FAQ
         </h2>
         <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
-          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">아직 진로를 정하지 못했어요. 과목은 어떻게 고르나요?</summary>
-          <p className="px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+          <summary className="break-keep text-balance cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">아직 진로를 정하지 못했어요. 과목은 어떻게 고르나요?</summary>
+          <p className="break-keep text-pretty px-4 pb-4 text-sm leading-relaxed text-[#594734]">
             1학년에는 공통과목을 중심으로 배우면서 관심 분야를 찾아갈 수 있어요. 좋아하는 과목이나 활동부터 살펴보고, 담임 선생님이나 진로 상담 선생님과 다음 학년의 과목을 함께 골라 보세요.
           </p>
         </details>
         <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
-          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학교에 원하는 과목이 없으면 어떻게 하나요?</summary>
-          <div className="space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+          <summary className="break-keep text-balance cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학교에 원하는 과목이 없으면 어떻게 하나요?</summary>
+          <div className="break-keep text-pretty space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
             <p>학교 간 공동교육과정이나 경기이음온학교의 실시간 온라인 수업을 알아볼 수 있어요. 강좌마다 신청 대상과 일정이 다르니, 소속 학교에 신청할 수 있는지 확인해 주세요.</p>
             <a href="https://more.goe.go.kr/hagjeomje/subList/30300002496" target="_blank" rel="noopener noreferrer" className="inline-block font-semibold text-[#9a4b00] underline underline-offset-2">
               경기 공동교육과정 개설 현황 보기 ↗
@@ -318,8 +318,8 @@ export const GuideView: React.FC<GuideViewProps> = ({
           </div>
         </details>
         <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
-          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학점을 받으려면 어떤 기준을 충족해야 하나요?</summary>
-          <div className="space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+          <summary className="break-keep text-balance cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학점을 받으려면 어떤 기준을 충족해야 하나요?</summary>
+          <div className="break-keep text-pretty space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
             <p>2027학년도에 적용되는 기본 이수 기준입니다. 졸업에 필요한 학점은 3년간 192학점(교과 174학점, 창의적 체험활동 18학점)입니다.</p>
             <ul className="list-disc space-y-1 pl-5">
               <li><strong>공통과목</strong> · 과목 출석률 3분의 2 이상과 학업성취율 40% 이상</li>
@@ -332,8 +332,8 @@ export const GuideView: React.FC<GuideViewProps> = ({
           </div>
         </details>
         <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
-          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">이수 기준에 못 미치면 학점을 받을 수 없나요?</summary>
-          <p className="px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+          <summary className="break-keep text-balance cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">이수 기준에 못 미치면 학점을 받을 수 없나요?</summary>
+          <p className="break-keep text-pretty px-4 pb-4 text-sm leading-relaxed text-[#594734]">
             이수 기준에 미치지 못해도 학점을 받을 기회가 있어요. 공통과목의 학업성취율 기준에 미치지 못하면 최소 성취수준 보장지도를, 출석률이 부족하면 추가학습을 통해 이수할 수 있어요. 참여 방법은 학교 안내를 확인해 주세요.
           </p>
         </details>
@@ -343,8 +343,8 @@ export const GuideView: React.FC<GuideViewProps> = ({
       <section className="bg-white rounded-3xl border border-[#ebdcc9] p-6 sm:p-8 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#f0e4d4]">
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-[#261d13]">공식 원문 자료 내려받기·문의처</h2>
-            <p className="text-xs text-[#7d674f] mt-1">
+            <h2 className="break-keep text-balance text-lg sm:text-xl font-black text-[#261d13]">공식 원문 자료 내려받기·문의처</h2>
+            <p className="break-keep text-pretty text-xs text-[#7d674f] mt-1">
               교육청 전형계획, 학생 배정 방안 및 학교 공개 데이터 원본 파일입니다.
             </p>
           </div>
@@ -381,7 +381,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
               <strong className="text-xs sm:text-sm font-bold text-[#261d13] group-hover:text-[#ed8200] block">
                 2027 신입생 전형계획 (PDF)
               </strong>
-              <p className="text-[11px] text-[#8c745c] mt-1">
+              <p className="break-keep text-pretty text-[11px] text-[#8c745c] mt-1">
                 부천 22개교 모집정원(24쪽) 및 일정 포함
               </p>
             </div>
@@ -402,7 +402,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
               <strong className="text-xs sm:text-sm font-bold text-[#261d13] group-hover:text-[#ed8200] block">
                 2027 학생 배정 방안 (PDF)
               </strong>
-              <p className="text-[11px] text-[#8c745c] mt-1">
+              <p className="break-keep text-pretty text-[11px] text-[#8c745c] mt-1">
                 부천 학군 배정 절차 (37~39쪽)
               </p>
             </div>
@@ -423,7 +423,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
               <strong className="text-xs sm:text-sm font-bold text-[#261d13] group-hover:text-[#ed8200] block">
                 2027 모집 전형 공고 (PDF)
               </strong>
-              <p className="text-[11px] text-[#8c745c] mt-1">
+              <p className="break-keep text-pretty text-[11px] text-[#8c745c] mt-1">
                 공식 세부 전형요강 전문
               </p>
             </div>
@@ -443,7 +443,7 @@ export const GuideView: React.FC<GuideViewProps> = ({
               <strong className="text-xs sm:text-sm font-bold text-[#261d13] group-hover:text-emerald-700 block">
                 22개교 공개자료 통합 엑셀 (XLSX)
               </strong>
-              <p className="text-[11px] text-[#8c745c] mt-1">
+              <p className="break-keep text-pretty text-[11px] text-[#8c745c] mt-1">
                 정원·성취도·진학 통계 엑셀 다운로드
               </p>
             </div>

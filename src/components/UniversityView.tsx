@@ -45,7 +45,7 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompa
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="text-2xl font-black text-[#261d13]">대학·전공 찾기</h1>
-            <p className="mt-2 text-sm leading-relaxed text-[#594734]">
+            <p className="break-keep text-pretty mt-2 text-sm leading-relaxed text-[#594734]">
               서울 16개 대학의 학과와 전공을 찾아볼 수 있어요. 대입 정보는 각 대학의 2027·2028학년도 시행계획을 바탕으로 정리했어요.
             </p>
           </div>
@@ -98,7 +98,7 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompa
             </select>
           </label>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-[#624a35]">2027학년도 고교 입학생은 보통 2030학년도 대입을 준비해요.</p>
+        <p className="mt-3 break-keep text-pretty text-xs leading-relaxed text-[#624a35]">2027학년도 고교 입학생은 보통 2030학년도 대입을 준비해요.</p>
       </section>
 
       {failed && <p role="alert">대학 자료를 불러오지 못했어요. <button type="button" className="underline" onClick={retry}>다시 불러오기</button></p>}

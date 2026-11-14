@@ -61,7 +61,7 @@ export function SavedMajorsView({ saved, activeKey, onCompare, onRemove, onExplo
     <div className="mx-auto max-w-3xl space-y-3">
       <section className="rounded-3xl border border-[#ebd5bc] bg-[#fff7ec] p-5 sm:p-7">
         <h1 className="flex items-center gap-2 text-2xl font-black"><Bookmark aria-hidden="true" /> 저장한 전공</h1>
-        <p className="mt-2 text-sm text-[#594734]">{saved.length ? '궁금한 전공을 하나 골라 부천 고교에서 관련 과목을 어떻게 배우는지 살펴봐요.' : '대학·전공 찾기에서 마음에 드는 전공을 저장해 보세요.'}</p>
+        <p className="break-keep text-pretty mt-2 text-sm text-[#594734]">{saved.length ? '궁금한 전공을 하나 골라 부천 고교에서 관련 과목을 어떻게 배우는지 살펴봐요.' : '대학·전공 찾기에서 마음에 드는 전공을 저장해 보세요.'}</p>
         <button type="button" className={`${button} mt-3`} onClick={onExplore}>{saved.length ? '대학·전공 더 찾아보기' : '대학·전공 찾기'}</button>
       </section>
       {saved.map((major) => (

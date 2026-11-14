@@ -61,10 +61,10 @@ export const DemandView: React.FC<DemandViewProps> = ({
         <span className="text-xs font-bold text-[#b85e00] tracking-wider uppercase">
           DEMAND & QUOTA ANALYSIS
         </span>
-        <h1 className="text-2xl sm:text-3xl font-black text-[#261d13] mt-1">
+        <h1 className="break-keep text-balance text-2xl sm:text-3xl font-black text-[#261d13] mt-1">
           2027학년도 정원과 예상 인원 시뮬레이터
         </h1>
-        <p className="text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">전년도 실제 입학생 수와 올해 중3 학생 수를 토대로 부천 일반고 지원 규모를 가늠해 봅니다. 지원자의 성별 및 유출입 변수를 직접 조절해 예상 정원 과부족을 확인하세요. (※ 실제 선발 결과가 아닙니다)</p>
+        <p className="break-keep text-pretty text-xs sm:text-sm text-[#7d674f] mt-1.5 leading-relaxed max-w-3xl">전년도 실제 입학생 수와 올해 중3 학생 수를 토대로 부천 일반고 지원 규모를 가늠해 봅니다. 지원자의 성별 및 유출입 변수를 직접 조절해 예상 정원 과부족을 확인하세요. (※ 실제 선발 결과가 아닙니다)</p>
 
         {/* Top 3 KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
@@ -99,7 +99,7 @@ export const DemandView: React.FC<DemandViewProps> = ({
             <strong className="text-2xl sm:text-3xl font-black text-[#ed8200] mt-1 block">
               {formatNumber(TOTAL_QUOTA, 0)}명
             </strong>
-            <p className="text-xs text-[#8c745c] mt-1">
+            <p className="break-keep text-pretty text-xs text-[#8c745c] mt-1">
               남녀공학 4,428명 · 여학교 408명 (총 22개교 195학급)
             </p>
           </div>
@@ -111,10 +111,10 @@ export const DemandView: React.FC<DemandViewProps> = ({
         {/* Left: Interactive Controls & Real-time Output */}
         <div className="lg:col-span-6 space-y-6">
           <div className="bg-white rounded-2xl border border-[#ebdcc9] p-5 sm:p-6 shadow-xs space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-[#f0e4d4]">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 pb-3 border-b border-[#f0e4d4]">
               <div className="flex items-center gap-2">
-                <Sliders className="w-4 h-4 text-[#ed8200]" />
-                <h2 className="font-extrabold text-sm sm:text-base text-[#261d13]">
+                <Sliders className="w-4 h-4 shrink-0 text-[#ed8200]" />
+                <h2 className="break-keep text-balance font-extrabold text-sm sm:text-base text-[#261d13]">
                   예상 지원 인원 시뮬레이션
                 </h2>
               </div>
@@ -226,7 +226,7 @@ export const DemandView: React.FC<DemandViewProps> = ({
                 onChange={(e) => setSimSplit(Number(e.target.value))}
                 className="w-full accent-[#ed8200] cursor-pointer"
               />
-              <p className="text-[11px] text-[#8c745c]">
+              <p className="break-keep text-pretty text-[11px] text-[#8c745c]">
                 공학 학교의 실제 남녀 배정 비율은 지원 상황에 따라 결정됩니다. (여고 2개교 정원 408명은 여학생 전용)
               </p>
             </div>
@@ -365,7 +365,7 @@ export const DemandView: React.FC<DemandViewProps> = ({
 
       {/* Full 22 Schools Quota Change Table */}
       <section className="bg-white rounded-3xl border border-[#ebdcc9] p-6 sm:p-8 shadow-xs space-y-4">
-        <h2 className="text-base sm:text-lg font-black text-[#261d13]">
+        <h2 className="break-keep text-balance text-base sm:text-lg font-black text-[#261d13]">
           부천 관내 고등학교별 2026 vs 2027 모집정원 상세 변화
         </h2>
         <div className="overflow-x-auto rounded-2xl border border-[#ebdcc9]">
