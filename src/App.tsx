@@ -284,10 +284,7 @@ export default function App() {
       </main>
 
       {/* Footer & Brand Attribution */}
-      <Footer
-        onSelectView={changeView}
-        showBrandSection={currentView !== 'schools'}
-      />
+      <Footer onSelectView={changeView} />
 
       {/* Compare Floating Bottom Bar */}
       <CompareFloatingBar
