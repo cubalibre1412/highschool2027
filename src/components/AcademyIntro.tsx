@@ -7,17 +7,20 @@ export function AcademyIntro() {
         <img src="/brand/jinnmath-logo.jpg" alt="" width="48" height="48"
           className="size-12 shrink-0 rounded-xl border border-[#ebd7be] bg-white object-cover" />
         <div className="min-w-0">
+          <p className="text-xs font-bold text-[#793a00]">교습소 안내</p>
           <h2 className="break-keep text-base font-bold text-[#261d13]">배움의 온도 진수학 교습소</h2>
-          <p className="mt-1 break-keep text-sm text-[#594734]">중3·고등 내신과 수능 수학 맞춤 지도</p>
+          <p className="mt-1 break-keep text-sm text-[#594734]">중3·고등 내신 및 수능 수학 맞춤 지도</p>
         </div>
       </div>
+      <img src="/brand/jinnmath-banner.jpg" alt="" width="945" height="200" loading="lazy"
+        className="h-auto w-full max-w-[945px] rounded-xl border border-[#ebd7be]" />
       <div className="space-y-1.5 text-sm text-[#594734]">
         <p className="flex items-start gap-2">
           <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#8d4100]" />
           <span className="break-keep">부천시 범박힐스테이트 3단지 상가 3층</span>
         </p>
         <p className="break-keep pl-6">
-          카카오톡 채널 ·{' '}
+          카카오톡 채널: {' '}
           <a href="https://pf.kakao.com/_KjTYn" target="_blank" rel="noopener noreferrer"
             className="font-semibold text-[#793a00] underline underline-offset-2 hover:text-[#542700]">
             배움의온도진수학교습소 <ExternalLink aria-hidden="true" className="inline size-3 align-baseline" />
@@ -30,7 +33,7 @@ export function AcademyIntro() {
         </a>
         <a href="https://blog.naver.com/jinnmath" target="_blank" rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-[#8d4100] px-3 text-sm font-semibold text-white hover:bg-[#693000]">
-          교습소 블로그 <ExternalLink aria-hidden="true" size={15} />
+          블로그 방문 <ExternalLink aria-hidden="true" size={15} />
         </a>
       </div>
     </section>
