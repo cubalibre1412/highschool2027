@@ -118,20 +118,23 @@ export const SchoolTableView: React.FC<SchoolTableViewProps> = ({
 
                   {/* Distance & Kakao link */}
                   <td className="py-2.5 px-3 whitespace-nowrap">
-                    {prefs.distance && originMiddle ? (
+                    <div className="flex flex-col items-start gap-1">
+                      {prefs.distance && originMiddle && (
+                        <span className="text-[11px] text-[#7e6954]">{distText}</span>
+                      )}
                       <a
                         href={kakaoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${s.name} 카카오맵 길찾기 (새 창)`}
                         className="inline-flex items-center gap-1 text-xs font-bold text-[#b85e00] hover:underline bg-[#fdf5eb] px-2 py-0.5 rounded-md border border-[#f5dfc3]"
                       >
                         <Navigation className="w-3 h-3 text-[#ed8200]" />
-                        <span>{distText}</span>
+                        <span>카카오맵 길찾기</span>
                         <ArrowUpRight className="w-2.5 h-2.5 opacity-60" />
                       </a>
-                    ) : (
-                      <span className="text-[#a18a73] text-[11px]">중학교 미선택</span>
-                    )}
+                      {!originMiddle && <span className="text-[#a18a73] text-[11px]">지도에서 출발지 입력</span>}
+                    </div>
                   </td>
 
                   {/* 2027 Quota */}

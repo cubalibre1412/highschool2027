@@ -115,18 +115,19 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({
             </span>
           )}
           {prefs.distance && originMiddle && (
-            <a
-              href={kakaoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="카카오맵 대중교통 길찾기 새창"
-              className="inline-flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3] hover:bg-[#faebd9] transition-colors"
-            >
-              <Navigation className="w-3 h-3 text-[#ed8200]" />
-              <span>{distText}</span>
-              <ArrowUpRight className="w-3 h-3 opacity-60" />
-            </a>
+            <span className="text-xs text-[#7e6954]">{distText}</span>
           )}
+          <a
+            href={kakaoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${school.name} 카카오맵 길찾기 (새 창)`}
+            className="inline-flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#fdf5eb] text-[#b85e00] border border-[#f5dfc3] hover:bg-[#faebd9] transition-colors"
+          >
+            <Navigation className="w-3 h-3 text-[#ed8200]" />
+            <span>카카오맵 길찾기</span>
+            <ArrowUpRight className="w-3 h-3 opacity-60" />
+          </a>
         </div>
 
         {/* Address */}
