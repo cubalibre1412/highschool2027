@@ -58,7 +58,7 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompa
             왜 이 16개 대학인가요?
           </summary>
           <div className="space-y-3 px-3 pb-4 text-sm leading-relaxed text-[#594734]">
-            <p>앱에 담긴 대학은 교육부가 2019년 대입제도 공정성 강화 방안에서 수능 위주 전형 확대를 권고한 서울 소재 16곳이에요.</p>
+            <p className="text-balance break-keep">앱에 담긴 대학은 교육부가 2019년 대입제도 공정성 강화 방안에서 수능 위주 전형 확대를 권고한 서울 소재 16곳이에요.</p>
             {universities.length > 0 && (
               <ul aria-label="수록 대학" className="grid list-disc grid-cols-2 gap-x-5 gap-y-1 pl-5 sm:grid-cols-4">
                 {[...universities].sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((item) => (
