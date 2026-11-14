@@ -1,6 +1,7 @@
 import React from 'react';
 import { ViewType } from '../types';
 import { ExternalLink, ShieldCheck } from 'lucide-react';
+import { AcademyIntro } from './AcademyIntro';
 
 interface FooterProps {
   onSelectView: (view: ViewType) => void;
@@ -29,6 +30,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView }) => {
             <ExternalLink className="w-3.5 h-3.5" />
           </button>
         </div>
+
+        <AcademyIntro />
 
         {/* Legal Disclaimer & Bottom Note */}
         <div className="pt-6 border-t border-[#e8d8c2] text-center text-xs text-[#8c745c] space-y-1.5">

@@ -2,7 +2,6 @@ import React from 'react';
 import { School, MiddleSchool, UserPrefs, DetailTabType, SchoolSortType } from '../types';
 import { calculateDistance } from '../utils/geo';
 import { Sidebar } from './Sidebar';
-import { AcademyIntro } from './AcademyIntro';
 import { SchoolCard } from './SchoolCard';
 import { SchoolTableView } from './SchoolTableView';
 import { Search, ArrowUpDown, Table, LayoutGrid, List } from 'lucide-react';
@@ -76,7 +75,6 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
       </section>
 
       {/* Main Workspace (Sticky Sidebar + Content) */}
-      <div className="lg:hidden"><AcademyIntro /></div>
       <button type="button" className="min-h-11 rounded-xl border border-[#d9c9b8] bg-white px-4 text-sm font-bold lg:hidden"
         aria-expanded={showSettings} aria-controls="school-search-settings" onClick={() => setShowSettings(!showSettings)}>
         {showSettings ? '학교 찾기 설정 접기' : `학교 찾기 설정 · ${prefs.gender === 'male' ? '남학생' : '여학생'} 기준`}
@@ -90,7 +88,6 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
             onUpdatePrefs={onUpdatePrefs}
             onOpenWishlist={onOpenWishlist}
           />
-          <div className="hidden lg:block"><AcademyIntro /></div>
         </div>
 
         {/* Right School Content Area */}

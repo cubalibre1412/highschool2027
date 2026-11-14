@@ -1,7 +1,6 @@
 import { ArrowRight, Bookmark, GraduationCap, School } from 'lucide-react';
 import type { ViewType } from '../types';
 import type { SavedMajor } from '../utils/pathway';
-import { AcademyIntro } from './AcademyIntro';
 
 const button = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#8d4100] px-4 text-sm font-bold text-white hover:bg-[#693000]';
 
@@ -39,7 +38,6 @@ export function PathwayHome({ onNavigate, savedCount, compareCount, wishlistCoun
           </div>
         </section>
       )}
-      <AcademyIntro />
     </div>
   );
 }
