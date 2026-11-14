@@ -4,7 +4,7 @@ import { calculateDistance } from '../utils/geo';
 import { Sidebar } from './Sidebar';
 import { SchoolCard } from './SchoolCard';
 import { SchoolTableView } from './SchoolTableView';
-import { Search, ArrowUpDown, Sparkles, Table, LayoutGrid, List } from 'lucide-react';
+import { Search, ArrowUpDown, Table, LayoutGrid, List } from 'lucide-react';
 
 interface SchoolsViewProps {
   schools: School[];
@@ -16,6 +16,8 @@ interface SchoolsViewProps {
   onToggleCompare: (schoolId: number) => void;
   onOpenDetail: (schoolId: number, tab?: DetailTabType) => void;
   onOpenWishlist: () => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
 export const SchoolsView: React.FC<SchoolsViewProps> = ({
@@ -28,9 +30,11 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
   onToggleCompare,
   onOpenDetail,
   onOpenWishlist,
+  searchQuery,
+  onSearchChange: setSearchQuery,
 }) => {
-  const [searchQuery, setSearchQuery] = React.useState('');
   const [viewMode, setViewMode] = React.useState<'table' | 'compact' | 'cards'>('table');
+  const [showSettings, setShowSettings] = React.useState(false);
 
   // Filter eligible schools (male cannot apply to girls schools)
   const eligibleSchools = schools.filter(
@@ -65,52 +69,19 @@ export const SchoolsView: React.FC<SchoolsViewProps> = ({
 
   return (
     <div className="space-y-5">
-      {/* Compact Sleek Hero Banner Section */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#fff7ec] via-[#fffbf6] to-[#fbf1e3] border border-[#f0deca] p-4 sm:p-5 shadow-xs">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-white/90 rounded-full border border-[#ebd5bc] text-[11px] font-bold text-[#b85e00] shadow-2xs">
-              <Sparkles className="w-3 h-3 text-[#ed8200]" />
-              <span>2027학년도 부천 일반고 신입생 배정 가이드</span>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-black text-[#261d13] tracking-tight">
-              부천 고등학교 한눈에 비교하기
-            </h1>
-            <p className="text-xs text-[#69543e] leading-snug">
-              22개 일반고의 2027 공식 모집정원(4,836명), 중학교 통학거리, 개설 선택과목 및 학업성취도를 한눈에 비교하고 나만의 지망표를 완성하세요.
-            </p>
-          </div>
-
-          {/* 3 Steps Guide Visual Indicator (Compact) */}
-          <div className="flex flex-wrap items-center gap-2 p-2.5 bg-white/80 backdrop-blur-xs rounded-xl border border-[#ebdcc9] shrink-0 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-[#3d2e1f] whitespace-nowrap">
-              <span className="w-5 h-5 rounded-full bg-[#ed8200] text-white flex items-center justify-center text-[10px] shadow-2xs shrink-0">
-                1
-              </span>
-              <span className="text-[11px]">학교비교</span>
-            </div>
-            <span className="text-[#c7b39f]">›</span>
-            <div className="flex items-center gap-1.5 font-bold text-[#5c4936] whitespace-nowrap">
-              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px] shrink-0">
-                2
-              </span>
-              <span className="text-[11px]">지망담기</span>
-            </div>
-            <span className="text-[#c7b39f]">›</span>
-            <div className="flex items-center gap-1.5 font-bold text-[#5c4936] whitespace-nowrap">
-              <span className="w-5 h-5 rounded-full bg-[#faecd8] text-[#8a4b00] flex items-center justify-center text-[10px] shrink-0">
-                3
-              </span>
-              <span className="text-[11px]">지망표저장</span>
-            </div>
-          </div>
-        </div>
+      <section className="rounded-2xl border border-[#ebd5bc] bg-[#fff7ec] p-4 sm:p-5">
+        <h1 className="text-xl font-black text-[#261d13] sm:text-2xl">부천 고등학교 찾기</h1>
+        <p className="mt-1.5 text-sm leading-relaxed text-[#594734]">학교 이름을 눌러 자세히 보거나, 궁금한 학교 2~4곳을 골라 비교해 봐요.</p>
       </section>
 
       {/* Main Workspace (Sticky Sidebar + Content) */}
+      <button type="button" className="min-h-11 rounded-xl border border-[#d9c9b8] bg-white px-4 text-sm font-bold lg:hidden"
+        aria-expanded={showSettings} aria-controls="school-search-settings" onClick={() => setShowSettings(!showSettings)}>
+        {showSettings ? '학교 찾기 설정 접기' : `학교 찾기 설정 · ${prefs.gender === 'male' ? '남학생' : '여학생'} 기준`}
+      </button>
       <div className="grid grid-cols-1 lg:grid-cols-[285px_minmax(0,1fr)] xl:grid-cols-[310px_minmax(0,1fr)] gap-5 items-start">
         {/* Left Filter Sidebar (Sticky on PC below header, scrollable if viewport is short) */}
-        <div className="space-y-4 lg:sticky lg:top-22 lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto lg:pr-1">
+        <div id="school-search-settings" className={`${showSettings ? 'block' : 'hidden'} space-y-4 lg:block lg:sticky lg:top-22 lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto lg:pr-1`}>
           <Sidebar
             prefs={prefs}
             middles={middles}

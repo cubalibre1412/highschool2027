@@ -141,7 +141,7 @@ export interface AppData {
 }
 
 export type GenderType = 'female' | 'male';
-export type ViewType = 'schools' | 'wishlist' | 'demand' | 'guide';
+export type ViewType = 'home' | 'schools' | 'universities' | 'majors' | 'courses' | 'wishlist' | 'demand' | 'guide';
 export type SchoolSortType = 'name' | 'distance' | 'change';
 export type DetailTabType = 'overview' | 'curriculum' | 'assessment' | 'achievement' | 'graduates';
 

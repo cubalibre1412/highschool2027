@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewType } from '../types';
-import { School, Bookmark, BarChart2, BookOpen, ExternalLink, Menu, X } from 'lucide-react';
+import { School, GraduationCap, Bookmark, BarChart2, BookOpen, ExternalLink, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   currentView: ViewType;
@@ -17,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navItems: { view: ViewType; label: string; icon: React.ReactNode; badge?: number }[] = [
     { view: 'schools', label: '학교 찾기', icon: <School className="w-4 h-4" /> },
+    { view: 'universities', label: '대학·전공 찾기', icon: <GraduationCap className="w-4 h-4" /> },
     { view: 'wishlist', label: '내 지망표', icon: <Bookmark className="w-4 h-4" />, badge: wishlistCount },
     { view: 'demand', label: '정원 알아보기', icon: <BarChart2 className="w-4 h-4" /> },
     { view: 'guide', label: '지원 안내', icon: <BookOpen className="w-4 h-4" /> },
@@ -27,12 +28,12 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18">
           {/* Logo & Brand title */}
-          <div
+          <button type="button" aria-label="부천 고등학교 한눈에 홈"
             onClick={() => {
-              onSelectView('schools');
+              onSelectView('home');
               setMobileMenuOpen(false);
             }}
-            className="flex items-center gap-3.5 cursor-pointer group"
+            className="flex min-w-0 items-center gap-3.5 text-left cursor-pointer group"
           >
             <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-xs border border-[#ed8200]/30 p-0.5 bg-white shrink-0">
               <img
@@ -52,16 +53,17 @@ export const Header: React.FC<HeaderProps> = ({
                 배움의 온도 진수학 교습소 · 2027학년도
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-1.5 bg-[#f6ede1]/60 p-1 rounded-xl border border-[#e6d8c3] shrink-0">
+          <nav aria-label="주 메뉴" className="hidden lg:flex items-center gap-1 bg-[#f6ede1]/60 p-1 rounded-xl border border-[#e6d8c3] shrink-0">
             {navItems.map((item) => {
-              const active = currentView === item.view;
+              const active = currentView === item.view || (currentView === 'majors' && item.view === 'universities') || (currentView === 'courses' && item.view === 'schools');
               return (
                 <button
                   key={item.view}
                   onClick={() => onSelectView(item.view)}
+                  aria-current={active ? 'page' : undefined}
                   className={`relative flex items-center gap-1.5 lg:gap-2 px-3 lg:px-3.5 py-2 rounded-lg text-xs lg:text-sm font-semibold whitespace-nowrap transition-all ${
                     active
                       ? 'bg-white text-[#b85e00] shadow-xs font-bold'
@@ -87,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
 
           {/* Right action button: Guide / Sources */}
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
+          <div className="hidden xl:flex items-center gap-2 shrink-0">
             <button
               onClick={() => onSelectView('guide')}
               className="inline-flex items-center gap-1.5 text-xs text-[#7e674f] hover:text-[#b85e00] font-semibold px-3 py-1.5 rounded-lg hover:bg-[#f5ecdf] border border-transparent hover:border-[#ebdcc9] whitespace-nowrap transition-all"
@@ -98,10 +100,11 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Mobile menu toggle button */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="메뉴 열기"
+              aria-label={mobileMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
+              aria-expanded={mobileMenuOpen}
               className="p-2 rounded-lg text-[#69553f] hover:bg-[#f6ede1] focus:outline-none focus:ring-2 focus:ring-[#ed8200]"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,10 +113,23 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
+      <nav aria-label="빠른 메뉴" className="mx-auto grid max-w-7xl grid-cols-3 gap-1 px-3 pb-2 lg:hidden">
+        {navItems.filter((item) => ['schools', 'universities', 'wishlist'].includes(item.view)).map((item) => {
+          const active = currentView === item.view || (currentView === 'majors' && item.view === 'universities') || (currentView === 'courses' && item.view === 'schools');
+          return (
+            <button key={item.view} type="button" aria-current={active ? 'page' : undefined}
+              onClick={() => { onSelectView(item.view); setMobileMenuOpen(false); }}
+              className={`min-h-11 rounded-xl px-1 text-sm font-bold ${active ? 'bg-[#f9ead9] text-[#793a00]' : 'text-[#594734] hover:bg-[#fff3e3]'}`}>
+              {item.label}
+            </button>
+          );
+        })}
+      </nav>
+
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#ebdcc9] bg-[#fffdfa] px-4 pt-3 pb-5 space-y-1.5 shadow-lg animate-in slide-in-from-top-2 duration-200">
-          {navItems.map((item) => {
+        <div className="lg:hidden border-t border-[#ebdcc9] bg-[#fffdfa] px-4 pt-3 pb-5 space-y-1.5 shadow-lg animate-in slide-in-from-top-2 duration-200">
+          {navItems.filter((item) => item.view === 'demand' || item.view === 'guide').map((item) => {
             const active = currentView === item.view;
             return (
               <button

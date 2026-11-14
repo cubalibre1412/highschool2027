@@ -9,6 +9,7 @@ interface CompareFloatingBarProps {
   onOpenCompare: () => void;
   onClearCompare: () => void;
   onRemoveCompareItem: (id: number) => void;
+  courseMode?: boolean;
 }
 
 export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({
@@ -17,6 +18,7 @@ export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({
   onOpenCompare,
   onClearCompare,
   onRemoveCompareItem,
+  courseMode,
 }) => {
   if (compareIds.length === 0) return null;
 
@@ -73,7 +75,7 @@ export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({
             }`}
           >
             <span>
-              {canCompare ? `${comparedSchools.length}개 학교 비교하기` : '1곳 더 선택해 주세요'}
+              {canCompare ? `${comparedSchools.length}개교 ${courseMode ? '과목 비교하기' : '비교하기'}` : '한 학교를 더 골라 주세요'}
             </span>
             <ArrowRight className="w-4 h-4" />
           </button>

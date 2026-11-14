@@ -2,6 +2,7 @@ import React from 'react';
 import { School, MiddleSchool, UserPrefs, DetailTabType } from '../types';
 import { shortenSchoolName, formatNumber, formatRate, getKakaoRouteUrl, getDistanceText } from '../utils/geo';
 import { INTEREST_FIELDS } from '../constants';
+import { SchoolPlan2027 } from './CoursePlanner';
 import {
   X,
   MapPin,
@@ -527,6 +528,7 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
           {/* TAB 2: 선택과목 & 교육과정 (Curriculum) */}
           {activeTab === 'curriculum' && (
             <div className="space-y-6">
+              <SchoolPlan2027 school={school} />
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
                 <strong className="text-[#b85e00] font-bold">2026학년도 1학기 2·3학년 수강 공시 기준</strong>
                 <p className="mt-0.5">아래 목록은 당시 수업이 확인된 과목입니다. 2027학년도 입학생이 들을 수 있는 과목은 해당 입학연도의 학교 교육과정표에서 확인해 주세요.</p>

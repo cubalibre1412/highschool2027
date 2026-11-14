@@ -87,14 +87,15 @@ export const SchoolTableView: React.FC<SchoolTableViewProps> = ({
                   </p>
                 </div>
 
-                <label className="flex items-center gap-1 text-xs text-[#6e5842] cursor-pointer select-none shrink-0 bg-[#faf6f0] px-2 py-1 rounded-lg border border-[#ede0ce]">
+                <label className="flex min-h-11 items-center gap-1.5 text-sm text-[#6e5842] cursor-pointer select-none shrink-0 bg-[#faf6f0] px-2.5 py-1 rounded-lg border border-[#ede0ce]">
                   <input
                     type="checkbox"
+                    aria-label={`${s.name} 비교 선택`}
                     checked={isCompared}
                     onChange={() => onToggleCompare(s.id)}
                     className="w-3.5 h-3.5 text-[#ed8200] rounded border-[#d4beaa] focus:ring-[#ed8200]"
                   />
-                  <span className="font-semibold text-[11px]">비교</span>
+                  <span className="font-semibold">비교</span>
                 </label>
               </div>
 

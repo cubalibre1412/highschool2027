@@ -11,6 +11,32 @@ import { GuideView } from './components/GuideView';
 import { CompareFloatingBar } from './components/CompareFloatingBar';
 import { CompareModal } from './components/CompareModal';
 import { SchoolDetailModal } from './components/SchoolDetailModal';
+import { PathwayHome, SavedMajorsView } from './components/PathwayHome';
+import { UniversityView } from './components/UniversityView';
+import type { UniversityFilters } from './components/UniversityView';
+import { CoursePlanner } from './components/CoursePlanner';
+import type { SavedMajor } from './utils/pathway';
+
+const views: ViewType[] = ['home', 'schools', 'universities', 'majors', 'courses', 'wishlist', 'demand', 'guide'];
+const pathwayStorageKey = 'bucheon-pathway-choices-v1';
+const emptyPathway = { saved: [] as SavedMajor[], activeKey: '', subjects: [] as string[], currentSubject: '' };
+
+function readPathway() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(pathwayStorageKey) || 'null');
+    if (Array.isArray(stored?.saved) && Array.isArray(stored.subjects) && typeof stored.activeKey === 'string') {
+      return {
+        saved: stored.saved as SavedMajor[],
+        activeKey: stored.activeKey as string,
+        subjects: stored.subjects as string[],
+        currentSubject: typeof stored.currentSubject === 'string' ? stored.currentSubject : '',
+      };
+    }
+  } catch {
+    // Storage may be unavailable in a private browsing session.
+  }
+  return emptyPathway;
+}
 
 export default function App() {
   const [appData, setAppData] = React.useState<AppData | null>(null);
@@ -18,7 +44,12 @@ export default function App() {
   const [error, setError] = React.useState<string | null>(null);
 
   // Current view tab
-  const [currentView, setCurrentView] = React.useState<ViewType>('schools');
+  const [currentView, setCurrentView] = React.useState<ViewType>('home');
+  const [pathway, setPathway] = React.useState(readPathway);
+  const [universityFilters, setUniversityFilters] = React.useState<UniversityFilters>({ year: '2028', query: '', university: '', college: '' });
+  const [schoolQuery, setSchoolQuery] = React.useState('');
+  const [choosingCourseSchools, setChoosingCourseSchools] = React.useState(false);
+  const activeMajor = pathway.saved.find((major) => major.key === pathway.activeKey);
 
   // User preferences
   const [prefs, setPrefs] = React.useState<UserPrefs>(() => {
@@ -60,13 +91,19 @@ export default function App() {
     }
   }, [prefs]);
 
+  React.useEffect(() => {
+    try {
+      localStorage.setItem(pathwayStorageKey, JSON.stringify(pathway));
+    } catch {
+      // The current session can still use these selections.
+    }
+  }, [pathway]);
+
   // Handle URL hash changes
   React.useEffect(() => {
     const handleHash = () => {
-      const h = window.location.hash.slice(1);
-      if (['schools', 'wishlist', 'demand', 'guide'].includes(h)) {
-        setCurrentView(h as ViewType);
-      }
+      const h = window.location.hash.slice(1) as ViewType;
+      setCurrentView(views.includes(h) ? h : 'home');
     };
     handleHash();
     window.addEventListener('hashchange', handleHash);
@@ -74,9 +111,30 @@ export default function App() {
   }, []);
 
   const changeView = (view: ViewType) => {
+    setIsCompareOpen(false);
+    setDetailSchoolId(null);
     setCurrentView(view);
     window.location.hash = view;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const toggleMajor = (major: SavedMajor) => {
+    const exists = pathway.saved.some((item) => item.key === major.key);
+    setPathway((previous) => {
+      if (!previous.saved.some((item) => item.key === major.key)) return { ...previous, saved: [...previous.saved, major] };
+      const isActive = previous.activeKey === major.key;
+      return { ...previous, saved: previous.saved.filter((item) => item.key !== major.key), activeKey: isActive ? '' : previous.activeKey };
+    });
+    showToast(exists ? `${major.name} 저장을 해제했어요.` : `${major.name}을 관심 전공에 저장했어요.`);
+  };
+
+  const selectMajor = (key: string) => {
+    setPathway((previous) => ({ ...previous, activeKey: key }));
+  };
+
+  const chooseCourseSchools = () => {
+    setChoosingCourseSchools(true);
+    changeView('schools');
   };
 
   // Fetch /data.json
@@ -232,13 +290,48 @@ export default function App() {
       {/* Global Top Navigation */}
       <Header
         currentView={currentView}
-        onSelectView={changeView}
+        onSelectView={(view) => {
+          if (view === 'schools') setChoosingCourseSchools(false);
+          changeView(view);
+        }}
         wishlistCount={prefs.wishlist.length}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className={`flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 ${currentView === 'schools' && prefs.compare.length ? 'pb-32 sm:pb-24' : ''}`}>
+        {currentView === 'home' && (
+          <PathwayHome onNavigate={changeView} savedCount={pathway.saved.length} compareCount={prefs.compare.length} wishlistCount={prefs.wishlist.length} />
+        )}
+
+        {currentView === 'universities' && (
+          <UniversityView filters={universityFilters} onFilter={setUniversityFilters} saved={pathway.saved} onToggleSave={toggleMajor} onOpenSaved={() => changeView('majors')} />
+        )}
+
+        {currentView === 'majors' && (
+          <SavedMajorsView saved={pathway.saved} activeKey={pathway.activeKey} onRemove={toggleMajor}
+            onExplore={() => changeView('universities')} onCompare={(key) => { selectMajor(key); chooseCourseSchools(); }} />
+        )}
+
+        {currentView === 'courses' && (
+          <CoursePlanner schools={appData.schools} prefs={prefs} saved={pathway.saved} activeMajor={activeMajor} subjects={pathway.subjects}
+            currentSubject={pathway.currentSubject} onFocusSubject={(currentSubject) => setPathway((previous) => ({ ...previous, currentSubject }))}
+            onSelectMajor={selectMajor} onSelectSubjects={(subjects) => setPathway((previous) => ({ ...previous, subjects }))}
+            onSelectSchools={chooseCourseSchools} onOpenSaved={() => changeView('universities')}
+            onAddSchool={toggleWishlist} onSaveNote={(id, note) => setPrefs((previous) => ({ ...previous, notes: { ...previous.notes, [id]: note } }))}
+            onOpenWishlist={() => changeView('wishlist')} />
+        )}
+
         {currentView === 'schools' && (
+          <>
+          {choosingCourseSchools && (
+            <section className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#ebd5bc] bg-[#fff7ec] p-4">
+              <div>
+                <h2 className="text-base font-bold">{activeMajor ? `관심 전공 · ${activeMajor.name}` : '과목을 비교할 학교를 골라요'}</h2>
+                <p className="mt-1 text-sm text-[#594734]">목록에서 궁금한 학교 2~4곳에 ‘비교’를 체크해 주세요.</p>
+              </div>
+              <button className="min-h-11 text-sm font-semibold underline" onClick={() => changeView('majors')}>관심 전공 바꾸기</button>
+            </section>
+          )}
           <SchoolsView
             schools={appData.schools}
             middles={appData.middles}
@@ -249,7 +342,10 @@ export default function App() {
             onToggleCompare={toggleCompare}
             onOpenDetail={handleOpenDetail}
             onOpenWishlist={() => changeView('wishlist')}
+            searchQuery={schoolQuery}
+            onSearchChange={setSchoolQuery}
           />
+          </>
         )}
 
         {currentView === 'wishlist' && (
@@ -287,15 +383,16 @@ export default function App() {
       <Footer onSelectView={changeView} />
 
       {/* Compare Floating Bottom Bar */}
-      <CompareFloatingBar
+      {currentView === 'schools' && <CompareFloatingBar
         compareIds={prefs.compare}
         schools={appData.schools}
-        onOpenCompare={() => setIsCompareOpen(true)}
+        onOpenCompare={() => choosingCourseSchools ? changeView('courses') : setIsCompareOpen(true)}
+        courseMode={choosingCourseSchools}
         onClearCompare={() => updatePrefs({ compare: [] })}
         onRemoveCompareItem={(id) =>
           updatePrefs({ compare: prefs.compare.filter((x) => x !== id) })
         }
-      />
+      />}
 
       {/* Compare Modal */}
       {isCompareOpen && (
@@ -306,6 +403,7 @@ export default function App() {
           prefs={prefs}
           onClose={() => setIsCompareOpen(false)}
           onOpenDetail={handleOpenDetail}
+          onOpenCoursePlanner={() => changeView('courses')}
           onToggleField={(fieldId) => {
             const next = prefs.fields.includes(fieldId)
               ? prefs.fields.filter((x) => x !== fieldId)
@@ -331,7 +429,7 @@ export default function App() {
 
       {/* Floating Toast Notification */}
       {toastMsg && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#261d13]/95 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl border border-[#524130] animate-in fade-in slide-in-from-top-2 duration-150">
+        <div role="status" className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#261d13]/95 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl border border-[#524130] animate-in fade-in slide-in-from-top-2 duration-150">
           {toastMsg}
         </div>
       )}
