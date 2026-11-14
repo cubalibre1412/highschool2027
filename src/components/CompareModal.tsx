@@ -306,7 +306,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                   <Sparkles className="w-4 h-4 text-[#ed8200]" />
                   <span>관심 분야별 과목 비교</span>
                 </h3>
-                <p className="text-xs text-[#7e6954]">선택한 분야의 개설 과목을 학교별로 나란히 비교합니다.</p>
+                <p className="text-sm leading-relaxed text-[#6e5842]">2026학년도 1학기 2·3학년 수강 공시에서 확인한 과목을 비교합니다.</p>
               </div>
 
               {/* Field Select Pills */}
@@ -325,6 +325,17 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                   </button>
                 ))}
               </div>
+            </div>
+
+            <div className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5] p-4 text-sm leading-relaxed text-[#594734]">
+              <h4 className="font-bold text-[#261d13]">2027학년도 입학생이 확인할 항목</h4>
+              <p className="mt-1">아래 목록에서 관심 과목을 찾은 뒤, 학교의 2027학년도 입학생용 교육과정표와 최신 안내를 확인해 주세요.</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>희망 과목이 어느 학년·학기에 편성되는지</li>
+                <li>학교 지정 과목인지, 학생 선택 과목인지</li>
+                <li>같은 묶음에서 몇 과목을 고르는지, 듣고 싶은 과목을 함께 고를 수 있는지</li>
+                <li>실제 개설 여부와 수강 조건, 교내 미개설 시 공동교육과정 신청 가능 여부</li>
+              </ul>
             </div>
 
             {/* Common subject banner */}
@@ -400,7 +411,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                             }}
                             className="text-[11px] font-semibold text-[#b85e00] hover:underline"
                           >
-                            교육과정 전체 보기 →
+                            학교 교육과정 자료 보기 →
                           </button>
                         </div>
                       </td>
@@ -410,7 +421,6 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               </table>
             </div>
 
-            <p className="text-xs text-[#8c745c] leading-relaxed">※ 과목 수는 학교 우열을 뜻하지 않습니다. 2026학년도 1학기 2·3학년 성취도 공시에 등장한 실제 과목 기준입니다. 2027학년도 신입생의 선택 편성표 및 개설 조건은 학교별 최신 교육과정을 확인해 주세요.</p>
           </section>
         </div>
 

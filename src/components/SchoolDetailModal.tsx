@@ -528,8 +528,8 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
           {activeTab === 'curriculum' && (
             <div className="space-y-6">
               <div className="p-4 bg-[#fdfaf5] border border-[#f5dfc3] rounded-2xl text-xs text-[#6e5842] leading-relaxed">
-                <strong className="text-[#b85e00] font-bold">2026학년도 1학기 공시 교육과정 편제</strong>
-                <p className="mt-0.5">실제 2·3학년 성취도 공시에 수강 내역이 등장하는 과목 목록입니다. 2027학년도 신입생의 확정 개설 여부와 학생 선택 묶음은 매 학년도 학교 교육과정 설명회에서 확인해 주세요.</p>
+                <strong className="text-[#b85e00] font-bold">2026학년도 1학기 2·3학년 수강 공시 기준</strong>
+                <p className="mt-0.5">아래 목록은 당시 수업이 확인된 과목입니다. 2027학년도 입학생이 들을 수 있는 과목은 해당 입학연도의 학교 교육과정표에서 확인해 주세요.</p>
               </div>
 
               {/* Upper Grade Subjects Tags */}
@@ -550,6 +550,19 @@ export const SchoolDetailModal: React.FC<SchoolDetailModalProps> = ({
                     </span>
                   ))}
                 </div>
+              </section>
+
+              <section className="rounded-2xl border border-[#ebdcc9] bg-white p-4 sm:p-5">
+                <h3 className="text-base font-bold text-[#261d13]">과목표 읽는 법</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#6e5842]">
+                  교육과정표(편제표)는 3년 동안 어느 학기에 어떤 과목을 몇 학점 듣는지 보여줍니다.
+                </p>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[#594734]">
+                  <li><strong>학기와 학점</strong> · ‘2-1’은 2학년 1학기, 과목 옆 ‘3’은 3학점을 뜻합니다.</li>
+                  <li><strong>학교 지정과 학생 선택</strong> · 지정 과목은 학교가 정하고, 학생 선택 과목은 표에 나온 묶음 안에서 고릅니다.</li>
+                  <li><strong>‘택3’의 뜻</strong> · 한 묶음에 과목이 8개 있고 ‘택3’이라고 적혀 있으면, 그중 3개를 고릅니다.</li>
+                </ul>
+                <p className="mt-3 text-xs text-[#7e6954]">참고 자료 · 경기 고교학점제 안내 연수 자료 16~18쪽</p>
               </section>
 
               {/* In-app Document Viewer for Curriculum */}

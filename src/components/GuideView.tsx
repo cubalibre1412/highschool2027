@@ -297,6 +297,48 @@ export const GuideView: React.FC<GuideViewProps> = ({
         </div>
       </div>
 
+      <section className="rounded-2xl border border-[#ebdcc9] bg-white p-4 sm:p-6 shadow-xs space-y-3" aria-labelledby="credit-faq-title">
+        <h2 id="credit-faq-title" className="flex items-center gap-2 text-lg font-black text-[#261d13]">
+          <HelpCircle aria-hidden="true" className="h-5 w-5 shrink-0 text-[#ed8200]" />
+          고교학점제 FAQ
+        </h2>
+        <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">아직 진로를 정하지 못했어요. 과목은 어떻게 고르나요?</summary>
+          <p className="px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+            1학년에는 공통과목을 중심으로 배우면서 관심 분야를 찾아갈 수 있어요. 좋아하는 과목이나 활동부터 살펴보고, 담임 선생님이나 진로 상담 선생님과 다음 학년의 과목을 함께 골라 보세요.
+          </p>
+        </details>
+        <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학교에 원하는 과목이 없으면 어떻게 하나요?</summary>
+          <div className="space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+            <p>학교 간 공동교육과정이나 경기이음온학교의 실시간 온라인 수업을 알아볼 수 있어요. 강좌마다 신청 대상과 일정이 다르니, 소속 학교에 신청할 수 있는지 확인해 주세요.</p>
+            <a href="https://more.goe.go.kr/hagjeomje/subList/30300002496" target="_blank" rel="noopener noreferrer" className="inline-block font-semibold text-[#9a4b00] underline underline-offset-2">
+              경기 공동교육과정 개설 현황 보기 ↗
+            </a>
+          </div>
+        </details>
+        <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">학점을 받으려면 어떤 기준을 충족해야 하나요?</summary>
+          <div className="space-y-2 px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+            <p>2027학년도에 적용되는 기본 이수 기준입니다. 졸업에 필요한 학점은 3년간 192학점(교과 174학점, 창의적 체험활동 18학점)입니다.</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li><strong>공통과목</strong> · 과목 출석률 3분의 2 이상과 학업성취율 40% 이상</li>
+              <li><strong>선택과목</strong> · 과목 출석률 3분의 2 이상</li>
+              <li><strong>창의적 체험활동</strong> · 해당 학년 전체 수업일수의 3분의 2 이상 출석</li>
+            </ul>
+            <a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&amp;boardSeq=105223&amp;lev=0&amp;m=020402&amp;s=moe" target="_blank" rel="noopener noreferrer" className="inline-block font-semibold text-[#9a4b00] underline underline-offset-2">
+              교육부 학점 이수 기준 안내 보기 ↗
+            </a>
+          </div>
+        </details>
+        <details className="rounded-xl border border-[#ebdcc9] bg-[#fdfaf5]">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-[#261d13]">이수 기준에 못 미치면 학점을 받을 수 없나요?</summary>
+          <p className="px-4 pb-4 text-sm leading-relaxed text-[#594734]">
+            이수 기준에 미치지 못해도 학점을 받을 기회가 있어요. 공통과목의 학업성취율 기준에 미치지 못하면 최소 성취수준 보장지도를, 출석률이 부족하면 추가학습을 통해 이수할 수 있어요. 참여 방법은 학교 안내를 확인해 주세요.
+          </p>
+        </details>
+      </section>
+
       {/* 3. Official Files & Contact Center */}
       <section className="bg-white rounded-3xl border border-[#ebdcc9] p-6 sm:p-8 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#f0e4d4]">
