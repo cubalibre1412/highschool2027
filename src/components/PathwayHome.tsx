@@ -12,27 +12,27 @@ export function PathwayHome({ onNavigate, savedCount, compareCount, wishlistCoun
 }) {
   return (
     <div className="mx-auto max-w-4xl space-y-5">
-      <section className="rounded-3xl border border-[#ebd5bc] bg-[#fff7ec] p-5 sm:p-8">
-        <h1 className="text-2xl font-black tracking-tight sm:text-3xl">나에게 맞는 학교를 찾아봐요</h1>
-        <p className="mt-2 text-sm leading-relaxed text-[#594734] sm:text-base">고등학교부터 골라도, 관심 있는 전공부터 찾아봐도 좋아요.</p>
+      <section className="rounded-3xl border border-[#ebd5bc] bg-[#fff7ec] p-4 sm:p-8">
+        <h1 className="text-balance break-keep text-[clamp(1.25rem,6vw,1.5rem)] font-black tracking-tight sm:text-3xl">나에게 맞는 학교를 찾아봐요</h1>
+        <p className="mt-2 text-pretty break-keep text-sm leading-relaxed text-[#594734] sm:text-base">고등학교부터 골라도, 관심 있는 전공부터 찾아봐도 좋아요.</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           <button type="button" onClick={() => onNavigate('schools')} className="flex min-h-28 items-start gap-3 rounded-2xl border border-[#dcb894] bg-white p-4 text-left hover:bg-[#fff1df]">
             <School aria-hidden="true" className="mt-0.5 shrink-0 text-[#8d4100]" />
-            <span className="flex-1"><strong className="block text-base">부천 고등학교 찾기</strong><span className="mt-1 block text-sm leading-relaxed text-[#594734]">통학과 과목을 비교하고 지망표를 만들어요.</span></span>
+            <span className="flex-1"><strong className="block break-keep text-base">부천 고등학교 찾기</strong><span className="mt-1 block text-pretty break-keep text-sm leading-relaxed text-[#594734]">통학과 과목을 비교하고 지망표를 만들어요.</span></span>
             <ArrowRight aria-hidden="true" size={18} className="mt-1 shrink-0" />
           </button>
-          <button type="button" onClick={() => onNavigate('universities')} className="flex min-h-28 items-start gap-3 rounded-2xl border border-[#dcb894] bg-white p-4 text-left hover:bg-[#fff1df]">
-            <GraduationCap aria-hidden="true" className="mt-0.5 shrink-0 text-[#8d4100]" />
-            <span className="min-w-0 flex-1">
-              <strong className="block text-base">서울 16개 대학·전공 찾기</strong>
-              <span className="mt-1 block break-keep text-sm leading-relaxed text-[#594734]">
+          <button type="button" onClick={() => onNavigate('universities')} className="grid min-h-28 grid-cols-[auto_minmax(0,1fr)] content-start items-center gap-x-2 gap-y-1.5 rounded-2xl border border-[#dcb894] bg-white p-3.5 text-left hover:bg-[#fff1df] min-[360px]:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-4">
+            <GraduationCap aria-hidden="true" className="size-5 text-[#8d4100]" />
+            <strong className="break-keep text-base">서울 16개 대학·전공 찾기</strong>
+            <ArrowRight aria-hidden="true" size={18} className="hidden min-[360px]:block" />
+            <span className="col-span-full sm:col-start-2 sm:col-end-4">
+              <span className="block text-pretty break-keep text-sm leading-relaxed text-[#594734]">
                 궁금한 전공을 저장하고 고교 과목과 이어서 살펴봐요.
               </span>
-              <span className="mt-2 block break-keep text-xs leading-relaxed text-[#6e5842]">
+              <span className="mt-1.5 block text-pretty break-keep text-xs leading-relaxed text-[#6e5842]">
                 2019년 교육부의 수능 위주 전형 확대 권고 대상 대학이에요.
               </span>
             </span>
-            <ArrowRight aria-hidden="true" size={18} className="mt-1 shrink-0" />
           </button>
         </div>
       </section>
