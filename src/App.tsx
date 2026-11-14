@@ -137,6 +137,11 @@ export default function App() {
     changeView('schools');
   };
 
+  const compareMajor = (key: string) => {
+    selectMajor(key);
+    chooseCourseSchools();
+  };
+
   // Fetch /data.json
   React.useEffect(() => {
     fetch('/data.json')
@@ -304,12 +309,13 @@ export default function App() {
         )}
 
         {currentView === 'universities' && (
-          <UniversityView filters={universityFilters} onFilter={setUniversityFilters} saved={pathway.saved} onToggleSave={toggleMajor} onOpenSaved={() => changeView('majors')} />
+          <UniversityView filters={universityFilters} onFilter={setUniversityFilters} saved={pathway.saved} onToggleSave={toggleMajor}
+            onCompare={compareMajor} onOpenSaved={() => changeView('majors')} />
         )}
 
         {currentView === 'majors' && (
           <SavedMajorsView saved={pathway.saved} activeKey={pathway.activeKey} onRemove={toggleMajor}
-            onExplore={() => changeView('universities')} onCompare={(key) => { selectMajor(key); chooseCourseSchools(); }} />
+            onExplore={() => changeView('universities')} onCompare={compareMajor} />
         )}
 
         {currentView === 'courses' && (

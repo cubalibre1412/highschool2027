@@ -15,13 +15,14 @@ interface Props {
   onFilter: (filters: UniversityFilters) => void;
   saved: SavedMajor[];
   onToggleSave: (major: SavedMajor) => void;
+  onCompare: (key: string) => void;
   onOpenSaved: () => void;
 }
 
 const control = 'min-h-11 w-full rounded-xl border border-[#d9c9b8] bg-white px-3 text-sm text-[#261d13]';
 const action = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#8d4100] px-4 text-sm font-bold text-white hover:bg-[#693000]';
 
-export function UniversityView({ filters, onFilter, saved, onToggleSave, onOpenSaved }: Props) {
+export function UniversityView({ filters, onFilter, saved, onToggleSave, onCompare, onOpenSaved }: Props) {
   const { data, failed, retry } = usePathwayData<{ universities: University[] }>('admissions');
   const universities = data?.universities ?? [];
   const { year, query, university, college } = filters;
@@ -91,18 +92,19 @@ export function UniversityView({ filters, onFilter, saved, onToggleSave, onOpenS
           ))}
         </section>
       ) : (
-        <UniversityResults key={JSON.stringify(filters)} matches={matches} year={year} saved={saved} onToggleSave={onToggleSave}
+        <UniversityResults key={JSON.stringify(filters)} matches={matches} year={year} saved={saved} onToggleSave={onToggleSave} onCompare={onCompare}
           onClear={() => onFilter({ year, query: '', university: '', college: '' })} />
       ))}
     </div>
   );
 }
 
-function UniversityResults({ matches, year, saved, onToggleSave, onClear }: {
+function UniversityResults({ matches, year, saved, onToggleSave, onCompare, onClear }: {
   matches: { item: University; unit: University['years'][AdmissionYear]['units'][number]; key: string; index: number }[];
   year: AdmissionYear;
   saved: SavedMajor[];
   onToggleSave: Props['onToggleSave'];
+  onCompare: Props['onCompare'];
   onClear: () => void;
 }) {
   const pageSize = 24;
@@ -130,6 +132,12 @@ function UniversityResults({ matches, year, saved, onToggleSave, onClear }: {
                   {isSaved ? '✓ 저장됨' : '관심 전공 저장'}
                 </button>
               </div>
+              {isSaved && (
+                <button type="button" className={`${action} mt-2`} onClick={() => onCompare(key)}
+                  aria-label={`${item.name} ${unit.name}, 이 전공으로 고교 비교`}>
+                  이 전공으로 고교 비교 <ArrowRight aria-hidden="true" size={16} />
+                </button>
+              )}
               <details className="mt-2 border-t border-[#efe5d8] pt-1">
                 <summary className="cursor-pointer py-2 text-sm font-semibold">{year}학년도 대입 시행계획 보기</summary>
                 <div className="space-y-2 pb-2 text-sm text-[#594734]">
